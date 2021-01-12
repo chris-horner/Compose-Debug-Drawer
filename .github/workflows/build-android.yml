@@ -1,4 +1,4 @@
-name: Build Workflow
+name: Release workflow
 
 on:
   push:
@@ -9,16 +9,14 @@ on:
       - main
 
 jobs:
-  testing:
-    name: Build
-
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Clone Repo
-        uses: actions/checkout@v1
+      - name: Checkout
+        uses: actions/checkout@v2
 
-      - name: Set up JDK 11
+      - name: Set up Java
         uses: actions/setup-java@v1
         with:
           java-version: 15
