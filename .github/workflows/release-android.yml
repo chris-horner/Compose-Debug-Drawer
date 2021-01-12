@@ -8,19 +8,37 @@ on:
       - '*'
 
 jobs:
-  testing:
-    name: Release
-
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Clone Repo
-        uses: actions/checkout@v1
+      - name: Checkout
+        uses: actions/checkout@v2
 
-      - name: Set up JDK 11
+      - name: Set up Java
         uses: actions/setup-java@v1
         with:
-          java-version: 11
+          java-version: 15
+
+      - name: Gradle cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+      - name: Build
+        run: ./gradlew build --build-cache
+
+      - name: GPG setup
+        env:
+          gpgKey: ${{ secrets.gpgKey }}
+        run: |
+          cat <(echo -e "${{ secrets.gpgKey }}") | gpg --batch --import
+      - name: Generate docs
+        run: ./gradlew dokkaHtmlMultiModule
 
       - name: Maven publish
         env:
@@ -28,4 +46,10 @@ jobs:
           ossPass: ${{ secrets.NEXUS_PASSWORD }}
           gpgKeyName: ${{ secrets.GPGKEYNAME }}
           gpgPassPhrase: ${{ secrets.GPGPASPHRASE }}
-        run: ./gradlew publish -Psigning.gnupg.keyName=${{ secrets.GPGKEYNAME }} -Psigning.gnupg.passphrase=${{ secrets.GPGPASPHRASE }}
+          run: ./gradlew publish -Psigning.gnupg.keyName=${{ secrets.GPGKEYNAME }} -Psigning.gnupg.passphrase=${{ secrets.GPGPASPHRASE }}
+
+      - name: Close Maven repository
+        env:
+          ossUser: ${{ secrets.ossUser }}
+          ossToken: ${{ secrets.ossToken }}
+        run: ./gradlew closeRepository
