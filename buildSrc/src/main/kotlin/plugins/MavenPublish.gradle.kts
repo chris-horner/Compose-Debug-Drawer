@@ -46,7 +46,7 @@ publishing {
 
             maven(if (isRelease) releasesRepo else snapshotsRepo) {
                 credentials {
-                    username = obtainProperty("OSS_USER").also { println(it) }
+                    username = obtainProperty("OSS_USER")
                     password = obtainProperty("OSS_TOKEN").also { println(it) }
                 }
             }
@@ -54,5 +54,9 @@ publishing {
     }
 }
 
-fun obtainProperty(property: String) =
-    properties.getProperty(property)?.takeIf { it.isNotBlank() } ?: System.getenv(property) ?: error("Property: $property is null")
+fun obtainProperty(property: String): String {
+    val localProperty = properties.getProperty(property)?.takeIf { it.isNotBlank() }.also { println("Local: $it") }
+    val systemProperty = System.getenv(property)?.takeIf { it.isNotBlank() }.also { println("System: $it") }
+
+    return localProperty ?: systemProperty ?: error("Property: $property is null")
+}
