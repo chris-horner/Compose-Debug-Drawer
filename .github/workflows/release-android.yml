@@ -35,7 +35,7 @@ jobs:
 
       - name: GPG setup
         env:
-          gpgKey: ${{ secrets.GPGKEY }}
+          gpgKey: ${{ secrets.gpgKey }}
         run: |
           cat <(echo -e "${{ secrets.gpgKey }}") | gpg --batch --import
 
@@ -45,10 +45,10 @@ jobs:
           ossToken: ${{ secrets.ossToken }}
           gpgKeyName: ${{ secrets.gpgKeyName }}
           gpgPassphrase: ${{ secrets.gpgPassphrase }}
-        run: ./gradlew publish -PisLibRelease=true -Psigning.gnupg.keyName=${{ secrets.gpgKeyName }} -Psigning.gnupg.passphrase=${{ secrets.gpgPassphrase }}
+        run: ./gradlew publish -Psigning.gnupg.keyName=${{ secrets.gpgKeyName }} -Psigning.gnupg.passphrase=${{ secrets.gpgPassphrase }}
 
       - name: Close Maven repository
         env:
-          ossUser: ${{ secrets.NEXUS_USER }}
-          ossToken: ${{ secrets.NEXUS_PASSWORD }}
+          ossUser: ${{ secrets.ossUser }}
+          ossToken: ${{ secrets.ossToken }}
         run: ./gradlew closeRepository
