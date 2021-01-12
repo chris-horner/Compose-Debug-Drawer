@@ -9,6 +9,10 @@ buildscript {
     }
 }
 
+plugins {
+    id 'Nexus'
+}
+
 allprojects {
     repositories {
         google()
