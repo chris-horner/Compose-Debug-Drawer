@@ -22,5 +22,8 @@ jobs:
         with:
           java-version: 11
 
-      - name: Assemble Debug APK
-        run: ./gradlew publish
+      - name: Maven publish
+        env:
+          ossUser: ${{ secrets.NEXUS_USER }}
+          ossPass: ${{ secrets.NEXUS_PASSWORD }}
+        run: ./gradlew publish -Psigning.gnupg.keyName=${{ secrets.gpgKeyName }} -Psigning.gnupg.passphrase=${{ secrets.gpgPassphrase }}
