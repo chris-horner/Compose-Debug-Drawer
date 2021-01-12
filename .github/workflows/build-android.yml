@@ -19,7 +19,7 @@ jobs:
       - name: Set up Java
         uses: actions/setup-java@v1
         with:
-          java-version: 15
+          java-version: 11
 
       - name: Gradle cache
         uses: actions/cache@v2
@@ -30,5 +30,6 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
+
       - name: Build
         run: ./gradlew build --build-cache
