@@ -5,7 +5,7 @@ plugins {
 nexusStaging {
     username = System.getenv("ossUser")
     password = System.getenv("ossToken")
-    packageGroup = "com.javiersc"
+    packageGroup = "com.github.alorma"
     numberOfRetries = 50
     delayBetweenRetriesInMillis = 3000
 }
