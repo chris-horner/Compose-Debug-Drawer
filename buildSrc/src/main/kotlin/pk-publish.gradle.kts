@@ -5,11 +5,7 @@ val isReleaseVersion = !version.toString().endsWith("SNAPSHOT")
 
 plugins {
     `maven-publish`
-    signing
 }
-
-project.extra.set("bintray.user", properties.getProperty("bintray.user"))
-project.extra.set("bintray.key", properties.getProperty("bintray.key"))
 
 publishing {
 
@@ -18,7 +14,7 @@ publishing {
             val publicName = "${rootProject.name} ${name.capitalize()}"
             pom {
                 name.set(publicName)
-                description.set("Compose DebugDrawer")
+                description.set("Compose dDebugDrawer")
                 url.set("https://github.com/alorma/Compose-Debug-Drawer")
                 licenses {
                     license {
@@ -44,10 +40,12 @@ publishing {
 
     repositories {
         maven {
-            url = uri("https://api.bintray.com/maven/alorma/maven/com.alorma:compose_drawer/;publish=1")
+            val releasesRepoUrl = uri(properties.getProperty("nexus.pro_url"))
+            val snapshotsRepoUrl = uri(properties.getProperty("nexus.snap_url"))
+            url = if (isReleaseVersion) releasesRepoUrl else snapshotsRepoUrl
             credentials {
-                username = properties.getProperty("bintray.user")
-                password = properties.getProperty("bintray.key")
+                username = properties.getProperty("nexus.username")
+                password = properties.getProperty("nexus.password")
             }
         }
     }
@@ -56,8 +54,4 @@ publishing {
 
 tasks.withType<Sign>().configureEach {
     onlyIf { isReleaseVersion }
-}
-
-signing {
-    sign(publishing.publications)
 }

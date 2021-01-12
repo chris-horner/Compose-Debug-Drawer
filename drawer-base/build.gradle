@@ -41,6 +41,10 @@ android {
         kotlinCompilerExtensionVersion "1.0.0-alpha09"
         kotlinCompilerVersion '1.4.21'
     }
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
 }
 
 dependencies {
@@ -53,12 +57,4 @@ dependencies {
     implementation "androidx.compose.material:material:1.0.0-alpha09"
     implementation "androidx.ui:ui-tooling:1.0.0-alpha07"
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.0-rc01'
-}
-
-publishing {
-    publications {
-        publications.configureEach {
-            artifactId "base"
-        }
-    }
 }

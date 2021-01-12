@@ -23,3 +23,8 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+allprojects {
+    group = "com.github.alorma"
+    version = "0.0.1-SNAPSHOT"
+}
