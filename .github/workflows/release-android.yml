@@ -20,6 +20,12 @@ jobs:
         with:
           java-version: 11
 
+      - name: GPG setup
+        env:
+          gpgKey: ${{ secrets.gpgKey }}
+        run: |
+          cat <(echo -e "${{ secrets.gpgKey }}") | gpg --batch --import
+
       - name: Gradle cache
         uses: actions/cache@v2
         with:
@@ -29,12 +35,6 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
-
-      - name: GPG setup
-        env:
-          gpgKey: ${{ secrets.gpgKey }}
-        run: |
-          cat <(echo -e "${{ secrets.gpgKey }}") | gpg --batch --import
 
       - name: Build
         run: ./gradlew build --build-cache
