@@ -8,12 +8,18 @@ plugins {
 }
 
 nexusStaging {
-    username = obtainProperty("ossUser")
-    password = obtainProperty("ossToken")
+    username = obtainProperty("OSS_USER")
+    password = obtainProperty("OSS_TOKEN")
     packageGroup = "com.github.alorma"
     numberOfRetries = 50
     delayBetweenRetriesInMillis = 3000
 }
 
-fun obtainProperty(property: String) =
-    properties.getProperty(property) ?: System.getenv(property)
+fun obtainProperty(property: String): String {
+    val localProperty =
+        properties.getProperty(property)?.takeIf { it.isNotBlank() }.also { println("Local: $it") }
+    val systemProperty =
+        System.getenv(property)?.takeIf { it.isNotBlank() }.also { println("System: $it") }
+
+    return localProperty ?: systemProperty ?: error("Property: $property is null")
+}
