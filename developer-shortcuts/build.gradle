@@ -1,7 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
-    id 'MavenPublish'
+    //id 'MavenPublish'
 }
 
 android {
@@ -46,7 +46,7 @@ android {
         abortOnError false
     }
 }
-
+/*
 afterEvaluate {
     publishing {
         publications {
@@ -57,6 +57,7 @@ afterEvaluate {
         }
     }
 }
+*/
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:1.4.21"
