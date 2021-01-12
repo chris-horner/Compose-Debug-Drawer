@@ -41,8 +41,8 @@ jobs:
 
       - name: Maven publish
         env:
-          ossUser: ${{ secrets.NEXUS_USER }}
-          ossToken: ${{ secrets.NEXUS_PASSWORD }}
+          ossUser: ${{ secrets.ossUser }}
+          ossToken: ${{ secrets.ossToken }}
           gpgKeyName: ${{ secrets.gpgKeyName }}
           gpgPassphrase: ${{ secrets.gpgPassphrase }}
         run: ./gradlew publish -PisLibRelease=true -Psigning.gnupg.keyName=${{ secrets.gpgKeyName }} -Psigning.gnupg.passphrase=${{ secrets.gpgPassphrase }}
