@@ -26,5 +26,5 @@ task clean(type: Delete) {
 
 allprojects {
     group = "com.github.alorma"
-    version = "0.0.2"
+    version = "0.0.3"
 }
