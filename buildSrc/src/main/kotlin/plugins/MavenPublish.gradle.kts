@@ -46,8 +46,8 @@ publishing {
 
             maven(if (isRelease) releasesRepo else snapshotsRepo) {
                 credentials {
-                    username = obtainProperty("NEXUS_USER")
-                    password = obtainProperty("NEXUS_PASSWORD")
+                    username = obtainProperty("ossUser")
+                    password = obtainProperty("ossToken")
                 }
             }
         }
