@@ -45,7 +45,7 @@ jobs:
           ossPass: ${{ secrets.NEXUS_PASSWORD }}
           gpgKeyName: ${{ secrets.GPGKEYNAME }}
           gpgPassPhrase: ${{ secrets.GPGPASPHRASE }}
-          run: ./gradlew publish -Psigning.gnupg.keyName=${{ secrets.GPGKEYNAME }} -Psigning.gnupg.passphrase=${{ secrets.GPGPASPHRASE }}
+        run: ./gradlew publish -Psigning.gnupg.keyName=${{ secrets.GPGKEYNAME }} -Psigning.gnupg.passphrase=${{ secrets.GPGPASPHRASE }}
 
       - name: Close Maven repository
         env:
