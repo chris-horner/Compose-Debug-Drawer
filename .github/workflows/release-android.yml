@@ -30,14 +30,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      - name: Build
-        run: ./gradlew build --build-cache
-
       - name: GPG setup
         env:
           gpgKey: ${{ secrets.gpgKey }}
         run: |
           cat <(echo -e "${{ secrets.gpgKey }}") | gpg --batch --import
+
+      - name: Build
+        run: ./gradlew build --build-cache
 
       - name: Maven publish
         env:
