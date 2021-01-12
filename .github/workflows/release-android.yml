@@ -44,7 +44,7 @@ jobs:
         env:
           ossUser: ${{ secrets.ossUser }}
           ossToken: ${{ secrets.ossToken }}
-        run: ./gradlew publish -Psigning.gnupg.keyName=${{ steps.import_gpg.outputs.fingerprint }} -Psigning.gnupg.passphrase=${{ secrets.PASSPHRASE }}
+        run: ./gradlew publish -Psigning.gnupg.keyName=${{ secrets.GPG_KEY_NAME }} -Psigning.gnupg.passphrase=${{ secrets.PASSPHRASE }}
 
       - name: Close Maven repository
         env:
