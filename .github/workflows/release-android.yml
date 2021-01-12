@@ -20,11 +20,12 @@ jobs:
         with:
           java-version: 11
 
-      - name: GPG setup
-        env:
-          gpgKey: ${{ secrets.gpgKey }}
-        run: |
-          cat <(echo -e "${{ secrets.gpgKey }}") | gpg --batch --import
+      - name: Import GPG key
+        id: import_gpg
+        uses: crazy-max/ghaction-import-gpg@v3
+        with:
+          gpg-private-key: ${{ secrets.gpgKeyName }}
+          passphrase: ${{ secrets.gpgPassphrase }}
 
       - name: Gradle cache
         uses: actions/cache@v2
