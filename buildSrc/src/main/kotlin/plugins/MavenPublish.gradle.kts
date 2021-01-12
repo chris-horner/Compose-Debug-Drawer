@@ -1,5 +1,7 @@
 val properties = java.util.Properties()
-properties.load(rootProject.file("local.properties").inputStream())
+if (rootProject.file("local.properties").exists()) {
+    properties.load(rootProject.file("local.properties").inputStream())
+}
 
 plugins {
     id("maven-publish")
