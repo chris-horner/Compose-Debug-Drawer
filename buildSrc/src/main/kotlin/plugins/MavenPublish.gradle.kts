@@ -13,8 +13,6 @@ signing {
     sign(publishing.publications)
 }
 
-val keyName = obtainProperty("GPG_KEY_NAME")
-
 val isRelease: Boolean = !version.toString().endsWith("SNAPSHOT")
 
 publishing {
@@ -57,8 +55,10 @@ publishing {
 }
 
 fun obtainProperty(property: String): String {
-    val localProperty = properties.getProperty(property)?.takeIf { it.isNotBlank() }.also { println("Local: $it") }
-    val systemProperty = System.getenv(property)?.takeIf { it.isNotBlank() }.also { println("System: $it") }
+    val localProperty =
+        properties.getProperty(property)?.takeIf { it.isNotBlank() }.also { println("Local: $it") }
+    val systemProperty =
+        System.getenv(property)?.takeIf { it.isNotBlank() }.also { println("System: $it") }
 
     return localProperty ?: systemProperty ?: error("Property: $property is null")
 }
