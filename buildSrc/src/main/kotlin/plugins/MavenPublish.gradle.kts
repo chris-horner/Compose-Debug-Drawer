@@ -44,21 +44,21 @@ publishing {
             val releasesRepo = "https://oss.sonatype.org/service/local/staging/deploy/maven2"
             val snapshotsRepo = "https://oss.sonatype.org/content/repositories/snapshots"
 
+            fun obtainProperty(property: String): String {
+                val localProperty =
+                    properties.getProperty(property)?.takeIf { it.isNotBlank() }.also { println("Local: $it") }
+                val systemProperty =
+                    System.getenv(property)?.takeIf { it.isNotBlank() }.also { println("System: $it") }
+
+                return localProperty ?: systemProperty ?: error("Property: $property is null")
+            }
+
             maven(if (isRelease) releasesRepo else snapshotsRepo) {
                 credentials {
-                    username = "Nrl+5JUY"
-                    password = "Ax/MFS3wKHaOfU8EVNMbF2rUtEcx1OSTt1FEqfWKN3uF"
+                    username = obtainProperty("OSS_USER")
+                    password = obtainProperty("OSS_TOKEN")
                 }
             }
         }
     }
-}
-
-fun obtainProperty(property: String): String {
-    val localProperty =
-        properties.getProperty(property)?.takeIf { it.isNotBlank() }.also { println("Local: $it") }
-    val systemProperty =
-        System.getenv(property)?.takeIf { it.isNotBlank() }.also { println("System: $it") }
-
-    return localProperty ?: systemProperty ?: error("Property: $property is null")
 }
