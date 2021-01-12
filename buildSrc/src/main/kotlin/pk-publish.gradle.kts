@@ -8,13 +8,12 @@ plugins {
 }
 
 publishing {
-
     publications.configureEach {
         if (this is MavenPublication) {
             val publicName = "${rootProject.name} ${name.capitalize()}"
             pom {
                 name.set(publicName)
-                description.set("Compose dDebugDrawer")
+                description.set("Compose DebugDrawer")
                 url.set("https://github.com/alorma/Compose-Debug-Drawer")
                 licenses {
                     license {
@@ -40,16 +39,22 @@ publishing {
 
     repositories {
         maven {
-            val releasesRepoUrl = uri(properties.getProperty("nexus.pro_url"))
-            val snapshotsRepoUrl = uri(properties.getProperty("nexus.snap_url"))
+            val releasesRepoUrl = uri(obtainProperty("NEXUS_PRO_URL"))
+            val snapshotsRepoUrl = uri(obtainProperty("NEXUS_SNAP_URL"))
             url = if (isReleaseVersion) releasesRepoUrl else snapshotsRepoUrl
             credentials {
-                username = properties.getProperty("nexus.username")
-                password = properties.getProperty("nexus.password")
+                username = obtainProperty("NEXS_USER")
+                password = obtainProperty("NEXUS_PASSWORD")
             }
         }
     }
 
+}
+
+fun obtainProperty(property: String): String {
+    val localProperty = properties.getProperty(property)
+    val systemEnvProperty = System.getenv(property)
+    return localProperty ?: systemEnvProperty
 }
 
 tasks.withType<Sign>().configureEach {
