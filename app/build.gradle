@@ -5,9 +5,6 @@ plugins {
 }
 
 android {
-    configurations{
-        create("compile")
-    }
     compileSdkVersion 30
 
     defaultConfig {
