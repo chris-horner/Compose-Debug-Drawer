@@ -47,7 +47,7 @@ publishing {
             maven(if (isRelease) releasesRepo else snapshotsRepo) {
                 credentials {
                     username = obtainProperty("OSS_USER")
-                    password = obtainProperty("OSS_TOKEN").also { println(it) }
+                    password = obtainProperty("OSS_TOKEN")
                 }
             }
         }

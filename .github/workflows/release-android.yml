@@ -41,13 +41,7 @@ jobs:
         run: ./gradlew build --build-cache
 
       - name: Maven publish
-        env:
-          OSS_USER: ${{ secrets.OSS_USER }}
-          OSS_TOKEN: ${{ secrets.OSS_TOKEN }}
         run: ./gradlew publish -Psigning.gnupg.keyName=${{ secrets.GPG_KEY_NAME }} -Psigning.gnupg.passphrase=${{ secrets.PASSPHRASE }}
 
       - name: Close Maven repository
-        env:
-          OSS_USER: ${{ secrets.OSS_USER }}
-          OSS_TOKEN: ${{ secrets.OSS_TOKEN }}
         run: ./gradlew closeRepository
