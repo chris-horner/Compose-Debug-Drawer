@@ -42,12 +42,12 @@ jobs:
 
       - name: Maven publish
         env:
-          ossUser: ${{ secrets.OSS_USER }}
-          ossToken: ${{ secrets.OSS_TOKEN }}
+          OSS_USER: ${{ secrets.OSS_USER }}
+          OSS_TOKEN: ${{ secrets.OSS_TOKEN }}
         run: ./gradlew publish -Psigning.gnupg.keyName=${{ secrets.GPG_KEY_NAME }} -Psigning.gnupg.passphrase=${{ secrets.PASSPHRASE }}
 
       - name: Close Maven repository
         env:
-          ossUser: ${{ secrets.OSS_USER }}
-          ossToken: ${{ secrets.OSS_TOKEN }}
+          OSS_USER: ${{ secrets.OSS_USER }}
+          OSS_TOKEN: ${{ secrets.OSS_TOKEN }}
         run: ./gradlew closeRepository
