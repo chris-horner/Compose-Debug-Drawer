@@ -5,6 +5,7 @@ val isReleaseVersion = !version.toString().endsWith("SNAPSHOT")
 
 plugins {
     `maven-publish`
+    signing
 }
 
 publishing {
@@ -43,20 +44,20 @@ publishing {
             val snapshotsRepoUrl = uri(obtainProperty("NEXUS_SNAP_URL"))
             url = if (isReleaseVersion) releasesRepoUrl else snapshotsRepoUrl
             credentials {
-                username = obtainProperty("NEXS_USER")
+                username = obtainProperty("NEXUS_USER")
                 password = obtainProperty("NEXUS_PASSWORD")
             }
         }
     }
-
 }
 
 fun obtainProperty(property: String): String {
     val localProperty = properties.getProperty(property)
     val systemEnvProperty = System.getenv(property)
-    return localProperty ?: systemEnvProperty
+    return localProperty ?: systemEnvProperty ?: error("$property is null")
 }
 
-tasks.withType<Sign>().configureEach {
-    onlyIf { isReleaseVersion }
+signing {
+    useGpgCmd()
+    sign(publishing.publications)
 }
