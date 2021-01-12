@@ -2,6 +2,7 @@ package com.alorma.composedrawer.modules
 
 import android.widget.Toast
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.AmbientContext
 import androidx.compose.ui.platform.ContextAmbient
 import com.alorma.composedrawer.R
 import com.alorma.drawer_base.DebugModule
@@ -13,7 +14,7 @@ import com.alorma.drawer_modules.TextAction
 
 @Composable
 fun DemoActionsModule(): DebugModule {
-    val context = ContextAmbient.current
+    val context = AmbientContext.current
     return ActionsModule(
         icon = IconType.Vector(R.drawable.ic_settings),
         title = "Actions",
