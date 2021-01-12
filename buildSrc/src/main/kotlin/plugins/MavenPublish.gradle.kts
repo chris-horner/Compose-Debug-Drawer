@@ -55,4 +55,4 @@ publishing {
 }
 
 fun obtainProperty(property: String) =
-    properties.getProperty(property).takeIf { it.isNotBlank() } ?: System.getenv(property)
+    properties.getProperty(property).takeIf { it.isNotBlank() } ?: System.getenv(property) ?: error("Property: $property is null")
