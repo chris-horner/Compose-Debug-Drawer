@@ -13,6 +13,8 @@ signing {
     sign(publishing.publications)
 }
 
+val keyName = obtainProperty("GPG_KEY_NAME")
+
 val isRelease: Boolean = !version.toString().endsWith("SNAPSHOT")
 
 publishing {
