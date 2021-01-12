@@ -26,4 +26,4 @@ jobs:
         env:
           ossUser: ${{ secrets.NEXUS_USER }}
           ossPass: ${{ secrets.NEXUS_PASSWORD }}
-        run: ./gradlew publish -Psigning.gnupg.keyName=${{ secrets.gpgKeyName }} -Psigning.gnupg.passphrase=${{ secrets.gpgPassphrase }}
+        run: ./gradlew publish -Psigning.gnupg.keyName=${{ secrets.GPG_KEY_NAME }} -Psigning.gnupg.passphrase=${{ secrets.GPG_PASS }}
