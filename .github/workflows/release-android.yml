@@ -24,8 +24,8 @@ jobs:
         id: import_gpg
         uses: crazy-max/ghaction-import-gpg@v3
         with:
-          gpg-private-key: ${{ secrets.GPGKEY }}
-          passphrase: ${{ secrets.GPGPASPHRASE }}
+          gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.PASSPHRASE }}
 
       - name: Gradle cache
         uses: actions/cache@v2
@@ -44,9 +44,7 @@ jobs:
         env:
           ossUser: ${{ secrets.ossUser }}
           ossToken: ${{ secrets.ossToken }}
-          gpgKeyName: ${{ secrets.GPGKEYNAME }}
-          gpgPassphrase: ${{ secrets.GPGPASPHRASE }}
-        run: ./gradlew publish -Psigning.gnupg.keyName=${{ secrets.GPGKEYNAME }} -Psigning.gnupg.passphrase=${{ secrets.GPGPASPHRASE }}
+        run: ./gradlew publish -Psigning.gnupg.keyName=${{ steps.import_gpg.outputs.keyid }} -Psigning.gnupg.passphrase=${{ secrets.PASSPHRASE }}
 
       - name: Close Maven repository
         env:
