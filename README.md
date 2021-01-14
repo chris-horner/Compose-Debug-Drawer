@@ -6,9 +6,25 @@ Composable Debug Drawer for Jetpack Compose apps
 
 ## Install
 
+Add Snapshots repository:
+
+```groovy
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        maven { 
+            url("https://oss.sonatype.org/content/repositories/snapshots") 
+        }
+    }
+}
+```
+
+> I'm experimenting issues with sonatype at uploading releases, I will use snapshots by now
+
 Add dependencies:
 
-```gradle
+```groovy
 implementation 'com.github.alorma.Compose-Debug-Drawer:drawer-base:1.0.0-alpha10-SNAPSHOT'
 implementation 'com.github.alorma.Compose-Debug-Drawer:drawer-modules:1.0.0-alpha10-SNAPSHOT'
 implementation 'com.github.alorma.Compose-Debug-Drawer:developer-shortcuts:1.0.0-alpha10-SNAPSHOT'
