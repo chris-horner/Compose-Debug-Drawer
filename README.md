@@ -1,5 +1,3 @@
-[![](https://jitpack.io/v/alorma/Compose-Debug-Drawer.svg)](https://jitpack.io/#alorma/Compose-Debug-Drawer)
-
 # Debug Drawer for Jetpack Compose
 
 Composable Debug Drawer for Jetpack Compose apps
@@ -22,9 +20,9 @@ allprojects {
 Add dependencies:
 
 ```gradle
-implementation 'com.github.alorma.Compose-Debug-Drawer:drawer-base:0.1.0-beta-06'
-implementation 'com.github.alorma.Compose-Debug-Drawer:drawer-modules:0.1.0-beta-06'
-implementation 'com.github.alorma.Compose-Debug-Drawer:developer-shortcuts:0.1.0-beta-06'
+implementation 'com.github.alorma.Compose-Debug-Drawer:drawer-base:1.0.0-alpha10'
+implementation 'com.github.alorma.Compose-Debug-Drawer:drawer-modules:1.0.0-alpha10'
+implementation 'com.github.alorma.Compose-Debug-Drawer:developer-shortcuts:1.0.0-alpha10'
 ```
 
 ## Setup
