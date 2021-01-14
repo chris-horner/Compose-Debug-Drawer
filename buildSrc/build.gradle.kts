@@ -2,7 +2,7 @@ plugins {
     `kotlin-dsl`
 }
 
-val nexus = "0.21.2"
+val nexus = "0.22.0"
 
 repositories {
     jcenter()

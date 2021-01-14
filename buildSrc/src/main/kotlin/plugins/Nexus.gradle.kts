@@ -16,10 +16,8 @@ nexusStaging {
 }
 
 fun obtainProperty(property: String): String {
-    val localProperty =
-        properties.getProperty(property)?.takeIf { it.isNotBlank() }.also { println("Local: $it") }
-    val systemProperty =
-        System.getenv(property)?.takeIf { it.isNotBlank() }.also { println("System: $it") }
+    val localProperty = properties.getProperty(property)?.takeIf { it.isNotBlank() }
+    val systemProperty = System.getenv(property)?.takeIf { it.isNotBlank() }
 
     return localProperty ?: systemProperty ?: "INVALID_$property"
 }

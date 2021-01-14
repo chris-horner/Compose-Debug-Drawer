@@ -37,7 +37,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      - name: Buil
+      - name: Build
         run: ./gradlew build --build-cache
 
       - name: Maven publish
