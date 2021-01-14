@@ -21,5 +21,5 @@ fun obtainProperty(property: String): String {
     val systemProperty =
         System.getenv(property)?.takeIf { it.isNotBlank() }.also { println("System: $it") }
 
-    return localProperty ?: systemProperty ?: error("Property: $property is null")
+    return localProperty ?: systemProperty ?: "INVALID_$property"
 }
