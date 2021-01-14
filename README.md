@@ -6,23 +6,12 @@ Composable Debug Drawer for Jetpack Compose apps
 
 ## Install
 
-Configure jitpack:
-
-```gradle
-allprojects {
-  repositories {
-    ...
-    maven { url 'https://jitpack.io' }
-  }
-}
-```
-
 Add dependencies:
 
 ```gradle
-implementation 'com.github.alorma.Compose-Debug-Drawer:drawer-base:1.0.0-alpha10'
-implementation 'com.github.alorma.Compose-Debug-Drawer:drawer-modules:1.0.0-alpha10'
-implementation 'com.github.alorma.Compose-Debug-Drawer:developer-shortcuts:1.0.0-alpha10'
+implementation 'com.github.alorma.Compose-Debug-Drawer:drawer-base:1.0.0-alpha10-SNAPSHOT'
+implementation 'com.github.alorma.Compose-Debug-Drawer:drawer-modules:1.0.0-alpha10-SNAPSHOT'
+implementation 'com.github.alorma.Compose-Debug-Drawer:developer-shortcuts:1.0.0-alpha10-SNAPSHOT'
 ```
 
 ## Setup
