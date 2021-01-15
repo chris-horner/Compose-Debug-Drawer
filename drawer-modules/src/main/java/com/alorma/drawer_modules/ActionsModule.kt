@@ -15,7 +15,6 @@ import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.alorma.drawer_base.DebugModule
-import com.alorma.drawer_base.DrawerColors
 import com.alorma.drawer_base.IconType
 
 @Composable
