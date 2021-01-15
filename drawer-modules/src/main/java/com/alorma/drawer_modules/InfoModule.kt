@@ -77,7 +77,7 @@ fun DebugModuleInfoContent(
                 .then(Modifier.padding(8.dp))
         ) {
             ProvideTextStyle(value = MaterialTheme.typography.body2) {
-                ProvideEmphasis(emphasis = AmbientEmphasisLevels.current.medium) {
+                Providers(AmbientContentAlpha provides ContentAlpha.high) {
                     Text(
                         text = value,
                         textAlign = TextAlign.Start,
