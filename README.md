@@ -25,9 +25,9 @@ allprojects {
 Add dependencies:
 
 ```groovy
-implementation 'com.github.alorma.Compose-Debug-Drawer:drawer-base:1.0.0-alpha10-SNAPSHOT'
-implementation 'com.github.alorma.Compose-Debug-Drawer:drawer-modules:1.0.0-alpha10-SNAPSHOT'
-implementation 'com.github.alorma.Compose-Debug-Drawer:developer-shortcuts:1.0.0-alpha10-SNAPSHOT'
+implementation 'com.github.alorma.Compose-Debug-Drawer:drawer-base:1.1.0-alpha10-SNAPSHOT'
+implementation 'com.github.alorma.Compose-Debug-Drawer:drawer-modules:1.1.0-alpha10-SNAPSHOT'
+implementation 'com.github.alorma.Compose-Debug-Drawer:developer-shortcuts:1.1.0-alpha10-SNAPSHOT'
 ```
 
 ## Setup
@@ -118,13 +118,9 @@ Use `drawerColors` to customize drawer theme colors
 
 ```kotlin
 DebugDrawerLayout(
-     drawerColors = YourColorScheme,
+     drawerColors = YourColorScheme, // darkColors() or lightColors()
 )
 ```
-
-#### Custom Modules
-
-Any module has access to `DrawerColors` and must use it to match the colors used by modules from this library 
 
 ### Modules list UI
 

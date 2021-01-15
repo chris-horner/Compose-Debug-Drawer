@@ -3,6 +3,7 @@ package com.alorma.drawer_base
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -30,9 +31,10 @@ fun DrawerModuleHeader(
     Surface(
         modifier = Modifier
             .fillMaxWidth()
-            .height(48.dp).then(semanticModifier),
-        color = DrawerColors.current.surface,
-        contentColor = DrawerColors.current.secondary,
+            .height(48.dp)
+            .then(semanticModifier),
+        color = MaterialTheme.colors.surface,
+        contentColor = MaterialTheme.colors.secondary,
     ) {
         Row(
             modifier = Modifier.padding(8.dp),
@@ -54,14 +56,14 @@ fun DrawerModuleHeaderIcon(module: DebugModule, size: Dp) {
     val modifier = semanticsModifier.then(Modifier.preferredSize(size = size))
     when (module.icon) {
         is IconType.Vector -> Icon(
-            tint = DrawerColors.current.onSurface,
+            tint = MaterialTheme.colors.onSurface,
             modifier = modifier,
             imageVector = vectorResource(
                 id = module.icon.drawableRes
             ),
         )
         is IconType.Image -> Icon(
-            tint = DrawerColors.current.onSurface,
+            tint = MaterialTheme.colors.onSurface,
             modifier = modifier,
             bitmap = imageResource(
                 id = module.icon.drawableRes
@@ -78,7 +80,7 @@ fun DrawerModuleHeaderText(
         testTag = "Module header text ${module.tag}"
     }
     Text(
-        color = DrawerColors.current.primary,
+        color = MaterialTheme.colors.primary,
         modifier = semanticsModifier,
         text = module.title,
         textAlign = TextAlign.Start,

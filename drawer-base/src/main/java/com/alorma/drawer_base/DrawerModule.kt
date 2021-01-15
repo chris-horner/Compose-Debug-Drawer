@@ -1,6 +1,5 @@
 package com.alorma.drawer_base
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,7 +16,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun DrawerModule(
     module: DebugModule,
-    modifier: Modifier= Modifier,
+    modifier: Modifier = Modifier,
     initialModulesState: ModuleExpandedState = ModuleExpandedState.EXPANDED
 ) {
     val expandedState: MutableState<ModuleExpandedState> = remember {
@@ -29,7 +28,9 @@ fun DrawerModule(
     }
 
     Column(
-        modifier = semanticsModifier.then(Modifier.fillMaxWidth()).then(modifier),
+        modifier = semanticsModifier
+            .then(Modifier.fillMaxWidth())
+            .then(modifier),
     ) {
         DrawerModuleHeader(
             module = module,
@@ -44,7 +45,8 @@ fun DrawerModule(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(8.dp).then(contentSemanticsModifier),
+                    .padding(8.dp)
+                    .then(contentSemanticsModifier),
             ) {
                 module.build()
             }

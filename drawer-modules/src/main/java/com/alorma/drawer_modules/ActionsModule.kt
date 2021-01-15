@@ -80,7 +80,7 @@ fun TextAction(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
-                color = DrawerColors.current.secondary,
+                color = MaterialTheme.colors.secondary,
                 text = text
             )
         }
@@ -103,8 +103,8 @@ fun ButtonAction(
         Button(
             modifier = modifier.then(extraModifier),
             colors = ButtonDefaults.buttonColors(
-                backgroundColor = DrawerColors.current.primary,
-                contentColor = DrawerColors.current.onPrimary,
+                backgroundColor = MaterialTheme.colors.primary,
+                contentColor = MaterialTheme.colors.onPrimary,
             ),
             onClick = onClick,
             content = { Text(text) }
@@ -151,7 +151,7 @@ fun SwitchAction(
                 testTag = "Action $tag text"
             }
             Text(
-                color = DrawerColors.current.onSurface,
+                color = MaterialTheme.colors.onSurface,
                 modifier = actionTextSemanticModifier,
                 text = text,
                 textAlign = TextAlign.Start,
@@ -167,8 +167,8 @@ fun SwitchAction(
             Switch(
                 modifier = actionSwitchSemanticModifier,
                 colors = SwitchDefaults.colors(
-                    checkedThumbColor = DrawerColors.current.primary,
-                    uncheckedThumbColor = DrawerColors.current.onSurface,
+                    checkedThumbColor = MaterialTheme.colors.primary,
+                    uncheckedThumbColor = MaterialTheme.colors.onSurface,
                     checkedTrackAlpha = 0.6f,
                     uncheckedTrackAlpha = 0.4f
                 ),

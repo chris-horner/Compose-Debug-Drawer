@@ -4,7 +4,6 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Providers
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.gesture.scrollorientationlocking.Orientation
 import androidx.compose.ui.gesture.tapGestureFilter
@@ -33,57 +32,59 @@ fun DebugDrawerLayout(
     if (!isDebug()) {
         bodyContent(drawerState)
     }
-    Providers(
-        DrawerColors provides drawerColors
-    ) {
-        WithConstraints(Modifier.fillMaxSize()) {
+    WithConstraints(Modifier.fillMaxSize()) {
 
-            val minValue = constraints.maxWidth.toFloat()
+        val minValue = constraints.maxWidth.toFloat()
 
-            val anchors = mapOf(minValue to DrawerValue.Closed, 0f to DrawerValue.Open)
-            val isRtl = AmbientLayoutDirection.current == LayoutDirection.Rtl
+        val anchors = mapOf(minValue to DrawerValue.Closed, 0f to DrawerValue.Open)
+        val isRtl = AmbientLayoutDirection.current == LayoutDirection.Rtl
 
+        Box(
+            Modifier.swipeable(
+                state = drawerState,
+                anchors = anchors,
+                thresholds = { _, _ -> FractionalThreshold(0.5f) },
+                orientation = Orientation.Horizontal,
+                enabled = true,
+                reverseDirection = isRtl,
+                velocityThreshold = DrawerVelocityThreshold,
+                resistance = null
+            )
+        ) {
+            Box {
+                bodyContent(drawerState)
+            }
+            Scrim(
+                open = drawerState.isOpen,
+                onClose = { drawerState.close() },
+                fraction = { calculateFraction(minValue, drawerState.offset.value) },
+                color = DrawerDefaults.scrimColor
+            )
             Box(
-                Modifier.swipeable(
-                    state = drawerState,
-                    anchors = anchors,
-                    thresholds = { _, _ -> FractionalThreshold(0.5f) },
-                    orientation = Orientation.Horizontal,
-                    enabled = true,
-                    reverseDirection = isRtl,
-                    velocityThreshold = DrawerVelocityThreshold,
-                    resistance = null
-                )
-            ) {
-                Box {
-                    bodyContent(drawerState)
+                modifier = with(AmbientDensity.current) {
+                    Modifier
+                        .width(constraints.maxWidth.toDp())
+                        .height(constraints.maxHeight.toDp())
+                        .offset { IntOffset(drawerState.offset.value.roundToInt(), 0) }
+                        .padding(start = VerticalDrawerPadding)
                 }
-                Scrim(
-                    open = drawerState.isOpen,
-                    onClose = { drawerState.close() },
-                    fraction = { calculateFraction(minValue, drawerState.offset.value) },
-                    color = DrawerDefaults.scrimColor
-                )
-                Box(
-                    modifier = with(AmbientDensity.current) {
-                        Modifier
-                            .width(constraints.maxWidth.toDp())
-                            .height(constraints.maxHeight.toDp())
-                            .offset { IntOffset(drawerState.offset.value.roundToInt(), 0) }
-                            .padding(start = VerticalDrawerPadding)
-                    }
 
+            ) {
+                MaterialTheme(
+                    colors = drawerColors,
+                    shapes = MaterialTheme.shapes,
+                    typography = MaterialTheme.typography
                 ) {
                     Surface(
                         shape = MaterialTheme.shapes.large,
-                        color = DrawerColors.current.background,
-                        contentColor = DrawerColors.current.onSurface,
+                        color = MaterialTheme.colors.background,
+                        contentColor = MaterialTheme.colors.onSurface,
                         elevation = DrawerDefaults.Elevation
                     ) {
                         DrawerContent(
                             modifier = modifier,
-                            drawerModules = drawerModules,
-                            initialModulesState = initialModulesState
+                            initialModulesState = initialModulesState,
+                            drawerModules = drawerModules
                         )
                     }
                 }

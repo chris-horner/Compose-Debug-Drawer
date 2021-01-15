@@ -1,16 +1,14 @@
 package com.alorma.drawer_base
 
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.ambientOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.compositeOver
 
-val DrawerColors = ambientOf { drawerColorsPalette }
-
 @Composable
 fun Color.compositeOverSurface(alpha: Float = 1f): Color {
-    if (this == DrawerColors.current.surface) {
+    if (this == MaterialTheme.colors.surface) {
         return this
     }
-    return copy(alpha = alpha).compositeOver(DrawerColors.current.surface)
+    return copy(alpha = alpha).compositeOver(MaterialTheme.colors.surface)
 }

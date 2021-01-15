@@ -3,6 +3,7 @@ package com.alorma.drawer_base
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Divider
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
@@ -10,7 +11,7 @@ import androidx.compose.ui.Modifier
 fun DrawerContent(
     modifier: Modifier = Modifier,
     initialModulesState: ModuleExpandedState = ModuleExpandedState.EXPANDED,
-    drawerModules: @Composable () -> List<DebugModule> = { emptyList() },
+    drawerModules: @Composable() () -> List<DebugModule> = { emptyList() },
 ) {
     val items = drawerModules()
     LazyColumn(modifier = Modifier.fillMaxSize()) {
@@ -22,7 +23,7 @@ fun DrawerContent(
                     initialModulesState = initialModulesState
                 )
                 if (index < items.size - 1) {
-                    Divider(color = DrawerColors.current.onSurface.compositeOverSurface(0.30f))
+                    Divider(color = MaterialTheme.colors.onSurface.compositeOverSurface(0.30f))
                 }
             })
     }

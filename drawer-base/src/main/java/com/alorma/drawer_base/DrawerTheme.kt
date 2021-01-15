@@ -1,6 +1,7 @@
 package com.alorma.drawer_base
 
 import androidx.compose.material.darkColors
+import androidx.compose.material.lightColors
 import androidx.compose.ui.graphics.Color
 
 val drawerColorsPalette = darkColors(
@@ -11,12 +12,6 @@ val drawerColorsPalette = darkColors(
     secondary = Color(0xFFFF6340),
     onSecondary = Color.White,
 
-    background = Color(0xFFFF2D3133),
-    onBackground = Color.White,
-
-    surface = Color(0xFFFF2D3133),
-    onSurface = Color.White,
-
-    error = Color(0xFFD82626),
-    onError = Color.White,
+    background = Color(0xFF2D3133),
+    surface = Color(0xFF2D3133),
 )
