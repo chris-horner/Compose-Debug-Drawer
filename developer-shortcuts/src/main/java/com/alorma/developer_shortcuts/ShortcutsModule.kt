@@ -8,23 +8,23 @@ import androidx.compose.ui.platform.AmbientContext
 import com.alorma.drawer_base.DebugModule
 import com.alorma.drawer_base.IconType
 import com.alorma.drawer_modules.ActionsModule
-import com.alorma.drawer_modules.ButtonAction
-import com.alorma.drawer_modules.SwitchAction
-import com.alorma.drawer_modules.TextAction
+import com.alorma.drawer_modules.actions.buttonAction
+import com.alorma.drawer_modules.actions.switchAction
+import com.alorma.drawer_modules.actions.textAction
 import com.chuckerteam.chucker.api.Chucker
 import leakcanary.AppWatcher
 import leakcanary.LeakCanary
 
 @Composable
-fun ShortcutsModule(): DebugModule {
+fun shortcutsModule(): DebugModule {
     val context = AmbientContext.current
     val actions = listOfNotNull(
-        ButtonAction(text = "Network logs", onClick = {
+        buttonAction(text = "Network logs", onClick = {
             context.startActivity(Chucker.getLaunchIntent(context))
         }).takeIf {
             classExists("com.chuckerteam.chucker.api.Chucker")
         },
-        ButtonAction(text = "Notification channels", onClick = {
+        buttonAction(text = "Notification channels", onClick = {
             val intent = Intent(
                 Settings.ACTION_APP_NOTIFICATION_SETTINGS
             ).putExtra(
@@ -32,22 +32,22 @@ fun ShortcutsModule(): DebugModule {
             )
             context.startActivity(intent)
         }).takeIf { Build.VERSION.SDK_INT >= Build.VERSION_CODES.O },
-        TextAction(text = "Leak Canary").takeIf {
+        textAction(text = "Leak Canary").takeIf {
             classExists("leakcanary.LeakCanary")
         },
-        SwitchAction(text = "Enable", isChecked = false, onChange = { enable ->
+        switchAction(text = "Enable", isChecked = false, onChange = { enable ->
             AppWatcher.config = AppWatcher.config.copy(enabled = enable)
             LeakCanary.config = LeakCanary.config.copy(dumpHeap = enable)
             LeakCanary.showLeakDisplayActivityLauncherIcon(enable)
         }).takeIf {
             classExists("leakcanary.LeakCanary")
         },
-        ButtonAction(text = "Reports", onClick = {
+        buttonAction(text = "Reports", onClick = {
             context.startActivity(LeakCanary.newLeakDisplayActivityIntent())
         }).takeIf {
             classExists("leakcanary.LeakCanary")
         },
-        ButtonAction(text = "Dump", onClick = {
+        buttonAction(text = "Dump", onClick = {
             LeakCanary.dumpHeap()
         }).takeIf {
             classExists("leakcanary.LeakCanary")

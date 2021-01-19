@@ -9,9 +9,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.alorma.composedrawer.modules.DemoActionsModule
+import com.alorma.composedrawer.modules.demoActionsModule
 import com.alorma.composedrawer.ui.ComposeDrawerTheme
-import com.alorma.developer_shortcuts.ShortcutsModule
+import com.alorma.developer_shortcuts.shortcutsModule
 import com.alorma.drawer_base.DebugDrawerLayout
 import com.alorma.drawer_base.ModuleExpandedState
 import com.alorma.drawer_modules.BuildModule
@@ -25,8 +25,8 @@ fun HomeScreen() {
         initialModulesState = ModuleExpandedState.EXPANDED,
         drawerModules = {
             listOf(
-                ShortcutsModule(),
-                DemoActionsModule(),
+                shortcutsModule(),
+                demoActionsModule(),
                 BuildModule(),
                 DeviceModule(),
             )
