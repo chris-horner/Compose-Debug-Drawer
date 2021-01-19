@@ -5,9 +5,6 @@ import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowDropDown
-import androidx.compose.material.icons.filled.ArrowDropUp
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -34,7 +31,7 @@ fun <T> dropdownSelectorAction(
 
     @Composable
     override fun build(modifier: Modifier) {
-        DropdownComponent(
+        DropdownSelectorComponent(
             modifier = modifier.then(extraModifier),
             items = items,
             itemFormatter = itemFormatter,
@@ -45,9 +42,8 @@ fun <T> dropdownSelectorAction(
     }
 }
 
-
 @Composable
-fun <T> DropdownComponent(
+fun <T> DropdownSelectorComponent(
     modifier: Modifier,
     items: List<T>,
     itemFormatter: (T) -> String = { itemFormat -> itemFormat.toString() },
@@ -92,16 +88,6 @@ fun <T> DropdownComponent(
 }
 
 @Composable
-private fun DropdownIcon(isExpanded: Boolean) {
-    val iconResource = if (isExpanded) {
-        Icons.Default.ArrowDropUp
-    } else {
-        Icons.Default.ArrowDropDown
-    }
-    Icon(iconResource)
-}
-
-@Composable
 fun <T> ColumnScope.DropdownItemComponent(
     item: T,
     itemFormatter: (T) -> String = { itemFormat -> itemFormat.toString() },
@@ -132,7 +118,7 @@ fun DropDownComponentPreview() {
         Forlayo("B"),
         Forlayo("C"),
     )
-    DropdownComponent(
+    DropdownSelectorComponent(
         Modifier,
         items = items,
         itemFormatter = { forlayo -> forlayo.text },

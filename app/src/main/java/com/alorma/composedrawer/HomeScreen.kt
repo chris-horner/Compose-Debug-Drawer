@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -16,9 +18,13 @@ import com.alorma.drawer_base.DebugDrawerLayout
 import com.alorma.drawer_base.ModuleExpandedState
 import com.alorma.drawer_modules.BuildModule
 import com.alorma.drawer_modules.DeviceModule
+import java.time.LocalDateTime
 
 @Composable
 fun HomeScreen() {
+
+    val dateState = remember { mutableStateOf<LocalDateTime>(LocalDateTime.now()) }
+
     DebugDrawerLayout(
         isDebug = { BuildConfig.DEBUG },
         initialDrawerState = DrawerValue.Open,
@@ -26,7 +32,7 @@ fun HomeScreen() {
         drawerModules = {
             listOf(
                 shortcutsModule(),
-                demoActionsModule(),
+                demoActionsModule(dateState),
                 BuildModule(),
                 DeviceModule(),
             )
@@ -81,3 +87,5 @@ fun HomeScreenPreview() {
         HomeScreen()
     }
 }
+
+data class Forlayo(val text: String)

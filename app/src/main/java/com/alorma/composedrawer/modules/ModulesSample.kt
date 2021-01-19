@@ -2,28 +2,42 @@ package com.alorma.composedrawer.modules
 
 import android.widget.Toast
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.AmbientContext
 import com.alorma.composedrawer.R
 import com.alorma.drawer_base.DebugModule
 import com.alorma.drawer_base.IconType
 import com.alorma.drawer_modules.ActionsModule
-import com.alorma.drawer_modules.actions.buttonAction
-import com.alorma.drawer_modules.actions.dropdownSelectorAction
-import com.alorma.drawer_modules.actions.switchAction
-import com.alorma.drawer_modules.actions.textAction
+import com.alorma.drawer_modules.actions.*
+import com.vanpra.composematerialdialogs.MaterialDialog
+import com.vanpra.composematerialdialogs.datetime.datetimepicker
+import java.time.LocalDateTime
 
 @Composable
-fun demoActionsModule(): DebugModule {
+fun demoActionsModule(dateState: MutableState<LocalDateTime>): DebugModule {
     val context = AmbientContext.current
+
+    val dropdownItems = listOf(
+        Forlayo("Item 1"),
+        Forlayo("Item 2"),
+        Forlayo("Item 3"),
+    )
+
+    val itemSelectorState = remember { mutableStateOf(dropdownItems.first()) }
+
     return ActionsModule(
         icon = IconType.Vector(R.drawable.ic_settings),
         title = "Actions",
         actions = {
-            val dropdownItems = listOf(
-                Forlayo("Item 1"),
-                Forlayo("Item 2"),
-                Forlayo("Item 3"),
-            )
+            val dialog = MaterialDialog()
+            dialog.build {
+                datetimepicker(title = "Select") { localDateTime ->
+                    dateState.value = localDateTime
+                }
+            }
+
             listOf(
                 textAction(text = "Buttons"),
                 buttonAction("Button 1") {
@@ -41,15 +55,15 @@ fun demoActionsModule(): DebugModule {
                 },
                 textAction(text = "Selectors"),
                 dropdownSelectorAction(
+                    label = "Items",
                     items = dropdownItems,
-                    defaultValue = dropdownItems.first(),
+                    defaultValue = itemSelectorState.value,
                     itemFormatter = { forlayo -> forlayo.text },
                     onItemSelected = { forlayo ->
+                        itemSelectorState.value = forlayo
                         Toast.makeText(context, "Item: ${forlayo.text}", Toast.LENGTH_SHORT).show()
                     }
-                ),
+                )
             )
         })
 }
-
-data class Forlayo(val text: String)
