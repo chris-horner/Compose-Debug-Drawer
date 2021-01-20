@@ -8,7 +8,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.alorma.drawer_base.IconType
 
 @Composable
-fun buildModule() {
+fun BuildModule() {
     val context = AmbientContext.current
 
     fun obtainBuildInfo(context: Context): List<Pair<String, String>> {
@@ -58,5 +58,5 @@ fun buildModule() {
 @Preview(showBackground = true)
 @Composable
 fun BuildModulePreview() {
-    buildModule()
+    BuildModule()
 }

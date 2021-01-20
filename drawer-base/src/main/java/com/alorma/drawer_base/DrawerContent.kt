@@ -8,11 +8,9 @@ import androidx.compose.ui.Modifier
 
 @Composable
 fun DrawerContent(
-    modifier: Modifier = Modifier,
-    initialModulesState: ModuleExpandedState = ModuleExpandedState.EXPANDED,
-    drawerModules: @Composable ColumnScope.(Modifier, ModuleExpandedState) -> Unit = { _, _ -> },
+    drawerModules: @Composable ColumnScope.() -> Unit = { },
 ) {
     ScrollableColumn(modifier = Modifier.fillMaxSize()) {
-        drawerModules(modifier, initialModulesState)
+        drawerModules()
     }
 }

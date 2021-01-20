@@ -19,12 +19,10 @@ import kotlin.math.roundToInt
 @Composable
 @OptIn(ExperimentalMaterialApi::class)
 fun DebugDrawerLayout(
-    modifier: Modifier = Modifier,
     isDebug: () -> Boolean = { false },
     drawerColors: Colors = drawerColorsPalette,
-    drawerModules: @Composable ColumnScope.(Modifier, ModuleExpandedState) -> Unit = { _, _ -> },
+    drawerModules: @Composable ColumnScope.() -> Unit = { },
     initialDrawerState: DrawerValue = DrawerValue.Closed,
-    initialModulesState: ModuleExpandedState = ModuleExpandedState.EXPANDED,
     bodyContent: @Composable (DrawerState) -> Unit
 ) {
     val drawerState = rememberDrawerState(initialValue = initialDrawerState)
@@ -79,13 +77,9 @@ fun DebugDrawerLayout(
                         shape = MaterialTheme.shapes.large,
                         color = MaterialTheme.colors.background,
                         contentColor = MaterialTheme.colors.onSurface,
-                        elevation = DrawerDefaults.Elevation
+                        elevation = 4.dp
                     ) {
-                        DrawerContent(
-                            modifier = modifier,
-                            initialModulesState = initialModulesState,
-                            drawerModules = drawerModules
-                        )
+                        DrawerContent(drawerModules = drawerModules)
                     }
                 }
             }

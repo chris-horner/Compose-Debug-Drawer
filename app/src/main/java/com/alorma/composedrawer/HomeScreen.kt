@@ -13,21 +13,19 @@ import com.alorma.composedrawer.modules.DemoActionsModule
 import com.alorma.composedrawer.ui.ComposeDrawerTheme
 import com.alorma.developer_shortcuts.ShortcutsModule
 import com.alorma.drawer_base.DebugDrawerLayout
-import com.alorma.drawer_base.ModuleExpandedState
-import com.alorma.drawer_modules.buildModule
-import com.alorma.drawer_modules.deviceModule
+import com.alorma.drawer_modules.BuildModule
+import com.alorma.drawer_modules.DeviceModule
 
 @Composable
 fun HomeScreen() {
     DebugDrawerLayout(
         isDebug = { BuildConfig.DEBUG },
         initialDrawerState = DrawerValue.Open,
-        initialModulesState = ModuleExpandedState.EXPANDED,
-        drawerModules = { modifier, moduleState ->
-            ShortcutsModule(modifier)
+        drawerModules = {
+            ShortcutsModule()
             DemoActionsModule()
-            buildModule()
-            deviceModule()
+            BuildModule()
+            DeviceModule()
         }
     ) { drawerState -> AppContent(drawerState) }
 }

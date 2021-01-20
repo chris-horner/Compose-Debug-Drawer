@@ -16,11 +16,10 @@ import leakcanary.AppWatcher
 import leakcanary.LeakCanary
 
 @Composable
-fun ShortcutsModule(modifier: Modifier) {
+fun ShortcutsModule() {
     val context = AmbientContext.current
 
     DebugDrawerModule(
-        modifier = modifier,
         icon = IconType.Vector(drawableRes = R.drawable.ic_compose_drawer_dev),
         title = "Developer Shortcuts"
     ) {
