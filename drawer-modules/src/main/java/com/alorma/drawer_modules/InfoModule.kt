@@ -1,8 +1,9 @@
 package com.alorma.drawer_modules
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Providers
 import androidx.compose.ui.Alignment
@@ -13,15 +14,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.alorma.drawer_base.DebugDrawerModule
 import com.alorma.drawer_base.DrawerDivider
-import com.alorma.drawer_base.IconType
 
 @Composable
 fun InfoModule(
-    icon: IconType,
+    modifier: Modifier = Modifier,
+    icon: @Composable (() -> Unit)? = null,
     title: String,
     items: List<Pair<String, String>>
 ) {
     DebugDrawerModule(
+        modifier = modifier,
         icon = icon,
         title = title
     ) {
@@ -41,15 +43,8 @@ fun InfoModule(
 @Composable
 fun DebugModuleInfoContent(
     key: String,
-    value: String,
-    onClick: ((String, String) -> Unit)? = null
+    value: String
 ) {
-
-    val clickModifier = if (onClick == null) {
-        Modifier
-    } else {
-        Modifier.clickable(onClick = { onClick(key, value) })
-    }
 
     Row(
         modifier = Modifier.fillMaxWidth(),
@@ -58,29 +53,28 @@ fun DebugModuleInfoContent(
         Box(
             modifier = Modifier.preferredWidth(80.dp)
         ) {
-            ProvideTextStyle(value = MaterialTheme.typography.body2) {
-                Providers(AmbientContentAlpha provides ContentAlpha.high) {
-                    Text(
-                        text = key,
-                        textAlign = TextAlign.Start,
-                    )
-                }
+            Providers(
+                AmbientContentAlpha provides ContentAlpha.high,
+            ) {
+                Text(
+                    text = key,
+                    textAlign = TextAlign.Start,
+                    style = MaterialTheme.typography.body2,
+                )
             }
         }
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .clip(shape = MaterialTheme.shapes.medium)
-                .then(clickModifier)
-                .then(Modifier.padding(8.dp))
+                .padding(8.dp)
         ) {
-            ProvideTextStyle(value = MaterialTheme.typography.body2) {
-                Providers(AmbientContentAlpha provides ContentAlpha.high) {
-                    Text(
-                        text = value,
-                        textAlign = TextAlign.Start,
-                    )
-                }
+            Providers(AmbientContentAlpha provides ContentAlpha.medium) {
+                Text(
+                    text = value,
+                    textAlign = TextAlign.Start,
+                    style = MaterialTheme.typography.body2,
+                )
             }
         }
     }
@@ -95,10 +89,10 @@ fun InfoModulePreview() {
         "Value large" to "C"
     )
     InfoModule(
-        icon = IconType.Vector(
-            drawableRes = R.drawable.ic_compose_drawer_adb
-        ),
-        title = "Preview",
+        icon = {
+            Icon(imageVector = Icons.Default.Info)
+        },
+        title = "Info",
         items = items,
     )
 }

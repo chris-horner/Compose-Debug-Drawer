@@ -2,13 +2,16 @@ package com.alorma.drawer_modules
 
 import android.os.Build
 import android.util.DisplayMetrics
+import androidx.compose.material.Icon
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.DeviceUnknown
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.AmbientContext
 import androidx.compose.ui.tooling.preview.Preview
-import com.alorma.drawer_base.IconType
 
 @Composable
-fun DeviceModule() {
+fun DeviceModule(modifier: Modifier = Modifier) {
 
     fun getDensityString(displayMetrics: DisplayMetrics): String {
         return when (displayMetrics.densityDpi) {
@@ -36,7 +39,6 @@ fun DeviceModule() {
     val deviceRelease = "Release" to Build.VERSION.RELEASE
     val deviceApi = "API" to Build.VERSION.SDK_INT.toString()
 
-    val icon = IconType.Vector(R.drawable.ic_compose_drawer_device)
     val title = "Device information"
 
     val items = listOf(
@@ -48,7 +50,9 @@ fun DeviceModule() {
         deviceApi
     )
 
-    InfoModule(icon = icon, title = title, items = items)
+    InfoModule(modifier = modifier, icon = {
+        Icon(imageVector = Icons.Default.DeviceUnknown)
+    }, title = title, items = items)
 }
 
 @Preview(showBackground = true)

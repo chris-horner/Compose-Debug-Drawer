@@ -2,13 +2,16 @@ package com.alorma.drawer_modules
 
 import android.content.Context
 import android.os.Build
+import androidx.compose.material.Icon
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Adb
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.AmbientContext
 import androidx.compose.ui.tooling.preview.Preview
-import com.alorma.drawer_base.IconType
 
 @Composable
-fun BuildModule() {
+fun BuildModule(modifier: Modifier = Modifier) {
     val context = AmbientContext.current
 
     fun obtainBuildInfo(context: Context): List<Pair<String, String>> {
@@ -49,10 +52,16 @@ fun BuildModule() {
         obtainDebugInfo()
     }
 
-    val icon = IconType.Vector(R.drawable.ic_compose_drawer_adb)
     val title = "Build information"
 
-    InfoModule(icon = icon, title = title, items = items)
+    InfoModule(
+        modifier = modifier,
+        icon = {
+            Icon(imageVector = Icons.Default.Adb)
+        },
+        title = title,
+        items = items
+    )
 }
 
 @Preview(showBackground = true)

@@ -20,7 +20,7 @@ import kotlin.math.roundToInt
 @OptIn(ExperimentalMaterialApi::class)
 fun DebugDrawerLayout(
     isDebug: () -> Boolean = { false },
-    drawerColors: Colors = drawerColorsPalette,
+    drawerColors: Colors = debugDrawerColorsPalette,
     drawerModules: @Composable ColumnScope.() -> Unit = { },
     initialDrawerState: DrawerValue = DrawerValue.Closed,
     bodyContent: @Composable (DrawerState) -> Unit
@@ -77,7 +77,7 @@ fun DebugDrawerLayout(
                         shape = MaterialTheme.shapes.large,
                         color = MaterialTheme.colors.background,
                         contentColor = MaterialTheme.colors.onSurface,
-                        elevation = 4.dp
+                        elevation = 0.dp
                     ) {
                         DrawerContent(drawerModules = drawerModules)
                     }

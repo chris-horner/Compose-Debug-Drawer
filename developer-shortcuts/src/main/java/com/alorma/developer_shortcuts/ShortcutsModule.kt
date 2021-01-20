@@ -3,11 +3,13 @@ package com.alorma.developer_shortcuts
 import android.content.Intent
 import android.os.Build
 import android.provider.Settings
+import androidx.compose.material.Icon
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Extension
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.AmbientContext
 import com.alorma.drawer_base.DebugDrawerModule
-import com.alorma.drawer_base.IconType
 import com.alorma.drawer_modules.actions.ButtonAction
 import com.alorma.drawer_modules.actions.SwitchAction
 import com.alorma.drawer_modules.actions.TextAction
@@ -16,11 +18,14 @@ import leakcanary.AppWatcher
 import leakcanary.LeakCanary
 
 @Composable
-fun ShortcutsModule() {
+fun ShortcutsModule(modifier: Modifier = Modifier) {
     val context = AmbientContext.current
 
     DebugDrawerModule(
-        icon = IconType.Vector(drawableRes = R.drawable.ic_compose_drawer_dev),
+        modifier = modifier,
+        icon = {
+            Icon(imageVector = Icons.Default.Extension)
+        },
         title = "Developer Shortcuts"
     ) {
 

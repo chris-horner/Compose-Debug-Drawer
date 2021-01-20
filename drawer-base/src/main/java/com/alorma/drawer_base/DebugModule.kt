@@ -1,6 +1,5 @@
 package com.alorma.drawer_base
 
-import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,13 +16,13 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun DebugDrawerModule(
     modifier: Modifier = Modifier,
-    icon: IconType,
+    icon: @Composable (() -> Unit)? = null,
     title: String,
     contentModifier: Modifier = Modifier,
     content: @Composable ColumnScope.() -> Unit
 ) {
-    val expandedState: MutableState<ModuleExpandedState> = remember {
-        mutableStateOf(ModuleExpandedState.EXPANDED)
+    val expandedState: MutableState<Boolean> = remember {
+        mutableStateOf(true)
     }
 
     val semanticsModifier = Modifier.semantics {
@@ -31,21 +30,21 @@ fun DebugDrawerModule(
     }
 
     Column(
-        modifier = semanticsModifier
-            .then(Modifier.fillMaxWidth())
-            .then(modifier),
+        modifier = Modifier
+            .fillMaxWidth()
+            .then(if (expandedState.value) modifier else Modifier)
+            .then(semanticsModifier),
     ) {
         DrawerModuleHeader(
             icon = icon,
             title = title,
-        ) {
-            expandedState.value = !expandedState.value
-        }
+            expandedState = expandedState,
+        )
 
         val contentSemanticsModifier = Modifier.semantics {
             testTag = "Module content $title"
         }
-        if (expandedState.value == ModuleExpandedState.EXPANDED) {
+        if (expandedState.value) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -57,12 +56,4 @@ fun DebugDrawerModule(
             }
         }
     }
-}
-
-sealed class IconType {
-    @get: DrawableRes
-    abstract val drawableRes: Int
-
-    data class Vector(override val drawableRes: Int) : IconType()
-    data class Image(override val drawableRes: Int) : IconType()
 }

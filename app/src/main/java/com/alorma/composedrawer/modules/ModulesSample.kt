@@ -1,17 +1,19 @@
 package com.alorma.composedrawer.modules
 
 import android.widget.Toast
+import androidx.compose.material.Icon
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.AmbientContext
-import com.alorma.composedrawer.R
-import com.alorma.drawer_base.IconType
+import com.alorma.drawer_modules.ActionsModule
 import com.alorma.drawer_modules.actions.*
-import com.alorma.drawer_modules.actionsModule
 
 @Composable
-fun DemoActionsModule() {
+fun DemoActionsModule(modifier: Modifier = Modifier) {
     val context = AmbientContext.current
 
     val dropdownItems = listOf(
@@ -22,8 +24,9 @@ fun DemoActionsModule() {
 
     val itemSelectorState = remember { mutableStateOf<Forlayo?>(null) }
 
-    actionsModule(
-        icon = IconType.Vector(R.drawable.ic_settings),
+    ActionsModule(
+        modifier = modifier,
+        icon = { Icon(imageVector = Icons.Default.Settings) },
         title = "Actions"
     ) {
         TextAction(text = "Buttons")

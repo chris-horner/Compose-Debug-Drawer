@@ -1,11 +1,13 @@
 package com.alorma.composedrawer
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -22,10 +24,14 @@ fun HomeScreen() {
         isDebug = { BuildConfig.DEBUG },
         initialDrawerState = DrawerValue.Open,
         drawerModules = {
-            ShortcutsModule()
-            DemoActionsModule()
-            BuildModule()
-            DeviceModule()
+            val modulesModifier = Modifier
+                .padding(4.dp)
+                .clip(shape = MaterialTheme.shapes.medium)
+                .background(color = MaterialTheme.colors.surface)
+            ShortcutsModule(modulesModifier)
+            DemoActionsModule(modulesModifier)
+            BuildModule(modulesModifier)
+            DeviceModule(modulesModifier)
         }
     ) { drawerState -> AppContent(drawerState) }
 }

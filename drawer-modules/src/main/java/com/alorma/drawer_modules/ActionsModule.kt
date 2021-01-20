@@ -3,16 +3,18 @@ package com.alorma.drawer_modules
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import com.alorma.drawer_base.DebugDrawerModule
-import com.alorma.drawer_base.IconType
 
 @Composable
-fun actionsModule(
-    icon: IconType,
+fun ActionsModule(
+    modifier: Modifier = Modifier,
+    icon: @Composable (() -> Unit)? = null,
     title: String,
-    actions: @Composable ColumnScope.() -> Unit
+    actions: @Composable (ColumnScope.() -> Unit)
 ) {
     DebugDrawerModule(
+        modifier = modifier,
         icon = icon,
         title = title
     ) {
