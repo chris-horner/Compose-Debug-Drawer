@@ -5,37 +5,29 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.alorma.composedrawer.modules.demoActionsModule
+import com.alorma.composedrawer.modules.DemoActionsModule
 import com.alorma.composedrawer.ui.ComposeDrawerTheme
-import com.alorma.developer_shortcuts.shortcutsModule
+import com.alorma.developer_shortcuts.ShortcutsModule
 import com.alorma.drawer_base.DebugDrawerLayout
 import com.alorma.drawer_base.ModuleExpandedState
-import com.alorma.drawer_modules.BuildModule
-import com.alorma.drawer_modules.DeviceModule
-import java.time.LocalDateTime
+import com.alorma.drawer_modules.buildModule
+import com.alorma.drawer_modules.deviceModule
 
 @Composable
 fun HomeScreen() {
-
-    val dateState = remember { mutableStateOf<LocalDateTime>(LocalDateTime.now()) }
-
     DebugDrawerLayout(
         isDebug = { BuildConfig.DEBUG },
         initialDrawerState = DrawerValue.Open,
         initialModulesState = ModuleExpandedState.EXPANDED,
-        drawerModules = {
-            listOf(
-                shortcutsModule(),
-                demoActionsModule(dateState),
-                BuildModule(),
-                DeviceModule(),
-            )
+        drawerModules = { modifier, moduleState ->
+            ShortcutsModule(modifier)
+            DemoActionsModule()
+            buildModule()
+            deviceModule()
         }
     ) { drawerState -> AppContent(drawerState) }
 }
@@ -88,4 +80,3 @@ fun HomeScreenPreview() {
     }
 }
 
-data class Forlayo(val text: String)

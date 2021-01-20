@@ -1,9 +1,6 @@
 package com.alorma.drawer_modules.actions
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -13,38 +10,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.isFocused
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.tooling.preview.Preview
-import com.alorma.drawer_modules.DebugDrawerAction
+import androidx.compose.ui.unit.dp
 
 @Composable
-fun <T> dropdownSelectorAction(
-    tag: String? = null,
-    extraModifier: Modifier = Modifier,
-    items: List<T>,
-    itemFormatter: (T) -> String = { itemFormat -> itemFormat.toString() },
-    defaultValue: T? = null,
-    label: String? = null,
-    onItemSelected: (T) -> Unit
-) = object : DebugDrawerAction() {
-
-    override val tag: String
-        get() = tag ?: super.tag
-
-    @Composable
-    override fun build(modifier: Modifier) {
-        DropdownSelectorComponent(
-            modifier = modifier.then(extraModifier),
-            items = items,
-            itemFormatter = itemFormatter,
-            defaultValue = defaultValue,
-            label = label,
-            onItemSelected = onItemSelected,
-        )
-    }
-}
-
-@Composable
-fun <T> DropdownSelectorComponent(
-    modifier: Modifier,
+fun <T> DropdownSelectorAction(
+    modifier: Modifier = Modifier,
     items: List<T>,
     itemFormatter: (T) -> String = { itemFormat -> itemFormat.toString() },
     defaultValue: T? = null,
@@ -54,31 +24,35 @@ fun <T> DropdownSelectorComponent(
     val textState = remember { mutableStateOf(defaultValue?.let(itemFormatter) ?: "") }
     val isExpanded = remember { mutableStateOf(false) }
 
-    TextField(
-        modifier = Modifier
-            .onFocusChanged { focusState ->
-                isExpanded.value = focusState.isFocused
-            }
-            .then(modifier),
-        value = textState.value,
-        readOnly = true,
-        trailingIcon = {
-            IconButton(onClick = { isExpanded.value = !isExpanded.value }) {
-                DropdownIcon(isExpanded = isExpanded.value)
-            }
-        },
-        label = label?.let { labelText -> { Text(text = labelText) } },
-        onValueChange = { },
-    )
     DropdownMenu(
         dropdownModifier = Modifier.fillMaxWidth(),
         toggle = {
-
+            TextField(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 8.dp)
+                    .onFocusChanged { focusState ->
+                        isExpanded.value = focusState.isFocused
+                    }
+                    .then(modifier),
+                value = textState.value,
+                readOnly = true,
+                trailingIcon = {
+                    IconButton(onClick = { isExpanded.value = !isExpanded.value }) {
+                        DropdownIcon(isExpanded = isExpanded.value)
+                    }
+                },
+                label = label?.let { labelText -> { Text(text = labelText) } },
+                onValueChange = { },
+            )
         },
         expanded = isExpanded.value,
         onDismissRequest = { isExpanded.value = false }) {
         items.forEach { item ->
-            DropdownItemComponent(item) { clickItem ->
+            DropdownItemComponent(
+                item = item,
+                itemFormatter = itemFormatter,
+            ) { clickItem ->
                 textState.value = itemFormatter(clickItem)
                 isExpanded.value = false
                 onItemSelected(clickItem)
@@ -112,13 +86,13 @@ fun <T> ColumnScope.DropdownItemComponent(
     showBackground = true
 )
 @Composable
-fun DropDownComponentPreview() {
+fun DropdownSelectorActionPreview() {
     val items = listOf(
         Forlayo("A"),
         Forlayo("B"),
         Forlayo("C"),
     )
-    DropdownSelectorComponent(
+    DropdownSelectorAction(
         Modifier,
         items = items,
         itemFormatter = { forlayo -> forlayo.text },

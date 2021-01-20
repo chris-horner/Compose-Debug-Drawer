@@ -17,76 +17,70 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.alorma.drawer_modules.DebugDrawerAction
 
 @Composable
-fun switchAction(
+fun SwitchAction(
+    modifier: Modifier = Modifier,
     text: String,
     isChecked: Boolean,
     tag: String? = null,
-    extraModifier: Modifier = Modifier,
     onChange: (checked: Boolean) -> Unit,
-) = object : DebugDrawerAction() {
+) {
+    fun onSwitchChange(checkedState: MutableState<Boolean>, checked: Boolean) {
+        checkedState.value = checked
+        onChange(checkedState.value)
+    }
 
-    override val tag: String
-        get() = tag ?: super.tag
+    val checkedState: MutableState<Boolean> = remember { mutableStateOf(isChecked) }
 
-    @Composable
-    override fun build(modifier: Modifier) {
-        fun onSwitchChange(checkedState: MutableState<Boolean>, checked: Boolean) {
-            checkedState.value = checked
-            onChange(checkedState.value)
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = 8.dp)
+            .preferredHeight(36.dp)
+            .clip(shape = MaterialTheme.shapes.medium)
+            .then(modifier)
+            .clickable(onClick = {
+                onSwitchChange(
+                    checkedState = checkedState,
+                    checked = !checkedState.value
+                )
+            })
+            .padding(8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        val actionTextSemanticModifier = Modifier.semantics {
+            testTag = "Action $tag text"
         }
-
-        val checkedState: MutableState<Boolean> = remember { mutableStateOf(isChecked) }
-
-        Row(
-            modifier = modifier
-                .preferredHeight(36.dp)
-                .clip(shape = MaterialTheme.shapes.medium)
-                .then(extraModifier)
-                .clickable(onClick = {
-                    onSwitchChange(
-                        checkedState = checkedState,
-                        checked = !checkedState.value
-                    )
-                })
-                .padding(8.dp),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            val actionTextSemanticModifier = Modifier.semantics {
-                testTag = "Action $tag text"
-            }
-            Text(
-                color = MaterialTheme.colors.onSurface,
-                modifier = actionTextSemanticModifier,
-                text = text,
-                textAlign = TextAlign.Start,
-            )
-            Spacer(
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .weight(1f)
-            )
-            val actionSwitchSemanticModifier = Modifier.semantics {
-                testTag = "Action $tag switch"
-            }
-            Switch(
-                modifier = actionSwitchSemanticModifier,
-                colors = SwitchDefaults.colors(
-                    checkedThumbColor = MaterialTheme.colors.primary,
-                    uncheckedThumbColor = MaterialTheme.colors.onSurface,
-                    checkedTrackAlpha = 0.6f,
-                    uncheckedTrackAlpha = 0.4f
-                ),
-                checked = checkedState.value,
-                onCheckedChange = { checked ->
-                    onSwitchChange(
-                        checkedState = checkedState,
-                        checked = checked
-                    )
-                },
-            )
+        Text(
+            color = MaterialTheme.colors.onSurface,
+            modifier = actionTextSemanticModifier,
+            text = text,
+            textAlign = TextAlign.Start,
+        )
+        Spacer(
+            modifier = Modifier
+                .fillMaxHeight()
+                .weight(1f)
+        )
+        val actionSwitchSemanticModifier = Modifier.semantics {
+            testTag = "Action $tag switch"
         }
+        Switch(
+            modifier = actionSwitchSemanticModifier,
+            colors = SwitchDefaults.colors(
+                checkedThumbColor = MaterialTheme.colors.primary,
+                uncheckedThumbColor = MaterialTheme.colors.onSurface,
+                checkedTrackAlpha = 0.6f,
+                uncheckedTrackAlpha = 0.4f
+            ),
+            checked = checkedState.value,
+            onCheckedChange = { checked ->
+                onSwitchChange(
+                    checkedState = checkedState,
+                    checked = checked
+                )
+            },
+        )
     }
 }

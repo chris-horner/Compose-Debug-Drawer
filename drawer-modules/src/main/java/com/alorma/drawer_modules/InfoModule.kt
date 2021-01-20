@@ -11,7 +11,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.alorma.drawer_base.DebugModule
+import com.alorma.drawer_base.DebugDrawerModule
 import com.alorma.drawer_base.DrawerDivider
 import com.alorma.drawer_base.IconType
 
@@ -20,12 +20,11 @@ fun InfoModule(
     icon: IconType,
     title: String,
     items: List<Pair<String, String>>
-) = object : DebugModule {
-    override val icon: IconType = icon
-    override val title: String = title
-
-    @Composable
-    override fun build() {
+) {
+    DebugDrawerModule(
+        icon = icon,
+        title = title
+    ) {
         Column {
             items.forEachIndexed { index, item ->
                 Column {
@@ -36,7 +35,6 @@ fun InfoModule(
                 }
             }
         }
-
     }
 }
 
@@ -102,5 +100,5 @@ fun InfoModulePreview() {
         ),
         title = "Preview",
         items = items,
-    ).build()
+    )
 }

@@ -22,7 +22,7 @@ fun DebugDrawerLayout(
     modifier: Modifier = Modifier,
     isDebug: () -> Boolean = { false },
     drawerColors: Colors = drawerColorsPalette,
-    drawerModules: @Composable () -> List<DebugModule> = { emptyList() },
+    drawerModules: @Composable ColumnScope.(Modifier, ModuleExpandedState) -> Unit = { _, _ -> },
     initialDrawerState: DrawerValue = DrawerValue.Closed,
     initialModulesState: ModuleExpandedState = ModuleExpandedState.EXPANDED,
     bodyContent: @Composable (DrawerState) -> Unit
@@ -93,8 +93,7 @@ fun DebugDrawerLayout(
     }
 }
 
-private fun calculateFraction(a: Float, pos: Float) =
-    ((pos - a) / a).coerceIn(0f, 1f)
+private fun calculateFraction(a: Float, pos: Float) = ((pos - a) / a).coerceIn(0f, 1f)
 
 @Composable
 private fun Scrim(

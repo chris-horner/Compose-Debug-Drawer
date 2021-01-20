@@ -5,11 +5,10 @@ import android.util.DisplayMetrics
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.AmbientContext
 import androidx.compose.ui.tooling.preview.Preview
-import com.alorma.drawer_base.DebugModule
 import com.alorma.drawer_base.IconType
 
 @Composable
-fun DeviceModule(): DebugModule {
+fun deviceModule() {
 
     fun getDensityString(displayMetrics: DisplayMetrics): String {
         return when (displayMetrics.densityDpi) {
@@ -49,11 +48,11 @@ fun DeviceModule(): DebugModule {
         deviceApi
     )
 
-    return InfoModule(icon = icon, title = title, items = items)
+    InfoModule(icon = icon, title = title, items = items)
 }
 
 @Preview(showBackground = true)
 @Composable
 fun DeviceModulePreview() {
-    DeviceModule().build()
+    deviceModule()
 }

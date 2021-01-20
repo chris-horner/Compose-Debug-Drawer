@@ -20,13 +20,14 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun DrawerModuleHeader(
-    module: DebugModule,
+    icon: IconType,
+    title: String,
     onClick: () -> Unit
 ) {
     val semanticModifier = Modifier
         .clickable(onClick = onClick)
         .semantics {
-            testTag = "Module header ${module.tag}"
+            testTag = "Module header $title"
         }
     Surface(
         modifier = Modifier
@@ -40,33 +41,29 @@ fun DrawerModuleHeader(
             modifier = Modifier.padding(8.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            DrawerModuleHeaderIcon(module, 32.dp)
+            DrawerModuleHeaderIcon(icon, 32.dp)
             Spacer(modifier = Modifier.preferredWidth(8.dp))
-            DrawerModuleHeaderText(module)
+            DrawerModuleHeaderText(title)
         }
     }
 }
 
 @Composable
-fun DrawerModuleHeaderIcon(module: DebugModule, size: Dp) {
-
-    val semanticsModifier = Modifier.semantics {
-        testTag = "Module header icon ${module.tag}"
-    }
-    val modifier = semanticsModifier.then(Modifier.preferredSize(size = size))
-    when (module.icon) {
+fun DrawerModuleHeaderIcon(icon: IconType, size: Dp) {
+    val modifier = Modifier.preferredSize(size = size)
+    when (icon) {
         is IconType.Vector -> Icon(
             tint = MaterialTheme.colors.onSurface,
             modifier = modifier,
             imageVector = vectorResource(
-                id = module.icon.drawableRes
+                id = icon.drawableRes
             ),
         )
         is IconType.Image -> Icon(
             tint = MaterialTheme.colors.onSurface,
             modifier = modifier,
             bitmap = imageResource(
-                id = module.icon.drawableRes
+                id = icon.drawableRes
             ),
         )
     }
@@ -74,15 +71,15 @@ fun DrawerModuleHeaderIcon(module: DebugModule, size: Dp) {
 
 @Composable
 fun DrawerModuleHeaderText(
-    module: DebugModule
+    title: String
 ) {
     val semanticsModifier = Modifier.semantics {
-        testTag = "Module header text ${module.tag}"
+        testTag = "Module header title $title"
     }
     Text(
         color = MaterialTheme.colors.primary,
         modifier = semanticsModifier,
-        text = module.title,
+        text = title,
         textAlign = TextAlign.Start,
         fontWeight = FontWeight.Bold,
     )

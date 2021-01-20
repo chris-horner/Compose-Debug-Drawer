@@ -1,9 +1,8 @@
 package com.alorma.drawer_base
 
+import androidx.compose.foundation.ScrollableColumn
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.Divider
-import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
@@ -11,20 +10,9 @@ import androidx.compose.ui.Modifier
 fun DrawerContent(
     modifier: Modifier = Modifier,
     initialModulesState: ModuleExpandedState = ModuleExpandedState.EXPANDED,
-    drawerModules: @Composable() () -> List<DebugModule> = { emptyList() },
+    drawerModules: @Composable ColumnScope.(Modifier, ModuleExpandedState) -> Unit = { _, _ -> },
 ) {
-    val items = drawerModules()
-    LazyColumn(modifier = Modifier.fillMaxSize()) {
-        itemsIndexed(items = items,
-            itemContent = { index, module ->
-                DrawerModule(
-                    module = module,
-                    modifier = modifier,
-                    initialModulesState = initialModulesState
-                )
-                if (index < items.size - 1) {
-                    Divider(color = MaterialTheme.colors.onSurface.compositeOverSurface(0.30f))
-                }
-            })
+    ScrollableColumn(modifier = Modifier.fillMaxSize()) {
+        drawerModules(modifier, initialModulesState)
     }
 }

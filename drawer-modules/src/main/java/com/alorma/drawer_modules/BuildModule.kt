@@ -5,11 +5,10 @@ import android.os.Build
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.AmbientContext
 import androidx.compose.ui.tooling.preview.Preview
-import com.alorma.drawer_base.DebugModule
 import com.alorma.drawer_base.IconType
 
 @Composable
-fun BuildModule(): DebugModule {
+fun buildModule() {
     val context = AmbientContext.current
 
     fun obtainBuildInfo(context: Context): List<Pair<String, String>> {
@@ -53,11 +52,11 @@ fun BuildModule(): DebugModule {
     val icon = IconType.Vector(R.drawable.ic_compose_drawer_adb)
     val title = "Build information"
 
-    return InfoModule(icon = icon, title = title, items = items)
+    InfoModule(icon = icon, title = title, items = items)
 }
 
 @Preview(showBackground = true)
 @Composable
 fun BuildModulePreview() {
-    BuildModule().build()
+    buildModule()
 }
