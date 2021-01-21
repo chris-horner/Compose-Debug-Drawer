@@ -9,10 +9,6 @@ buildscript {
     }
 }
 
-plugins {
-    id 'Nexus'
-}
-
 allprojects {
     repositories {
         google()
@@ -26,9 +22,4 @@ allprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
-}
-
-allprojects {
-    group = "com.github.alorma"
-    version = "1.2.0-alpha10"
 }
