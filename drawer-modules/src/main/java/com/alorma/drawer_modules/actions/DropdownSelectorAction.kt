@@ -93,7 +93,7 @@ fun DropdownSelectorActionPreview() {
         Forlayo("C"),
     )
     DropdownSelectorAction(
-        Modifier,
+        modifier = Modifier,
         items = items,
         itemFormatter = { forlayo -> forlayo.text },
         defaultValue = items.first()

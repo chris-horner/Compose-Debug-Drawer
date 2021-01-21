@@ -11,6 +11,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.AmbientContext
 import com.alorma.drawer_modules.ActionsModule
 import com.alorma.drawer_modules.actions.*
+import com.vanpra.composematerialdialogs.MaterialDialog
+import com.vanpra.composematerialdialogs.datetime.datepicker
+import java.time.LocalDate
 
 @Composable
 fun DemoActionsModule(modifier: Modifier = Modifier) {
@@ -23,6 +26,14 @@ fun DemoActionsModule(modifier: Modifier = Modifier) {
     )
 
     val itemSelectorState = remember { mutableStateOf<Forlayo?>(null) }
+    val dateState = remember { mutableStateOf<LocalDate>(LocalDate.now()) }
+
+    val dialog = MaterialDialog()
+    dialog.build {
+        datepicker { localDate ->
+            dateState.value = localDate
+        }
+    }
 
     ActionsModule(
         modifier = modifier,
@@ -47,5 +58,11 @@ fun DemoActionsModule(modifier: Modifier = Modifier) {
                 Toast.makeText(context, "Item: ${forlayo.text}", Toast.LENGTH_SHORT).show()
             }
         )
+        DropdownAction(
+            label = "Items",
+            text = dateState.value.toString(),
+        ) {
+            dialog.show()
+        }
     }
 }
