@@ -1,3 +1,6 @@
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
 buildscript {
     repositories {
         google()
@@ -6,6 +9,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:7.0.0-alpha04'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.21"
+        classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.5"
     }
 }
 
@@ -18,6 +22,19 @@ allprojects {
             content { includeGroupByRegex "com\\.github.*" }
         }
     }
+
+    tasks.withType(Javadoc) {
+        options.addStringOption('Xdoclint:none', '-quiet')
+        options.addStringOption('encoding', 'UTF-8')
+    }
+}
+
+ext {
+    libraryGroupId = 'com.github.alorma.compose-drawer'
+    libraryVersion = '0.0.4'
+
+    bintrayUser = properties.getProperty('bintray.user')
+    bintrayToken = properties.getProperty('bintray.token')
 }
 
 task clean(type: Delete) {
