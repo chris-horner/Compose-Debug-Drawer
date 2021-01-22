@@ -32,7 +32,6 @@ dependencies {
 
     implementation(project(":drawer-modules"))
     implementation(project(":drawer-base"))
-//    implementation project(":developer-shortcuts")
 
     implementation("androidx.core:core-ktx:1.3.2")
     implementation("androidx.appcompat:appcompat:1.2.0")
@@ -40,8 +39,5 @@ dependencies {
     implementation(compose.material)
     implementation(compose.ui)
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.0-rc01")
-
-//    implementation("com.vanpra.compose-material-dialogs:core:0.2.11")
-//    implementation("com.vanpra.compose-material-dialogs:datetime:0.2.11")
 
 }

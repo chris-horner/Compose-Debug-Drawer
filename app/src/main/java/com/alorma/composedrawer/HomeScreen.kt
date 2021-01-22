@@ -1,6 +1,5 @@
 package com.alorma.composedrawer
 
-//import com.alorma.developer_shortcuts.ShortcutsModule
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -33,7 +32,6 @@ fun HomeScreen() {
                 .padding(4.dp)
                 .clip(shape = MaterialTheme.shapes.medium)
                 .background(color = MaterialTheme.colors.surface)
-//            ShortcutsModule(modulesModifier)
             DemoActionsModule(modulesModifier)
             BuildModule(modulesModifier)
             DeviceModule(modulesModifier)

@@ -27,7 +27,6 @@ Add dependencies:
 ```groovy
 implementation 'com.github.alorma.Compose-Debug-Drawer:drawer-base:1.1.0-alpha10-SNAPSHOT'
 implementation 'com.github.alorma.Compose-Debug-Drawer:drawer-modules:1.1.0-alpha10-SNAPSHOT'
-implementation 'com.github.alorma.Compose-Debug-Drawer:developer-shortcuts:1.1.0-alpha10-SNAPSHOT'
 ```
 
 ## Setup
