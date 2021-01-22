@@ -1,7 +1,15 @@
 package com.alorma.drawer_modules.actions
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.material.DropdownMenu
+import androidx.compose.material.DropdownMenuItem
+import androidx.compose.material.IconButton
+import androidx.compose.material.Text
+import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -9,7 +17,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.isFocused
 import androidx.compose.ui.focus.onFocusChanged
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -42,7 +49,7 @@ fun <T> DropdownSelectorAction(
                         DropdownIcon(isExpanded = isExpanded.value)
                     }
                 },
-                label = label?.let { labelText -> { Text(text = labelText) } },
+                label = { label?.let { Text(text = label) } },
                 onValueChange = { },
             )
         },
@@ -81,10 +88,6 @@ fun <T> ColumnScope.DropdownItemComponent(
     }
 }
 
-@Preview(
-    name = "DropDown",
-    showBackground = true
-)
 @Composable
 fun DropdownSelectorActionPreview() {
     val items = listOf(
@@ -102,10 +105,6 @@ fun DropdownSelectorActionPreview() {
     }
 }
 
-@Preview(
-    name = "DropDown Item",
-    showBackground = true
-)
 @Composable
 fun DropDownItemComponentPreview() {
     Column(modifier = Modifier.fillMaxWidth()) {

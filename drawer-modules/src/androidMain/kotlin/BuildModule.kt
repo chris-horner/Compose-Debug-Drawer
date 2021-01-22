@@ -8,7 +8,6 @@ import androidx.compose.material.icons.filled.Adb
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.AmbientContext
-import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun BuildModule(modifier: Modifier = Modifier) {
@@ -64,7 +63,6 @@ fun BuildModule(modifier: Modifier = Modifier) {
     )
 }
 
-@Preview(showBackground = true)
 @Composable
 fun BuildModulePreview() {
     BuildModule()

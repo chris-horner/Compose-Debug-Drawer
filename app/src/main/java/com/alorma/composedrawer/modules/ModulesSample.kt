@@ -1,5 +1,7 @@
 package com.alorma.composedrawer.modules
 
+//import com.vanpra.composematerialdialogs.MaterialDialog
+//import com.vanpra.composematerialdialogs.datetime.datepicker
 import android.widget.Toast
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
@@ -10,9 +12,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.AmbientContext
 import com.alorma.drawer_modules.ActionsModule
-import com.alorma.drawer_modules.actions.*
-import com.vanpra.composematerialdialogs.MaterialDialog
-import com.vanpra.composematerialdialogs.datetime.datepicker
+import com.alorma.drawer_modules.actions.ButtonAction
+import com.alorma.drawer_modules.actions.DropdownAction
+import com.alorma.drawer_modules.actions.DropdownSelectorAction
+import com.alorma.drawer_modules.actions.Forlayo
+import com.alorma.drawer_modules.actions.SwitchAction
+import com.alorma.drawer_modules.actions.TextAction
 import java.time.LocalDate
 
 @Composable
@@ -28,12 +33,12 @@ fun DemoActionsModule(modifier: Modifier = Modifier) {
     val itemSelectorState = remember { mutableStateOf<Forlayo?>(null) }
     val dateState = remember { mutableStateOf<LocalDate>(LocalDate.now()) }
 
-    val dialog = MaterialDialog()
-    dialog.build {
-        datepicker { localDate ->
-            dateState.value = localDate
-        }
-    }
+//    val dialog = MaterialDialog()
+//    dialog.build {
+//        datepicker { localDate ->
+//            dateState.value = localDate
+//        }
+//    }
 
     ActionsModule(
         modifier = modifier,
@@ -62,7 +67,7 @@ fun DemoActionsModule(modifier: Modifier = Modifier) {
             label = "Items",
             text = dateState.value.toString(),
         ) {
-            dialog.show()
+//            dialog.show()
         }
     }
 }

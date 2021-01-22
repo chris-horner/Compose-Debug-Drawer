@@ -15,18 +15,13 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.alorma.composedrawer.modules.DemoActionsModule
-import com.alorma.composedrawer.ui.ComposeDrawerTheme
 import com.alorma.drawer_base.DebugDrawerLayout
-import com.alorma.drawer_modules.BuildModule
-import com.alorma.drawer_modules.DeviceModule
 
 @Composable
 fun HomeScreen() {
     DebugDrawerLayout(
-        isDebug = { BuildConfig.DEBUG },
+        isDebug = { true },
         initialDrawerState = DrawerValue.Open,
         drawerModules = {
             val modulesModifier = Modifier
@@ -34,9 +29,6 @@ fun HomeScreen() {
                 .clip(shape = MaterialTheme.shapes.medium)
                 .background(color = MaterialTheme.colors.surface)
 //            ShortcutsModule(modulesModifier)
-            DemoActionsModule(modulesModifier)
-            BuildModule(modulesModifier)
-            DeviceModule(modulesModifier)
         }
     ) { drawerState -> AppContent(drawerState) }
 }
@@ -45,7 +37,7 @@ fun HomeScreen() {
 private fun AppContent(drawerState: DrawerState) {
     Scaffold(
         topBar = {
-            val title = stringResource(id = R.string.app_name)
+            val title = "Drawer Desktop"
             TopAppBar(
                 elevation = 0.dp,
                 title = { Text(text = title) }
@@ -80,11 +72,3 @@ private fun drawerButton(drawerState: DrawerState) {
         }
     }
 }
-
-@Composable
-fun HomeScreenPreview() {
-    ComposeDrawerTheme {
-        HomeScreen()
-    }
-}
-

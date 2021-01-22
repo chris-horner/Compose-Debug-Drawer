@@ -8,7 +8,6 @@ import androidx.compose.material.icons.filled.DeviceUnknown
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.AmbientContext
-import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun DeviceModule(modifier: Modifier = Modifier) {
@@ -55,7 +54,6 @@ fun DeviceModule(modifier: Modifier = Modifier) {
     }, title = title, items = items)
 }
 
-@Preview(showBackground = true)
 @Composable
 fun DeviceModulePreview() {
     DeviceModule()

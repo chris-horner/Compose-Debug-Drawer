@@ -9,7 +9,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.isFocused
 import androidx.compose.ui.focus.onFocusChanged
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -36,15 +35,11 @@ fun DropdownAction(
                 DropdownIcon(false)
             }
         },
-        label = label?.let { labelText -> { Text(text = labelText) } },
+        label = { label?.let { Text("") } },
         onValueChange = { },
     )
 }
 
-@Preview(
-    name = "DropDown",
-    showBackground = true
-)
 @Composable
 fun DropdownActionPreview() {
     DropdownAction(text = "Forlayo") {
@@ -52,10 +47,6 @@ fun DropdownActionPreview() {
     }
 }
 
-@Preview(
-    name = "DropDown Hint",
-    showBackground = true
-)
 @Composable
 fun DropdownActionHintPreview() {
     DropdownAction(label = "Banana") {
