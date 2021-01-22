@@ -4,29 +4,26 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Button
-import androidx.compose.material.DrawerState
-import androidx.compose.material.DrawerValue
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.alorma.composedrawer.modules.DemoActionsModule
-import com.alorma.composedrawer.ui.ComposeDrawerTheme
 import com.alorma.drawer_base.DebugDrawerLayout
+import com.alorma.drawer_base.DebugDrawerState
+import com.alorma.drawer_base.DebugDrawerValue
+import com.alorma.drawer_base.rememberDebugDrawerState
 import com.alorma.drawer_modules.BuildModule
 import com.alorma.drawer_modules.DeviceModule
 
 @Composable
 fun HomeScreen() {
+    val debugDrawerState = rememberDebugDrawerState(initialValueDebug = DebugDrawerValue.Open)
     DebugDrawerLayout(
         isDebug = { BuildConfig.DEBUG },
-        initialDrawerState = DrawerValue.Open,
+        debugDrawerState = debugDrawerState,
         drawerModules = {
             val modulesModifier = Modifier
                 .padding(4.dp)
@@ -36,11 +33,11 @@ fun HomeScreen() {
             BuildModule(modulesModifier)
             DeviceModule(modulesModifier)
         }
-    ) { drawerState -> AppContent(drawerState) }
+    ) { AppContent(debugDrawerState) }
 }
 
 @Composable
-private fun AppContent(drawerState: DrawerState) {
+private fun AppContent(drawerState: DebugDrawerState) {
     Scaffold(
         topBar = {
             val title = stringResource(id = R.string.app_name)
@@ -62,7 +59,7 @@ private fun AppContent(drawerState: DrawerState) {
 }
 
 @Composable
-private fun drawerButton(drawerState: DrawerState) {
+private fun drawerButton(drawerState: DebugDrawerState) {
     Button(
         onClick = {
             if (drawerState.isOpen) {
@@ -78,11 +75,3 @@ private fun drawerButton(drawerState: DrawerState) {
         }
     }
 }
-
-@Composable
-fun HomeScreenPreview() {
-    ComposeDrawerTheme {
-        HomeScreen()
-    }
-}
-
