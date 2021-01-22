@@ -34,7 +34,7 @@ allprojects {
 
 ext {
     libraryGroupId = 'com.github.alorma.compose-drawer'
-    libraryVersion = '0.0.4'
+    libraryVersion = '0.0.5'
 
     bintrayUser = properties.getProperty('bintray.user')
     bintrayToken = properties.getProperty('bintray.token')
