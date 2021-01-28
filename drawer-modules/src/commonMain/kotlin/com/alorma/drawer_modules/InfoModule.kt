@@ -87,19 +87,3 @@ fun DebugModuleInfoContent(
         }
     }
 }
-
-@Composable
-fun InfoModulePreview() {
-    val items = listOf(
-        "Value" to "A",
-        "Value" to "B",
-        "Value large" to "C"
-    )
-    InfoModule(
-        icon = {
-            Icon(imageVector = Icons.Default.Info)
-        },
-        title = "Info",
-        items = items,
-    )
-}

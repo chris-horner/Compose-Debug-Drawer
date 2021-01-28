@@ -45,9 +45,9 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                implementation(compose.material)
-                implementation(compose.materialIconsExtended)
-                implementation(compose.ui)
+                api(compose.material)
+                api(compose.materialIconsExtended)
+                api(compose.ui)
             }
         }
 

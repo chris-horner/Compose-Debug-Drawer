@@ -53,8 +53,3 @@ fun DeviceModule(modifier: Modifier = Modifier) {
         Icon(imageVector = Icons.Default.DeviceUnknown)
     }, title = title, items = items)
 }
-
-@Composable
-fun DeviceModulePreview() {
-    DeviceModule()
-}

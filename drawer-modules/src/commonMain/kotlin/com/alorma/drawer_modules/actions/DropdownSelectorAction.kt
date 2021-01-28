@@ -1,15 +1,10 @@
 package com.alorma.drawer_modules.actions
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentWidth
-import androidx.compose.material.DropdownMenu
-import androidx.compose.material.DropdownMenuItem
-import androidx.compose.material.IconButton
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -87,34 +82,3 @@ fun <T> ColumnScope.DropdownItemComponent(
         )
     }
 }
-
-@Composable
-fun DropdownSelectorActionPreview() {
-    val items = listOf(
-        Forlayo("A"),
-        Forlayo("B"),
-        Forlayo("C"),
-    )
-    DropdownSelectorAction(
-        modifier = Modifier,
-        items = items,
-        itemFormatter = { forlayo -> forlayo.text },
-        defaultValue = items.first()
-    ) {
-
-    }
-}
-
-@Composable
-fun DropDownItemComponentPreview() {
-    Column(modifier = Modifier.fillMaxWidth()) {
-        DropdownItemComponent(
-            item = Forlayo("ABCD"),
-            itemFormatter = { forlayo -> forlayo.text }
-        ) {
-
-        }
-    }
-}
-
-data class Forlayo(val text: String)

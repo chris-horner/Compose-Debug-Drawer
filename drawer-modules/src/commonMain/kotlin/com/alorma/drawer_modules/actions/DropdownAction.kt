@@ -39,17 +39,3 @@ fun DropdownAction(
         onValueChange = { },
     )
 }
-
-@Composable
-fun DropdownActionPreview() {
-    DropdownAction(text = "Forlayo") {
-
-    }
-}
-
-@Composable
-fun DropdownActionHintPreview() {
-    DropdownAction(label = "Banana") {
-
-    }
-}

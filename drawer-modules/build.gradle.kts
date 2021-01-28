@@ -47,9 +47,9 @@ kotlin {
             dependencies {
                 implementation(project(":drawer-base"))
 
-                implementation(compose.material)
-                implementation(compose.materialIconsExtended)
-                implementation(compose.ui)
+                api(compose.material)
+                api(compose.materialIconsExtended)
+                api(compose.ui)
             }
         }
 
