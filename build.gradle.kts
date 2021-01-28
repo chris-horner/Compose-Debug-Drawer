@@ -27,9 +27,4 @@ allprojects {
         jcenter()
         maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
     }
-
-//    tasks.withType(Javadoc) {
-//        options.addStringOption("Xdoclint:none", "-quiet")
-//        options.addStringOption("encoding", "UTF-8")
-//    }
 }
