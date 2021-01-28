@@ -2,6 +2,9 @@ plugins {
     id("com.android.library")
     kotlin("multiplatform")
     id("org.jetbrains.compose")
+    NexusPublish
+    Dokka
+    Versioning
 }
 
 android {
@@ -35,7 +38,9 @@ android {
 
 kotlin {
     jvm()
-    android()
+    android {
+        publishLibraryVariants("release", "debug")
+    }
 
     sourceSets {
         commonMain {
@@ -48,6 +53,7 @@ kotlin {
             }
         }
 
+        named("jvmMain")
         named("androidMain")
     }
 }
