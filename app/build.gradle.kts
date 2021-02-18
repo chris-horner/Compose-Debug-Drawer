@@ -20,6 +20,23 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+        useIR = true
+        freeCompilerArgs = freeCompilerArgs + listOf(
+            "-Xopt-in=kotlin.RequiresOptIn",
+            "-Xopt-in=kotlin.Experimental",
+            "-Xuse-experimental=kotlin.Experimental"
+        )
+    }
+    buildFeatures {
+        compose = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.0.0-alpha12"
+    }
+
     lintOptions {
         isCheckReleaseBuilds = false
         isAbortOnError = false
@@ -33,6 +50,7 @@ dependencies {
     implementation(project(":drawer-base"))
 
     implementation("androidx.activity:activity-compose:1.3.0-alpha02")
+
     implementation("androidx.compose.foundation:foundation:1.0.0-alpha12")
     implementation("androidx.compose.foundation:foundation-layout:1.0.0-alpha12")
     implementation("androidx.compose.ui:ui:1.0.0-alpha12")

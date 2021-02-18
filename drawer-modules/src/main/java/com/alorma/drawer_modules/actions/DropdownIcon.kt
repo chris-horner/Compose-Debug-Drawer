@@ -13,5 +13,5 @@ fun DropdownIcon(isExpanded: Boolean) {
     } else {
         Icons.Default.ArrowDropDown
     }
-    Icon(iconResource)
+    Icon(iconResource, contentDescription = "Dropdown icon")
 }

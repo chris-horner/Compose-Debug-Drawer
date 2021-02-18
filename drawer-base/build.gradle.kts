@@ -32,7 +32,7 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
         useIR = true
         freeCompilerArgs = freeCompilerArgs + listOf(
             "-Xopt-in=kotlin.RequiresOptIn",
@@ -53,6 +53,7 @@ dependencies {
     implementation("androidx.compose.foundation:foundation-layout:1.0.0-alpha12")
     implementation("androidx.compose.ui:ui:1.0.0-alpha12")
     implementation("androidx.compose.material:material:1.0.0-alpha12")
+    implementation("androidx.compose.material:material-icons-extended:1.0.0-alpha12")
     implementation("androidx.compose.ui:ui-tooling:1.0.0-alpha12")
 
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.0")

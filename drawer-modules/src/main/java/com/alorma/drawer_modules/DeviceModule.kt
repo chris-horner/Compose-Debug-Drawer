@@ -50,6 +50,9 @@ fun DeviceModule(modifier: Modifier = Modifier) {
     )
 
     InfoModule(modifier = modifier, icon = {
-        Icon(imageVector = Icons.Default.DeviceUnknown)
+        Icon(
+            imageVector = Icons.Default.DeviceUnknown,
+            contentDescription = "Device icon"
+        )
     }, title = title, items = items)
 }

@@ -5,10 +5,10 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material.icons.filled.ArrowDropUp
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.text.font.FontWeight
@@ -51,11 +51,14 @@ fun DrawerModuleHeader(
             DrawerModuleHeaderIcon {
                 if (expandedState.value) {
                     Icon(
-                        imageVector = Icons.Default.ArrowDropDown,
-                        modifier = Modifier.rotate(180f),
+                        imageVector = Icons.Default.ArrowDropUp,
+                        contentDescription = "Arrow",
                     )
                 } else {
-                    Icon(imageVector = Icons.Default.ArrowDropDown)
+                    Icon(
+                        imageVector = Icons.Default.ArrowDropDown,
+                        contentDescription = "Arrow",
+                    )
                 }
             }
         }

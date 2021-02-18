@@ -21,43 +21,42 @@ fun <T> DropdownSelectorAction(
     itemFormatter: (T) -> String = { itemFormat -> itemFormat.toString() },
     defaultValue: T? = null,
     label: String? = null,
-    onItemSelected: (T) -> Unit
+    onItemSelected: (T) -> Unit,
 ) {
     val textState = remember { mutableStateOf(defaultValue?.let(itemFormatter) ?: "") }
     val isExpanded = remember { mutableStateOf(false) }
 
-    DropdownMenu(
-        dropdownModifier = Modifier.fillMaxWidth(),
-        toggle = {
-            TextField(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 8.dp)
-                    .onFocusChanged { focusState ->
-                        isExpanded.value = focusState.isFocused
-                    }
-                    .then(modifier),
-                value = textState.value,
-                readOnly = true,
-                trailingIcon = {
-                    IconButton(onClick = { isExpanded.value = !isExpanded.value }) {
-                        DropdownIcon(isExpanded = isExpanded.value)
-                    }
-                },
-                label = { label?.let { Text(text = label) } },
-                onValueChange = { },
-            )
+    TextField(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = 8.dp)
+            .onFocusChanged { focusState ->
+                isExpanded.value = focusState.isFocused
+            }
+            .then(modifier),
+        value = textState.value,
+        readOnly = true,
+        trailingIcon = {
+            IconButton(onClick = { isExpanded.value = !isExpanded.value }) {
+                DropdownIcon(isExpanded = isExpanded.value)
+            }
         },
-        expanded = isExpanded.value,
-        onDismissRequest = { isExpanded.value = false }) {
-        items.forEach { item ->
-            DropdownItemComponent(
-                item = item,
-                itemFormatter = itemFormatter,
-            ) { clickItem ->
-                textState.value = itemFormatter(clickItem)
-                isExpanded.value = false
-                onItemSelected(clickItem)
+        label = { label?.let { Text(text = label) } },
+        onValueChange = { },
+    )
+    if (isExpanded.value) {
+        DropdownMenu(
+            expanded = isExpanded.value,
+            onDismissRequest = { isExpanded.value = false }) {
+            items.forEach { item ->
+                DropdownItemComponent(
+                    item = item,
+                    itemFormatter = itemFormatter,
+                ) { clickItem ->
+                    textState.value = itemFormatter(clickItem)
+                    isExpanded.value = false
+                    onItemSelected(clickItem)
+                }
             }
         }
     }
@@ -67,7 +66,7 @@ fun <T> DropdownSelectorAction(
 fun <T> ColumnScope.DropdownItemComponent(
     item: T,
     itemFormatter: (T) -> String = { itemFormat -> itemFormat.toString() },
-    onClick: (T) -> Unit
+    onClick: (T) -> Unit,
 ) {
     DropdownMenuItem(
         modifier = Modifier.fillMaxWidth(),

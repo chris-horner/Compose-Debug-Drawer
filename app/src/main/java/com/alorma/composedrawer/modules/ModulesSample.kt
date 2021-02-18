@@ -8,14 +8,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.AmbientContext
+import androidx.compose.ui.platform.LocalContext
 import com.alorma.drawer_modules.ActionsModule
 import com.alorma.drawer_modules.actions.*
 import java.time.LocalDate
 
 @Composable
 fun DemoActionsModule(modifier: Modifier = Modifier) {
-    val context = AmbientContext.current
+    val context = LocalContext.current
 
     val dropdownItems = listOf(
         Forlayo("Item 1"),
@@ -28,7 +28,7 @@ fun DemoActionsModule(modifier: Modifier = Modifier) {
 
     ActionsModule(
         modifier = modifier,
-        icon = { Icon(imageVector = Icons.Default.Settings) },
+        icon = { Icon(imageVector = Icons.Default.Settings, contentDescription = "Settings") },
         title = "Actions"
     ) {
         TextAction(text = "Buttons")
@@ -57,3 +57,6 @@ fun DemoActionsModule(modifier: Modifier = Modifier) {
         }
     }
 }
+
+
+data class Forlayo(val text: String)

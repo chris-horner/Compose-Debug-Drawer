@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Build
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Adb
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -57,7 +56,10 @@ fun BuildModule(modifier: Modifier = Modifier) {
     InfoModule(
         modifier = modifier,
         icon = {
-            Icon(imageVector = Icons.Default.Settings)
+            Icon(
+                imageVector = Icons.Default.Settings,
+                contentDescription = "Build icon",
+            )
         },
         title = title,
         items = items
