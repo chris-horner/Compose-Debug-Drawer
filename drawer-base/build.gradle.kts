@@ -1,6 +1,7 @@
 plugins {
     id("com.android.library")
-    //NexusPublish
+    kotlin("android")
+    //NexusPublishNexusPublish
     //Dokka
     //Versioning
 }
@@ -36,9 +37,11 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
         useIR = true
-        freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
-        freeCompilerArgs += "-Xopt-in=kotlin.Experimental"
-        freeCompilerArgs += "-Xuse-experimental=kotlin.Experimental"
+        freeCompilerArgs = freeCompilerArgs + listOf(
+            "-Xopt-in=kotlin.RequiresOptIn",
+            "-Xopt-in=kotlin.Experimental",
+            "-Xuse-experimental=kotlin.Experimental"
+        )
     }
 }
 

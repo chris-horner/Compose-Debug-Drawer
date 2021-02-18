@@ -302,7 +302,3 @@ private fun Scrim(
 
 private val StartDrawerPadding = 56.dp
 private val DrawerVelocityThreshold = 400.dp
-
-// TODO: b/177571613 this should be a proper decay settling
-// this is taken from the DrawerLayout's DragViewHelper as a min duration.
-private val AnimationSpec = TweenSpec<Float>(durationMillis = 256)
