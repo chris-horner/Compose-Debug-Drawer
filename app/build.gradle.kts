@@ -1,7 +1,6 @@
 plugins {
     id("com.android.application")
     kotlin("android")
-    id("org.jetbrains.compose")
 }
 
 android {
@@ -33,11 +32,12 @@ dependencies {
     implementation(project(":drawer-modules"))
     implementation(project(":drawer-base"))
 
+    implementation("androidx.compose.ui:ui:1.0.0-alpha09")
+    implementation("androidx.compose.material:material:1.0.0-alpha09")
+
     implementation("androidx.core:core-ktx:1.3.2")
     implementation("androidx.appcompat:appcompat:1.2.0")
-    implementation("com.google.android.material:material:1.2.1")
-    implementation(compose.material)
-    implementation(compose.ui)
+    implementation("com.google.android.material:material:1.3.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.0-rc01")
 
 }
