@@ -21,7 +21,7 @@ artifacts {
     archives javadocJar
 }
 
-group = project.property("packageGroup")
+group = project.property("libGroup")
 version = project.property("libVersion")
 
 ext["signing.keyId"] = ''
@@ -50,7 +50,7 @@ if (secretPropsFile.exists()) {
 publishing {
     publications {
         release(MavenPublication) {
-            groupId project.property("packageGroup")
+            groupId project.property("libGroup")
             artifactId project.project.getName()
             version project.property("libVersion")
 
@@ -115,7 +115,7 @@ publishing {
 }
 
 nexusStaging {
-    packageGroup = project.property("packageGroup")
+    packageGroup = project.property("libGroup")
     stagingProfileId = sonatypeStagingProfileId
     username = ossrhUsername
     password = ossrhPassword
