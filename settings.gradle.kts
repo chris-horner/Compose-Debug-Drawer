@@ -1,5 +1,4 @@
 rootProject.name = "ComposeDrawer"
-include(":app")
-include(":desktop")
+//include(":app")
 include(":drawer-base")
-include(":drawer-modules")
+//include(":drawer-modules")

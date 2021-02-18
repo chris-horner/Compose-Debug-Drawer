@@ -233,30 +233,15 @@ fun DebugDrawerLayout(
                     color = MaterialTheme.colors.background,
                     contentColor = MaterialTheme.colors.onSurface,
                     modifier = with(AmbientDensity.current) {
-
-                        val constraintMaxWidth = constraints.maxWidth.toDp()
-                        val drawerMaxWidth = if (constraintMaxWidth > 360.dp) {
-                            360.dp
-                        } else {
-                            constraintMaxWidth
-                        }
-
-                        val padding = if (DrawerSize.isMobile) {
-                            StartDrawerPadding
-                        } else {
-                            constraintMaxWidth - drawerMaxWidth + StartDrawerPadding
-                        }
-
                         Modifier
-                            .width(constraintMaxWidth)
+                            .width(constraints.maxWidth.toDp())
                             .height(constraints.maxHeight.toDp())
-                            .padding(start = padding)
-                    }
-                        .semantics {
-                            if (debugDrawerState.isOpen) {
-                                dismiss(action = { debugDrawerState.close(); true })
-                            }
+                            .padding(start = StartDrawerPadding)
+                    }.semantics {
+                        if (debugDrawerState.isOpen) {
+                            dismiss(action = { debugDrawerState.close(); true })
                         }
+                    }
                         .offset { IntOffset(debugDrawerState.offset.value.roundToInt(), 0) },
                     shape = drawerShape,
                     elevation = drawerElevation

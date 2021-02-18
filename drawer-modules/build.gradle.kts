@@ -1,10 +1,8 @@
 plugins {
     id("com.android.library")
-    kotlin("multiplatform")
-    id("org.jetbrains.compose")
-    NexusPublish
-    Dokka
-    Versioning
+    //NexusPublish
+    //Dokka
+    //Versioning
 }
 
 android {
@@ -22,38 +20,37 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 
-    sourceSets {
-        named("main") {
-            java.srcDir("src/androidMain/kotlin")
-            manifest.srcFile("src/androidMain/AndroidManifest.xml")
-            res.srcDirs("src/androidMain/res")
-        }
+    kotlinOptions {
+        jvmTarget = '1.8'
+        useIR = true
+        freeCompilerArgs += '-Xopt-in=kotlin.RequiresOptIn'
+        freeCompilerArgs += '-Xopt-in=kotlin.Experimental'
+        freeCompilerArgs += '-Xuse-experimental=kotlin.Experimental'
     }
 
     lintOptions {
         isCheckReleaseBuilds = false
         isAbortOnError = false
     }
+
+    buildFeatures {
+        compose true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion "1.0.0-alpha09"
+        kotlinCompilerVersion '1.4.30'
+    }
 }
 
-kotlin {
-    jvm()
-    android {
-        publishLibraryVariants("release", "debug")
-    }
+dependencies {
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.4.30")
 
-    sourceSets {
-        commonMain {
-            dependencies {
-                implementation(project(":drawer-base"))
-
-                api(compose.material)
-                api(compose.materialIconsExtended)
-                api(compose.ui)
-            }
-        }
-
-        named("jvmMain")
-        named("androidMain")
-    }
+    implementation("androidx.core:core-ktx:1.3.2")
+    implementation("androidx.appcompat:appcompat:1.2.0")
+    implementation("com.google.android.material:material:1.2.1")
+    implementation("androidx.compose.ui:ui:1.0.0-alpha09")
+    implementation("androidx.compose.material:material:1.0.0-alpha09")
+    implementation("androidx.ui:ui-tooling:1.0.0-alpha07")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.0-rc01")
 }
