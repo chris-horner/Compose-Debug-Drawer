@@ -50,7 +50,7 @@ if (secretPropsFile.exists()) {
 publishing {
     publications {
         release(MavenPublication) {
-            groupId project.property("libGroup")
+            groupId project.property("packageGroup")
             artifactId project.project.getName()
             version project.property("libVersion")
 
