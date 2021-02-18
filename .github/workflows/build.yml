@@ -6,8 +6,7 @@ on:
       - main
 
 jobs:
-  publish:
-    name: Release build and publish
+  environment:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
@@ -23,8 +22,13 @@ jobs:
         run: |
           git fetch --unshallow
           sudo bash -c "echo '$GPG_KEY_CONTENTS' | base64 -d > '$SIGNING_SECRET_KEY_RING_FILE'"
+
+  release:
+    name: Release build
+    runs-on: ubuntu-latest
+    steps:
       - name: Release build
-        # assembleRelease for all modules, excluding non-library modules: sample, ui-components sample, docs
+        # assembleRelease for all modules, excluding app
         run: ./gradlew assembleRelease -x :app:assembleRelease
       - name: Source jar
         run: ./gradlew androidSourcesJar javadocJar
