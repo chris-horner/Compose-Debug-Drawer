@@ -3,6 +3,8 @@ plugins {
     kotlin("android")
 }
 
+apply(from = "${rootProject.projectDir}/scripts/publish-mavencentral.gradle")
+
 android {
     compileSdkVersion(30)
 
@@ -11,6 +13,12 @@ android {
         targetSdkVersion(30)
         versionCode = 1
         versionName = "1.0"
+    }
+
+    buildTypes {
+        named("release") {
+            isMinifyEnabled = false
+        }
     }
 
     compileOptions {

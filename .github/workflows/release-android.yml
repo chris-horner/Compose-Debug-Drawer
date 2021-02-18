@@ -31,13 +31,10 @@ jobs:
       - name: Build
         run: ./gradlew build
 
-      - name: Generate docs
-        run: ./gradlew dokkaHtmlMultiModule
-
       - name: Maven publish
         env:
           ossUser: ${{ secrets.ossUser }}
           ossToken: ${{ secrets.ossToken }}
           gpgKeyName: ${{ secrets.gpgKeyName }}
           gpgPassphrase: ${{ secrets.gpgPassphrase }}
-        run: ./gradlew publishToSonatype -PisLibRelease=false
+        run: ./gradlew publishToSonatype
