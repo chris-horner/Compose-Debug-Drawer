@@ -1,28 +1,29 @@
 package com.alorma.drawer_base
 
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.animation.asDisposableClock
 import androidx.compose.animation.core.AnimationClockObservable
 import androidx.compose.animation.core.AnimationEndReason
 import androidx.compose.animation.core.TweenSpec
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.savedinstancestate.Saver
-import androidx.compose.runtime.savedinstancestate.rememberSavedInstanceState
 import androidx.compose.ui.Modifier
+import androidx.compose.runtime.saveable.Saver
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.gesture.scrollorientationlocking.Orientation
 import androidx.compose.ui.gesture.tapGestureFilter
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.layout.WithConstraints
-import androidx.compose.ui.platform.AmbientAnimationClock
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.AmbientDensity
-import androidx.compose.ui.platform.AmbientLayoutDirection
+import androidx.compose.ui.platform.LocalAnimationClock
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.semantics.dismiss
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.*
@@ -56,7 +57,7 @@ enum class DebugDrawerValue {
 class DebugDrawerState(
     initialValueDebug: DebugDrawerValue,
     clock: AnimationClockObservable,
-    confirmStateChange: (DebugDrawerValue) -> Boolean = { true }
+    confirmStateChange: (DebugDrawerValue) -> Boolean = { true },
 ) : SwipeableState<DebugDrawerValue>(
     initialValue = initialValueDebug,
     clock = clock,
@@ -113,7 +114,7 @@ class DebugDrawerState(
          */
         fun Saver(
             clock: AnimationClockObservable,
-            confirmStateChange: (DebugDrawerValue) -> Boolean
+            confirmStateChange: (DebugDrawerValue) -> Boolean,
         ) = Saver<DebugDrawerState, DebugDrawerValue>(
             save = { it.value },
             restore = { DebugDrawerState(it, clock, confirmStateChange) }
@@ -130,10 +131,10 @@ class DebugDrawerState(
 @Composable
 fun rememberDebugDrawerState(
     initialValueDebug: DebugDrawerValue,
-    confirmStateChange: (DebugDrawerValue) -> Boolean = { true }
+    confirmStateChange: (DebugDrawerValue) -> Boolean = { true },
 ): DebugDrawerState {
-    val clock = AmbientAnimationClock.current.asDisposableClock()
-    return rememberSavedInstanceState(
+    val clock = LocalAnimationClock.current.asDisposableClock()
+    return rememberSaveable(
         clock,
         saver = DebugDrawerState.Saver(clock, confirmStateChange)
     ) {
@@ -178,14 +179,14 @@ fun DebugDrawerLayout(
     drawerShape: Shape = MaterialTheme.shapes.large,
     drawerElevation: Dp = DrawerDefaults.Elevation,
     drawerModules: @Composable ColumnScope.() -> Unit = { },
-    bodyContent: @Composable () -> Unit
+    bodyContent: @Composable () -> Unit,
 ) {
 
     if (!isDebug()) {
         bodyContent()
     }
 
-    WithConstraints(modifier.fillMaxSize()) {
+    BoxWithConstraints(modifier.fillMaxSize()) {
         // TODO : think about Infinite max bounds case
         if (!constraints.hasBoundedWidth) {
             throw IllegalStateException("Drawer shouldn't have infinite width")
@@ -195,7 +196,7 @@ fun DebugDrawerLayout(
         val maxValue = 0f
 
         val anchors = mapOf(minValue to DebugDrawerValue.Closed, maxValue to DebugDrawerValue.Open)
-        val isRtl = AmbientLayoutDirection.current == LayoutDirection.Rtl
+        val isRtl = LocalLayoutDirection.current == LayoutDirection.Rtl
 
         Box(
             Modifier.swipeable(
@@ -232,16 +233,17 @@ fun DebugDrawerLayout(
                 Surface(
                     color = MaterialTheme.colors.background,
                     contentColor = MaterialTheme.colors.onSurface,
-                    modifier = with(AmbientDensity.current) {
+                    modifier = with(LocalDensity.current) {
                         Modifier
                             .width(constraints.maxWidth.toDp())
                             .height(constraints.maxHeight.toDp())
                             .padding(start = StartDrawerPadding)
-                    }.semantics {
-                        if (debugDrawerState.isOpen) {
-                            dismiss(action = { debugDrawerState.close(); true })
-                        }
                     }
+                        .semantics {
+                            if (debugDrawerState.isOpen) {
+                                dismiss(action = { debugDrawerState.close(); true })
+                            }
+                        }
                         .offset { IntOffset(debugDrawerState.offset.value.roundToInt(), 0) },
                     shape = drawerShape,
                     elevation = drawerElevation
@@ -283,10 +285,10 @@ private fun Scrim(
     open: Boolean,
     onClose: () -> Unit,
     fraction: () -> Float,
-    color: Color
+    color: Color,
 ) {
     val dismissDrawer = if (open) {
-        Modifier.tapGestureFilter { onClose() }
+        Modifier.pointerInput(Unit) { detectTapGestures(onTap = { onClose() }) }
     } else {
         Modifier
     }
