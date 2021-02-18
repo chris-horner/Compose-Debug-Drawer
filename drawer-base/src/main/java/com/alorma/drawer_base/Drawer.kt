@@ -302,3 +302,5 @@ private fun Scrim(
 
 private val StartDrawerPadding = 56.dp
 private val DrawerVelocityThreshold = 400.dp
+
+private val AnimationSpec = TweenSpec<Float>(durationMillis = 100)

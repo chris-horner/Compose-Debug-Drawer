@@ -1,6 +1,7 @@
 plugins {
     id("com.android.library")
-    //NexusPublish
+    kotlin("android")
+    //NexusPublishNexusPublish
     //Dokka
     //Versioning
 }
@@ -20,37 +21,39 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 
-    kotlinOptions {
-        jvmTarget = '1.8'
-        useIR = true
-        freeCompilerArgs += '-Xopt-in=kotlin.RequiresOptIn'
-        freeCompilerArgs += '-Xopt-in=kotlin.Experimental'
-        freeCompilerArgs += '-Xuse-experimental=kotlin.Experimental'
-    }
-
     lintOptions {
         isCheckReleaseBuilds = false
         isAbortOnError = false
     }
 
     buildFeatures {
-        compose true
+        compose = true
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion "1.0.0-alpha09"
-        kotlinCompilerVersion '1.4.30'
+        kotlinCompilerExtensionVersion = "1.0.0-alpha09"
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+        useIR = true
+        freeCompilerArgs = freeCompilerArgs + listOf(
+            "-Xopt-in=kotlin.RequiresOptIn",
+            "-Xopt-in=kotlin.Experimental",
+            "-Xuse-experimental=kotlin.Experimental"
+        )
     }
 }
 
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.4.30")
 
+    implementation(project(":drawer-base"))
     implementation("androidx.core:core-ktx:1.3.2")
     implementation("androidx.appcompat:appcompat:1.2.0")
-    implementation("com.google.android.material:material:1.2.1")
+    implementation("com.google.android.material:material:1.3.0")
     implementation("androidx.compose.ui:ui:1.0.0-alpha09")
     implementation("androidx.compose.material:material:1.0.0-alpha09")
     implementation("androidx.ui:ui-tooling:1.0.0-alpha07")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.0-rc01")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.0")
 }
