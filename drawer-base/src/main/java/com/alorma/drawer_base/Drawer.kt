@@ -17,10 +17,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.runtime.saveable.Saver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.gesture.scrollorientationlocking.Orientation
-import androidx.compose.ui.gesture.tapGestureFilter
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.platform.AmbientDensity
 import androidx.compose.ui.platform.LocalAnimationClock
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLayoutDirection
@@ -187,7 +185,6 @@ fun DebugDrawerLayout(
     }
 
     BoxWithConstraints(modifier.fillMaxSize()) {
-        // TODO : think about Infinite max bounds case
         if (!constraints.hasBoundedWidth) {
             throw IllegalStateException("Drawer shouldn't have infinite width")
         }
@@ -235,8 +232,8 @@ fun DebugDrawerLayout(
                     contentColor = MaterialTheme.colors.onSurface,
                     modifier = with(LocalDensity.current) {
                         Modifier
-                            .width(constraints.maxWidth.toDp())
-                            .height(constraints.maxHeight.toDp())
+                            .width(this@BoxWithConstraints.constraints.maxWidth.toDp())
+                            .height(this@BoxWithConstraints.constraints.maxHeight.toDp())
                             .padding(start = StartDrawerPadding)
                     }
                         .semantics {

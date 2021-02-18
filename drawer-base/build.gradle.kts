@@ -1,9 +1,6 @@
 plugins {
     id("com.android.library")
     kotlin("android")
-    //NexusPublishNexusPublish
-    //Dokka
-    //Versioning
 }
 
 android {

@@ -5,10 +5,10 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
-import androidx.compose.material.icons.filled.ArrowDropUp
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.text.font.FontWeight
@@ -49,13 +49,14 @@ fun DrawerModuleHeader(
                 title = title
             )
             DrawerModuleHeaderIcon {
-                Icon(
-                    imageVector = if (expandedState.value) {
-                        Icons.Default.ArrowDropUp
-                    } else {
-                        Icons.Default.ArrowDropDown
-                    }
-                )
+                if (expandedState.value) {
+                    Icon(
+                        imageVector = Icons.Default.ArrowDropDown,
+                        modifier = Modifier.rotate(180f),
+                    )
+                } else {
+                    Icon(imageVector = Icons.Default.ArrowDropDown)
+                }
             }
         }
     }
@@ -63,10 +64,10 @@ fun DrawerModuleHeader(
 
 @Composable
 fun DrawerModuleHeaderIcon(
-    content: @Composable () -> Unit = {}
+    content: @Composable () -> Unit = {},
 ) {
     Providers(
-        AmbientContentColor provides MaterialTheme.colors.onSurface,
+        LocalContentColor provides MaterialTheme.colors.onSurface,
     ) {
         Box(
             modifier = Modifier.preferredSize(36.dp),
@@ -80,7 +81,7 @@ fun DrawerModuleHeaderIcon(
 @Composable
 fun DrawerModuleHeaderText(
     modifier: Modifier = Modifier,
-    title: String
+    title: String,
 ) {
     Text(
         color = MaterialTheme.colors.primary,
