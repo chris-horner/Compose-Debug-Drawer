@@ -18,12 +18,7 @@ jobs:
           SIGNING_SECRET_KEY_RING_FILE: ${{ secrets.SIGNING_SECRET_KEY_RING_FILE }}
         run: |
           git fetch --unshallow
-          pwd
-          ls
-          echo "----"
           sudo bash -c "echo '$GPG_KEY_CONTENTS' | base64 -d > '$SIGNING_SECRET_KEY_RING_FILE'"
-          echo "***"
-          ls
   release:
     name: Release build
     runs-on: ubuntu-latest
