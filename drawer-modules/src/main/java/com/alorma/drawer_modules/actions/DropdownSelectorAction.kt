@@ -1,5 +1,6 @@
 package com.alorma.drawer_modules.actions
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentWidth
@@ -24,36 +25,39 @@ fun <T> DropdownSelectorAction(
     val textState = remember { mutableStateOf(defaultValue?.let(itemFormatter) ?: "") }
     val isExpanded = remember { mutableStateOf(false) }
 
-    TextField(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(bottom = 8.dp)
-            .onFocusChanged { focusState ->
-                isExpanded.value = focusState.isFocused
-            }
-            .then(modifier),
-        value = textState.value,
-        readOnly = true,
-        trailingIcon = {
-            IconButton(onClick = { isExpanded.value = !isExpanded.value }) {
-                DropdownIcon(isExpanded = isExpanded.value)
-            }
-        },
-        label = { label?.let { Text(text = label) } },
-        onValueChange = { },
-    )
-    if (isExpanded.value) {
-        DropdownMenu(
-            expanded = isExpanded.value,
-            onDismissRequest = { isExpanded.value = false }) {
-            items.forEach { item ->
-                DropdownItemComponent(
-                    item = item,
-                    itemFormatter = itemFormatter,
-                ) { clickItem ->
-                    textState.value = itemFormatter(clickItem)
-                    isExpanded.value = false
-                    onItemSelected(clickItem)
+    Box {
+        TextField(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 8.dp)
+                .onFocusChanged { focusState ->
+                    isExpanded.value = focusState.isFocused
+                }
+                .then(modifier),
+            value = textState.value,
+            readOnly = true,
+            trailingIcon = {
+                IconButton(onClick = { isExpanded.value = !isExpanded.value }) {
+                    DropdownIcon(isExpanded = isExpanded.value)
+                }
+            },
+            label = { label?.let { Text(text = label) } },
+            onValueChange = { },
+        )
+        if (isExpanded.value) {
+            DropdownMenu(
+                modifier = Modifier.fillMaxWidth(),
+                expanded = isExpanded.value,
+                onDismissRequest = { isExpanded.value = false }) {
+                items.forEach { item ->
+                    DropdownItemComponent(
+                        item = item,
+                        itemFormatter = itemFormatter,
+                    ) { clickItem ->
+                        textState.value = itemFormatter(clickItem)
+                        isExpanded.value = false
+                        onItemSelected(clickItem)
+                    }
                 }
             }
         }
