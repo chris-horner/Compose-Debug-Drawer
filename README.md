@@ -2,11 +2,11 @@
 
 ### Versions
 
-*drawer-base*
+**drawer-base**
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.alorma/drawer-base/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.alorma/drawer-base)
 
-*drawer-modules*
+**drawer-modules**
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.alorma/drawer-modules/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.alorma/drawer-modules)
 
