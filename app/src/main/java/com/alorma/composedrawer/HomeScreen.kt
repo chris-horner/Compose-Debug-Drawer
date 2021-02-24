@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
@@ -17,6 +18,7 @@ import com.alorma.drawer_base.DebugDrawerValue
 import com.alorma.drawer_base.rememberDebugDrawerState
 import com.alorma.drawer_modules.BuildModule
 import com.alorma.drawer_modules.DeviceModule
+import kotlinx.coroutines.launch
 
 @Composable
 fun HomeScreen() {
@@ -60,12 +62,15 @@ private fun AppContent(drawerState: DebugDrawerState) {
 
 @Composable
 private fun drawerButton(drawerState: DebugDrawerState) {
+    val scope = rememberCoroutineScope()
     Button(
         onClick = {
-            if (drawerState.isOpen) {
-                drawerState.close()
-            } else if (drawerState.isClosed) {
-                drawerState.open()
+            scope.launch {
+                if (drawerState.isOpen) {
+                    drawerState.close()
+                } else if (drawerState.isClosed) {
+                    drawerState.open()
+                }
             }
         }) {
         if (drawerState.isOpen) {

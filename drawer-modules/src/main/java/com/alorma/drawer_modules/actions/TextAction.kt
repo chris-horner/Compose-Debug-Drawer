@@ -3,7 +3,7 @@ package com.alorma.drawer_modules.actions
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.preferredHeight
+import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -19,7 +19,7 @@ fun TextAction(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .preferredHeight(36.dp)
+            .requiredHeight(36.dp)
             .padding(bottom = 8.dp)
             .then(modifier),
         verticalAlignment = Alignment.CenterVertically,

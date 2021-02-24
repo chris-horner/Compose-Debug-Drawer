@@ -109,11 +109,11 @@ class DebugDrawerState(
  */
 @Composable
 fun rememberDebugDrawerState(
-    initialValue: DebugDrawerValue,
+    initialValueDebug: DebugDrawerValue,
     confirmStateChange: (DebugDrawerValue) -> Boolean = { true },
 ): DebugDrawerState {
     return rememberSaveable(saver = DebugDrawerState.Saver(confirmStateChange)) {
-        DebugDrawerState(initialValue, confirmStateChange)
+        DebugDrawerState(initialValueDebug, confirmStateChange)
     }
 }
 

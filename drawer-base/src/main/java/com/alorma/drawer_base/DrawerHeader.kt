@@ -42,7 +42,7 @@ fun DrawerModuleHeader(
             if (icon != null) {
                 DrawerModuleHeaderIcon(icon)
             } else {
-                Spacer(modifier = Modifier.preferredSize(36.dp))
+                Spacer(modifier = Modifier.requiredSize(36.dp))
             }
             DrawerModuleHeaderText(
                 modifier = Modifier.weight(1f),
@@ -69,11 +69,11 @@ fun DrawerModuleHeader(
 fun DrawerModuleHeaderIcon(
     content: @Composable () -> Unit = {},
 ) {
-    Providers(
+    CompositionLocalProvider(
         LocalContentColor provides MaterialTheme.colors.onSurface,
     ) {
         Box(
-            modifier = Modifier.preferredSize(36.dp),
+            modifier = Modifier.requiredSize(36.dp),
             contentAlignment = Alignment.Center
         ) {
             content()

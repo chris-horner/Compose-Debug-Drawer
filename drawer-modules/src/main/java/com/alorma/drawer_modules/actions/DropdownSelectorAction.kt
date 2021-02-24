@@ -1,6 +1,5 @@
 package com.alorma.drawer_modules.actions
 
-import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentWidth
@@ -8,7 +7,6 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.isFocused
 import androidx.compose.ui.focus.onFocusChanged
@@ -63,7 +61,7 @@ fun <T> DropdownSelectorAction(
 }
 
 @Composable
-fun <T> ColumnScope.DropdownItemComponent(
+fun <T> DropdownItemComponent(
     item: T,
     itemFormatter: (T) -> String = { itemFormat -> itemFormat.toString() },
     onClick: (T) -> Unit,
@@ -75,9 +73,7 @@ fun <T> ColumnScope.DropdownItemComponent(
         }) {
         Text(
             text = itemFormatter(item),
-            modifier = Modifier
-                .wrapContentWidth()
-                .align(alignment = Alignment.Start)
+            modifier = Modifier.wrapContentWidth()
         )
     }
 }

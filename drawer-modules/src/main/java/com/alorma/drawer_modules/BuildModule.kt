@@ -7,11 +7,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.AmbientContext
+import androidx.compose.ui.platform.LocalContext
 
 @Composable
 fun BuildModule(modifier: Modifier = Modifier) {
-    val context = AmbientContext.current
+    val context = LocalContext.current
 
     fun obtainBuildInfo(context: Context): List<Pair<String, String>> {
         val info = context.packageManager.getPackageInfo(context.packageName, 0)

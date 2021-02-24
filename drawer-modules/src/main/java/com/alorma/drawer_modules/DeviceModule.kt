@@ -7,7 +7,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DeviceUnknown
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.AmbientContext
+import androidx.compose.ui.platform.LocalContext
 
 @Composable
 fun DeviceModule(modifier: Modifier = Modifier) {
@@ -25,7 +25,7 @@ fun DeviceModule(modifier: Modifier = Modifier) {
         }
     }
 
-    val context = AmbientContext.current
+    val context = LocalContext.current
 
     val displayMetrics = context.resources.displayMetrics
     val densityBucket = getDensityString(displayMetrics)

@@ -1,20 +1,12 @@
 package com.alorma.drawer_modules
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.preferredWidth
-import androidx.compose.material.AmbientContentAlpha
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.ContentAlpha
-import androidx.compose.material.Icon
+import androidx.compose.material.LocalContentAlpha
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Info
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Providers
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -59,10 +51,10 @@ fun DebugModuleInfoContent(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Box(
-            modifier = Modifier.preferredWidth(80.dp)
+            modifier = Modifier.requiredWidth(80.dp)
         ) {
-            Providers(
-                AmbientContentAlpha provides ContentAlpha.high,
+            CompositionLocalProvider(
+                LocalContentAlpha provides ContentAlpha.high,
             ) {
                 Text(
                     text = key,
@@ -77,7 +69,7 @@ fun DebugModuleInfoContent(
                 .clip(shape = MaterialTheme.shapes.medium)
                 .padding(8.dp)
         ) {
-            Providers(AmbientContentAlpha provides ContentAlpha.medium) {
+            CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
                 Text(
                     text = value,
                     textAlign = TextAlign.Start,
