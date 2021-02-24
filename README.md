@@ -1,5 +1,15 @@
 # Debug Drawer for Jetpack Compose
 
+### Versions
+
+*drawer-base*
+
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.alorma/drawer-base/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.alorma/drawer-base)
+
+*drawer-modules*
+
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.alorma/drawer-modules/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.alorma/drawer-modules)
+
 Composable Debug Drawer for Jetpack Compose apps
 
 <img width="250" src="art/drawer-v0.1.0-beta-02.png" />
