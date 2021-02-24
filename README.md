@@ -6,27 +6,20 @@ Composable Debug Drawer for Jetpack Compose apps
 
 ## Install
 
-Add Snapshots repository:
-
 ```groovy
 allprojects {
     repositories {
-        google()
-        jcenter()
-        maven { 
-            url("https://oss.sonatype.org/content/repositories/snapshots") 
-        }
+        //...
+        mavenCentral()
     }
 }
 ```
 
-> I'm experimenting issues with sonatype at uploading releases, I will use snapshots by now
-
 Add dependencies:
 
 ```groovy
-implementation 'com.github.alorma.Compose-Debug-Drawer:drawer-base:1.1.0-alpha10-SNAPSHOT'
-implementation 'com.github.alorma.Compose-Debug-Drawer:drawer-modules:1.1.0-alpha10-SNAPSHOT'
+implementation 'com.github.alorma.Compose-Debug-Drawer:drawer-base:1.0.0-beta01'
+implementation 'com.github.alorma.Compose-Debug-Drawer:drawer-modules:1.0.0-beta01'
 ```
 
 ## Setup
@@ -45,7 +38,7 @@ DebugDrawerLayout(
 }
 ```
 
-This library automatically handles the debug / release state, so no need to remove the drawer on Release builds
+This library handles the debug / release state, so no need to remove the drawer on Release builds
 
 ## Modules
 
@@ -55,7 +48,8 @@ Add modules as a list of `DebugModule`s
 DebugDrawerLayout(
   debug = { BuildConfig.DEBUG },
   drawerModules = {
-    listOf(DeviceModule(), BuildModule())
+    DeviceModule()
+    BuildModule()
   }
 ) {
   // TODO Add your APP Content here
@@ -74,8 +68,6 @@ This module receive a `List<DebugDrawerAction>`
 
 * SwitchAction: Shows a `Switch` and register a lambda to receive it's changes
 
-> All `DebugDrawerAction` can modify it's default UI by pass a `modifier`  
-
 #### Build Module
 
 Shows information about the app: Version code, Version name and Package
@@ -88,25 +80,25 @@ Shows information about device running the app such as Device, and manufacturer
 
 <img width="160" src="art/device_module.png" />
 
-#### Shortcuts Module
-
-Some quick shortcuts to open common developer tools.
-
-> Missing any? Open an issue [here](https://github.com/alorma/Compose-Debug-Drawer/issues/new)
-
-<img width="160" src="art/shortcuts_module.png" />
-
 #### Custom Module
-You can create your own module by creating a class that extends: `DrawerModule`
+Debug drawer can show any `@Composable` function.
+
+If you want to provide a custom module that looks like the ones provided by the library:
 
 ```kotlin
-class UserModule : DebugModule {
-    override val icon: IconType
-    override val title: String = 
-
-    @Composable
-    override fun build() {
-        TODO()
+@Composable
+fun InfoModule(
+    modifier: Modifier = Modifier,
+    icon: @Composable (() -> Unit)? = null,
+    title: String,
+    items: List<Pair<String, String>>
+) {
+    DebugDrawerModule(
+        modifier = modifier,
+        icon = icon,
+        title = title
+    ) {
+        // Module content
     }
 }
 ```
@@ -127,9 +119,13 @@ Update module UI by pass `Modifier`
 
 ```kotlin
 DebugDrawerLayout(
-    moduleModifier = Modifier
-        .padding()
-        .clip()
-        .border(),
+    drawerModules = {
+        val modulesModifier = Modifier
+            .padding(4.dp)
+            .clip(shape = MaterialTheme.shapes.medium)
+            .background(color = MaterialTheme.colors.surface)
+        DeviceModule(modulesModifier)
+        BuildModule(modulesModifier)
+    }
 )
 ```
