@@ -1,11 +1,8 @@
 package com.alorma.drawer_base
 
-import androidx.compose.ui.graphics.Shape
-import androidx.compose.animation.asDisposableClock
-import androidx.compose.animation.core.AnimationClockObservable
-import androidx.compose.animation.core.AnimationEndReason
 import androidx.compose.animation.core.TweenSpec
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -13,18 +10,20 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
-import androidx.compose.ui.Modifier
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.Saver
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.ui.gesture.scrollorientationlocking.Orientation
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.platform.LocalAnimationClock
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.semantics.dismiss
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.*
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
 /**
@@ -53,12 +52,10 @@ enum class DebugDrawerValue {
 @OptIn(ExperimentalMaterialApi::class)
 @Stable
 class DebugDrawerState(
-    initialValueDebug: DebugDrawerValue,
-    clock: AnimationClockObservable,
+    initialValue: DebugDrawerValue,
     confirmStateChange: (DebugDrawerValue) -> Boolean = { true },
 ) : SwipeableState<DebugDrawerValue>(
-    initialValue = initialValueDebug,
-    clock = clock,
+    initialValue = initialValue,
     animationSpec = AnimationSpec,
     confirmStateChange = confirmStateChange
 ) {
@@ -66,57 +63,41 @@ class DebugDrawerState(
      * Whether the drawer is open.
      */
     val isOpen: Boolean
-        get() = value == DebugDrawerValue.Open
+        get() = currentValue == DebugDrawerValue.Open
 
     /**
      * Whether the drawer is closed.
      */
     val isClosed: Boolean
-        get() = value == DebugDrawerValue.Closed
+        get() = currentValue == DebugDrawerValue.Closed
 
     /**
-     * Open the drawer with an animation.
+     * Open the drawer with animation and suspend until it if fully opened or animation has been
+     * cancelled. This method will throw [CancellationException] if the animation is
+     * interrupted
      *
-     * @param onOpened Optional callback invoked when the drawer has finished opening.
+     * @return the reason the open animation ended
      */
-    fun open(onOpened: (() -> Unit)? = null) {
-        animateTo(
-            DebugDrawerValue.Open,
-            onEnd = { endReason, endValue ->
-                if (endReason != AnimationEndReason.Interrupted && endValue == DebugDrawerValue.Open) {
-                    onOpened?.invoke()
-                }
-            }
-        )
-    }
+    suspend fun open() = animateTo(DebugDrawerValue.Open)
 
     /**
-     * Close the drawer with an animation.
+     * Close the drawer with animation and suspend until it if fully closed or animation has been
+     * cancelled. This method will throw [CancellationException] if the animation is
+     * interrupted
      *
-     * @param onClosed Optional callback invoked when the drawer has finished closing.
+     * @return the reason the close animation ended
      */
-    fun close(onClosed: (() -> Unit)? = null) {
-        animateTo(
-            DebugDrawerValue.Closed,
-            onEnd = { endReason, endValue ->
-                if (endReason != AnimationEndReason.Interrupted && endValue == DebugDrawerValue.Closed) {
-                    onClosed?.invoke()
-                }
-            }
-        )
-    }
+    suspend fun close() = animateTo(DebugDrawerValue.Closed)
 
     companion object {
         /**
-         * The default [Saver] implementation for [DebugDrawerState].
+         * The default [Saver] implementation for [DrawerState].
          */
-        fun Saver(
-            clock: AnimationClockObservable,
-            confirmStateChange: (DebugDrawerValue) -> Boolean,
-        ) = Saver<DebugDrawerState, DebugDrawerValue>(
-            save = { it.value },
-            restore = { DebugDrawerState(it, clock, confirmStateChange) }
-        )
+        fun Saver(confirmStateChange: (DebugDrawerValue) -> Boolean) =
+            Saver<DebugDrawerState, DebugDrawerValue>(
+                save = { it.currentValue },
+                restore = { DebugDrawerState(it, confirmStateChange) }
+            )
     }
 }
 
@@ -128,15 +109,11 @@ class DebugDrawerState(
  */
 @Composable
 fun rememberDebugDrawerState(
-    initialValueDebug: DebugDrawerValue,
+    initialValue: DebugDrawerValue,
     confirmStateChange: (DebugDrawerValue) -> Boolean = { true },
 ): DebugDrawerState {
-    val clock = LocalAnimationClock.current.asDisposableClock()
-    return rememberSaveable(
-        clock,
-        saver = DebugDrawerState.Saver(clock, confirmStateChange)
-    ) {
-        DebugDrawerState(initialValueDebug, clock, confirmStateChange)
+    return rememberSaveable(saver = DebugDrawerState.Saver(confirmStateChange)) {
+        DebugDrawerState(initialValue, confirmStateChange)
     }
 }
 
@@ -182,8 +159,10 @@ fun DebugDrawerLayout(
 
     if (!isDebug()) {
         bodyContent()
+        return
     }
 
+    val scope = rememberCoroutineScope()
     BoxWithConstraints(modifier.fillMaxSize()) {
         if (!constraints.hasBoundedWidth) {
             throw IllegalStateException("Drawer shouldn't have infinite width")
@@ -217,7 +196,7 @@ fun DebugDrawerLayout(
             ) {
                 Scrim(
                     open = debugDrawerState.isOpen,
-                    onClose = { debugDrawerState.close() },
+                    onClose = { scope.launch { debugDrawerState.close() } },
                     fraction = {
                         calculateFraction(
                             minValue,
@@ -238,7 +217,7 @@ fun DebugDrawerLayout(
                     }
                         .semantics {
                             if (debugDrawerState.isOpen) {
-                                dismiss(action = { debugDrawerState.close(); true })
+                                dismiss(action = { scope.launch { debugDrawerState.close() }; true })
                             }
                         }
                         .offset { IntOffset(debugDrawerState.offset.value.roundToInt(), 0) },
