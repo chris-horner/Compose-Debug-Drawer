@@ -10,6 +10,8 @@
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.alorma/drawer-modules/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.alorma/drawer-modules)
 
+This library is built for **compose** : `beta-01`
+
 Composable Debug Drawer for Jetpack Compose apps
 
 <img width="250" src="art/drawer-v0.1.0-beta-02.png" />
@@ -38,17 +40,39 @@ Wrap your content with `DebugDrawerLayout`:
 
 ```kotlin
 DebugDrawerLayout(
-  debug = { BuildConfig.DEBUG },
-  drawerModules = {
-    TODO()
-  }
-
+    drawerModules = {
+        TODO()
+    }
 ) {
-  // TODO Add your APP Content here
+    // TODO Add your APP Content here
 }
 ```
 
-This library handles the debug / release state, so no need to remove the drawer on Release builds
+### Debug vs Release
+
+If you don0t want DebugDrawer layout code in release you can wrap it on a custom function:
+
+`src/debug/...`
+
+```kotlin
+@Composable
+fun ConfigureScreen(bodyContent: @Composable () -> Unit) {
+    DebugDrawerLayout(
+        drawerModules = { ... },
+        bodyContent = { bodyContent() },
+    )
+}
+```
+
+`src/release`
+
+```kotlin
+@Composable
+fun ConfigureScreen(bodyContent: @Composable () -> Unit) {
+    bodyContent()
+}
+```
+
 
 ## Modules
 
@@ -56,19 +80,21 @@ Add modules as a list of `DebugModule`s
 
 ```kotlin
 DebugDrawerLayout(
-  debug = { BuildConfig.DEBUG },
-  drawerModules = {
-    DeviceModule()
-    BuildModule()
-  }
+    debug = { BuildConfig.DEBUG },
+    drawerModules = {
+        DeviceModule()
+        BuildModule()
+    }
 ) {
-  // TODO Add your APP Content here
+    // TODO Add your APP Content here
 }
 ```
 
 #### Actions Module
 
-This module receive a `List<DebugDrawerAction>`
+This module has a composable slot.
+
+You can build any of the provided actions, or build your own.
 
 <img width="160" src="art/actions_module.png" />
 
@@ -91,13 +117,14 @@ Shows information about device running the app such as Device, and manufacturer
 <img width="160" src="art/device_module.png" />
 
 #### Custom Module
+
 Debug drawer can show any `@Composable` function.
 
 If you want to provide a custom module that looks like the ones provided by the library:
 
 ```kotlin
 @Composable
-fun InfoModule(
+fun CustomModule(
     modifier: Modifier = Modifier,
     icon: @Composable (() -> Unit)? = null,
     title: String,
@@ -115,13 +142,15 @@ fun InfoModule(
 
 ## Theming && Customization
 
-Use `drawerColors` to customize drawer theme colors
+Use `drawerColors` to customize drawer theme colors.
 
 ```kotlin
 DebugDrawerLayout(
-     drawerColors = YourColorScheme, // darkColors() or lightColors()
+    drawerColors = YourColorScheme, // darkColors() or lightColors()
 )
 ```
+
+If you want to modify the drawer colors, use `DebugDrawerDefaults.colors.copy(...)`
 
 ### Modules list UI
 

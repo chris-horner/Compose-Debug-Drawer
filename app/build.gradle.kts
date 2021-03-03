@@ -37,19 +37,19 @@ android {
         kotlinCompilerExtensionVersion = "1.0.0-beta01"
     }
 
-    lintOptions {
+    lint {
         isCheckReleaseBuilds = false
         isAbortOnError = false
     }
 }
 
 dependencies {
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.1")
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
 
-    implementation(project(":drawer-modules"))
-    implementation(project(":drawer-base"))
+    debugImplementation(project(":drawer-modules"))
+    debugImplementation(project(":drawer-base"))
 
-    implementation("androidx.activity:activity-compose:1.3.0-alpha02")
+    implementation("androidx.activity:activity-compose:1.3.0-alpha03")
 
     implementation("androidx.compose.foundation:foundation:1.0.0-beta01")
     implementation("androidx.compose.foundation:foundation-layout:1.0.0-beta01")
