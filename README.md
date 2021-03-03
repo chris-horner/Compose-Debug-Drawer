@@ -64,7 +64,7 @@ fun ConfigureScreen(bodyContent: @Composable () -> Unit) {
 }
 ```
 
-`src/release`
+`src/release/...`
 
 ```kotlin
 @Composable
