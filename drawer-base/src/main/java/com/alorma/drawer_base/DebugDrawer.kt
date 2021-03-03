@@ -118,28 +118,12 @@ fun rememberDebugDrawerState(
 }
 
 /**
- * Navigation drawers provide access to destinations in your app.
  *
- * Modal navigation drawers block interaction with the rest of an app’s content with a scrim.
- * They are elevated above most of the app’s UI and don’t affect the screen’s layout grid.
- *
- * See [BottomDrawerLayout] for a layout that introduces a bottom drawer, suitable when
- * using bottom navigation.
- *
- * @sample androidx.compose.material.samples.ModalDrawerSample
- *
- * @param drawerContent composable that represents content inside the drawer
  * @param modifier optional modifier for the drawer
  * @param debugDrawerState state of the drawer
- * @param gesturesEnabled whether or not drawer can be interacted by gestures
  * @param drawerShape shape of the drawer sheet
  * @param drawerElevation drawer sheet elevation. This controls the size of the shadow below the
  * drawer sheet
- * @param drawerBackgroundColor background color to be used for the drawer sheet
- * @param drawerContentColor color of the content to use inside the drawer sheet. Defaults to
- * either the matching `onFoo` color for [drawerBackgroundColor], or, if it is not a color from
- * the theme, this will keep the same value set above this Surface.
- * @param scrimColor color of the scrim that obscures content when the drawer is open
  * @param bodyContent content of the rest of the UI
  *
  * @throws IllegalStateException when parent has [Float.POSITIVE_INFINITY] width
