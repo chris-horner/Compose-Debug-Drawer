@@ -28,8 +28,8 @@ allprojects {
 Add dependencies:
 
 ```groovy
-implementation 'com.github.alorma.Compose-Debug-Drawer:drawer-base:1.0.0-beta01'
-implementation 'com.github.alorma.Compose-Debug-Drawer:drawer-modules:1.0.0-beta01'
+implementation 'com.github.alorma:drawer-base:$version'
+implementation 'com.github.alorma:drawer-modules:$version'
 ```
 
 ## Setup
