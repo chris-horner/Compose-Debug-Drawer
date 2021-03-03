@@ -50,7 +50,7 @@ DebugDrawerLayout(
 
 ### Debug vs Release
 
-If you don0t want DebugDrawer layout code in release you can wrap it on a custom function:
+If you don't want DebugDrawer layout code in release you can wrap it on a custom function:
 
 `src/debug/...`
 
