@@ -13,7 +13,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.alorma.drawer_base.DebugDrawerModule
-import com.alorma.drawer_base.DrawerDivider
+import com.alorma.drawer_base.DebugDrawerDivider
 
 @Composable
 fun InfoModule(
@@ -32,7 +32,7 @@ fun InfoModule(
                 Column {
                     DebugModuleInfoContent(item.first, item.second)
                     if (index < items.size - 1) {
-                        DrawerDivider()
+                        DebugDrawerDivider()
                     }
                 }
             }

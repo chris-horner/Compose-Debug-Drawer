@@ -66,7 +66,7 @@ fun DrawerModuleHeader(
 }
 
 @Composable
-fun DrawerModuleHeaderIcon(
+internal fun DrawerModuleHeaderIcon(
     content: @Composable () -> Unit = {},
 ) {
     CompositionLocalProvider(
@@ -82,7 +82,7 @@ fun DrawerModuleHeaderIcon(
 }
 
 @Composable
-fun DrawerModuleHeaderText(
+internal fun DrawerModuleHeaderText(
     modifier: Modifier = Modifier,
     title: String,
 ) {

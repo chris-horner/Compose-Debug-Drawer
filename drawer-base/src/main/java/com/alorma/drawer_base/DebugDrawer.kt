@@ -120,7 +120,6 @@ fun rememberDebugDrawerState(
 /**
  *
  * @param modifier optional modifier for the drawer
- * @param debugDrawerState state of the drawer
  * @param drawerShape shape of the drawer sheet
  * @param drawerElevation drawer sheet elevation. This controls the size of the shadow below the
  * drawer sheet
@@ -134,17 +133,18 @@ fun DebugDrawerLayout(
     modifier: Modifier = Modifier,
     isDebug: () -> Boolean = { false },
     drawerColors: Colors = debugDrawerColorsPalette,
-    debugDrawerState: DebugDrawerState = rememberDebugDrawerState(DebugDrawerValue.Closed),
     drawerShape: Shape = MaterialTheme.shapes.large,
     drawerElevation: Dp = DrawerDefaults.Elevation,
-    drawerModules: @Composable ColumnScope.() -> Unit = { },
-    bodyContent: @Composable () -> Unit,
+    drawerModules: @Composable ColumnScope.(DebugDrawerState) -> Unit = { },
+    bodyContent: @Composable (DebugDrawerState) -> Unit,
 ) {
 
     if (!isDebug()) {
-        bodyContent()
+        bodyContent(rememberDebugDrawerState(DebugDrawerValue.Closed))
         return
     }
+
+    val debugDrawerState: DebugDrawerState = rememberDebugDrawerState(DebugDrawerValue.Closed)
 
     val scope = rememberCoroutineScope()
     BoxWithConstraints(modifier.fillMaxSize()) {
@@ -171,7 +171,7 @@ fun DebugDrawerLayout(
             )
         ) {
             Box {
-                bodyContent()
+                bodyContent(debugDrawerState)
             }
             MaterialTheme(
                 colors = drawerColors,
@@ -209,7 +209,7 @@ fun DebugDrawerLayout(
                     elevation = drawerElevation
                 ) {
                     Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
-                        drawerModules()
+                        drawerModules(debugDrawerState)
                     }
                 }
             }
@@ -220,7 +220,7 @@ fun DebugDrawerLayout(
 /**
  * Object to hold default values for [ModalDrawerLayout] and [BottomDrawerLayout]
  */
-object DrawerDefaults {
+internal object DrawerDefaults {
 
     /**
      * Default Elevation for drawer sheet as specified in material specs

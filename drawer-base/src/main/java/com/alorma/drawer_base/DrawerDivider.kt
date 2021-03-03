@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun DrawerDivider() {
+fun DebugDrawerDivider() {
     Spacer(modifier = Modifier.requiredHeight(4.dp))
     Divider(
         color = MaterialTheme.colors.onSurface.compositeOverSurface(0.12f)

@@ -6,7 +6,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.compositeOver
 
 @Composable
-fun Color.compositeOverSurface(alpha: Float = 1f): Color {
+internal fun Color.compositeOverSurface(alpha: Float = 1f): Color {
     if (this == MaterialTheme.colors.surface) {
         return this
     }

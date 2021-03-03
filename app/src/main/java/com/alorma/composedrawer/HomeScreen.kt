@@ -4,7 +4,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.*
+import androidx.compose.material.Button
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
@@ -14,18 +18,13 @@ import androidx.compose.ui.unit.dp
 import com.alorma.composedrawer.modules.DemoActionsModule
 import com.alorma.drawer_base.DebugDrawerLayout
 import com.alorma.drawer_base.DebugDrawerState
-import com.alorma.drawer_base.DebugDrawerValue
-import com.alorma.drawer_base.rememberDebugDrawerState
 import com.alorma.drawer_modules.BuildModule
 import com.alorma.drawer_modules.DeviceModule
 import kotlinx.coroutines.launch
 
 @Composable
 fun HomeScreen() {
-    val debugDrawerState = rememberDebugDrawerState(initialValueDebug = DebugDrawerValue.Open)
     DebugDrawerLayout(
-        isDebug = { BuildConfig.DEBUG },
-        debugDrawerState = debugDrawerState,
         drawerModules = {
             val modulesModifier = Modifier
                 .padding(4.dp)
@@ -35,7 +34,7 @@ fun HomeScreen() {
             BuildModule(modulesModifier)
             DeviceModule(modulesModifier)
         }
-    ) { AppContent(debugDrawerState) }
+    ) { debugDrawerState -> AppContent(debugDrawerState) }
 }
 
 @Composable
