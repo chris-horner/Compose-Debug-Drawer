@@ -63,7 +63,7 @@ class DebugDrawerState(
     confirmStateChange: (DebugDrawerValue) -> Boolean = { true },
 ) : SwipeableState<DebugDrawerValue>(
     initialValue = initialValue,
-    animationSpec = AnimationSpec,
+    animationSpec = DebugDrawerDefaults.AnimationSpec,
     confirmStateChange = confirmStateChange
 ) {
     /**
@@ -153,19 +153,13 @@ fun rememberDebugDrawerState(
 @OptIn(ExperimentalMaterialApi::class)
 fun DebugDrawerLayout(
     modifier: Modifier = Modifier,
-    isDebug: () -> Boolean = { false },
     enableShake: Boolean = true,
-    drawerColors: Colors = debugDrawerColorsPalette,
+    drawerColors: Colors = DebugDrawerDefaults.Colors,
     drawerShape: Shape = MaterialTheme.shapes.large,
-    drawerElevation: Dp = DrawerDefaults.Elevation,
+    drawerElevation: Dp = DebugDrawerDefaults.Elevation,
     drawerModules: @Composable ColumnScope.(DebugDrawerState) -> Unit = { },
     bodyContent: @Composable (DebugDrawerState) -> Unit,
 ) {
-
-    if (!isDebug()) {
-        bodyContent(rememberDebugDrawerState(DebugDrawerValue.Closed))
-        return
-    }
 
     val debugDrawerState: DebugDrawerState = rememberDebugDrawerState(DebugDrawerValue.Closed)
     val scope = rememberCoroutineScope()
@@ -193,7 +187,7 @@ fun DebugDrawerLayout(
                 orientation = Orientation.Horizontal,
                 enabled = true,
                 reverseDirection = isRtl,
-                velocityThreshold = DrawerVelocityThreshold,
+                velocityThreshold = DebugDrawerDefaults.VelocityThreshold,
                 resistance = null
             )
         ) {
@@ -215,7 +209,7 @@ fun DebugDrawerLayout(
                             debugDrawerState.offset.value
                         )
                     },
-                    color = DrawerDefaults.scrimColor
+                    color = DebugDrawerDefaults.scrimColor
                 )
                 Surface(
                     color = MaterialTheme.colors.background,
@@ -224,7 +218,7 @@ fun DebugDrawerLayout(
                         Modifier
                             .width(this@BoxWithConstraints.constraints.maxWidth.toDp())
                             .height(this@BoxWithConstraints.constraints.maxHeight.toDp())
-                            .padding(start = StartDrawerPadding)
+                            .padding(start = DebugDrawerDefaults.StartPadding)
                     }
                         .semantics {
                             if (debugDrawerState.isOpen) {
@@ -263,26 +257,6 @@ private fun enableShake(
     }
 }
 
-/**
- * Object to hold default values for [ModalDrawerLayout]
- */
-internal object DrawerDefaults {
-
-    /**
-     * Default Elevation for drawer sheet as specified in material specs
-     */
-    val Elevation = 16.dp
-
-    val scrimColor: Color
-        @Composable
-        get() = MaterialTheme.colors.surface.copy(alpha = ScrimOpacity)
-
-    /**
-     * Default alpha for scrim color
-     */
-    const val ScrimOpacity = 0.32f
-}
-
 private fun calculateFraction(a: Float, b: Float, pos: Float) =
     ((pos - a) / (b - a)).coerceIn(0f, 1f)
 
@@ -308,7 +282,35 @@ private fun Scrim(
     }
 }
 
-private val StartDrawerPadding = 56.dp
-private val DrawerVelocityThreshold = 400.dp
+object DebugDrawerDefaults {
+    val Colors: Colors = darkColors(
+        primary = Color(0xFF86D7F5),
+        primaryVariant = Color(0xFF1D668F),
+        onPrimary = Color(0xFF1D668F),
 
-private val AnimationSpec = TweenSpec<Float>(durationMillis = 100)
+        secondary = Color(0xFFFF6340),
+        onSecondary = Color.White,
+
+        background = Color(0xFF000000),
+        surface = Color(0xFF2D3133),
+    )
+
+    val StartPadding = 56.dp
+    val VelocityThreshold = 400.dp
+
+    val AnimationSpec = TweenSpec<Float>(durationMillis = 100)
+
+    /**
+     * Default Elevation for drawer sheet as specified in material specs
+     */
+    val Elevation = 16.dp
+
+    val scrimColor: Color
+        @Composable
+        get() = MaterialTheme.colors.surface.copy(alpha = ScrimOpacity)
+
+    /**
+     * Default alpha for scrim color
+     */
+    const val ScrimOpacity = 0.32f
+}
