@@ -1,5 +1,8 @@
 package com.alorma.drawer_base
 
+import android.content.Context
+import android.hardware.Sensor
+import android.hardware.SensorManager
 import androidx.compose.animation.core.TweenSpec
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.gestures.Orientation
@@ -9,6 +12,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.Saver
@@ -17,14 +21,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.semantics.dismiss
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.*
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
+
 
 /**
  * Possible values of [DebugDrawerState].
@@ -81,6 +88,21 @@ class DebugDrawerState(
     suspend fun open() = animateTo(DebugDrawerValue.Open)
 
     /**
+     * Change the drawer with animation and suspend until it if fully (opened | closed) or
+     * animation has been cancelled. This method will throw [CancellationException]
+     * if the animation is interrupted
+     *
+     * @return the reason the open animation ended
+     */
+    suspend fun toggle() {
+        return if (isOpen) {
+            animateTo(DebugDrawerValue.Closed)
+        } else {
+            animateTo(DebugDrawerValue.Open)
+        }
+    }
+
+    /**
      * Close the drawer with animation and suspend until it if fully closed or animation has been
      * cancelled. This method will throw [CancellationException] if the animation is
      * interrupted
@@ -132,6 +154,7 @@ fun rememberDebugDrawerState(
 fun DebugDrawerLayout(
     modifier: Modifier = Modifier,
     isDebug: () -> Boolean = { false },
+    enableShake: Boolean = true,
     drawerColors: Colors = debugDrawerColorsPalette,
     drawerShape: Shape = MaterialTheme.shapes.large,
     drawerElevation: Dp = DrawerDefaults.Elevation,
@@ -145,8 +168,12 @@ fun DebugDrawerLayout(
     }
 
     val debugDrawerState: DebugDrawerState = rememberDebugDrawerState(DebugDrawerValue.Closed)
-
     val scope = rememberCoroutineScope()
+
+    if (enableShake) {
+        enableShake(scope, debugDrawerState)
+    }
+
     BoxWithConstraints(modifier.fillMaxSize()) {
         if (!constraints.hasBoundedWidth) {
             throw IllegalStateException("Drawer shouldn't have infinite width")
@@ -217,8 +244,27 @@ fun DebugDrawerLayout(
     }
 }
 
+@Composable
+private fun enableShake(
+    scope: CoroutineScope,
+    debugDrawerState: DebugDrawerState,
+) {
+    val sensorManager =
+        LocalContext.current.getSystemService(Context.SENSOR_SERVICE) as SensorManager
+    val accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+    val shakeDetector = ShakeDetector()
+    shakeDetector.listener = { scope.launch { debugDrawerState.toggle() } }
+
+    DisposableEffect(key1 = "sensor") {
+        sensorManager.registerListener(shakeDetector, accelerometer, SensorManager.SENSOR_DELAY_UI)
+        onDispose {
+            sensorManager.unregisterListener(shakeDetector)
+        }
+    }
+}
+
 /**
- * Object to hold default values for [ModalDrawerLayout] and [BottomDrawerLayout]
+ * Object to hold default values for [ModalDrawerLayout]
  */
 internal object DrawerDefaults {
 

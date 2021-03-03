@@ -25,6 +25,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun HomeScreen() {
     DebugDrawerLayout(
+        isDebug = { true },
         drawerModules = {
             val modulesModifier = Modifier
                 .padding(4.dp)
