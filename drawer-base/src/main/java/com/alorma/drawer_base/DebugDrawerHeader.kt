@@ -19,8 +19,8 @@ import androidx.compose.ui.unit.dp
 fun DrawerModuleHeader(
     icon: @Composable (() -> Unit)? = null,
     title: String,
-    expandedState: MutableState<Boolean> = remember { mutableStateOf(false) },
-    onClick: () -> Unit = { expandedState.value = !expandedState.value },
+    expandedState: Boolean = false,
+    onClick: () -> Unit,
 ) {
     val semanticModifier = Modifier
         .clickable(onClick = onClick)
@@ -49,7 +49,7 @@ fun DrawerModuleHeader(
                 title = title
             )
             DrawerModuleHeaderIcon {
-                if (expandedState.value) {
+                if (expandedState) {
                     Icon(
                         imageVector = Icons.Default.ArrowDropUp,
                         contentDescription = "Arrow",
