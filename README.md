@@ -2,8 +2,6 @@
 
 ### Versions
 
-> Ignore badges, I had some... confussion naming versions. I will post them by text
-
 ![drawer-base](https://img.shields.io/badge/Base-0.2.0-brightgreen)
 ![drawer-modules](https://img.shields.io/badge/Modules-0.2.0-brightgreen)
  
