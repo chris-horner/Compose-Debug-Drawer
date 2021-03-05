@@ -4,15 +4,10 @@
 
 > Ignore badges, I had some... confussion naming versions. I will post them by text
 
-**drawer-base**: 0.2.0
-
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.alorma/drawer-base/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.alorma/drawer-base)
-
-**drawer-modules**: 0.2.0
-
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.alorma/drawer-modules/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.alorma/drawer-modules)
-
-This library is built for **compose** : `beta-01`
+![drawer-base](https://img.shields.io/badge/Base-0.2.0-brightgreen)
+![drawer-modules](https://img.shields.io/badge/Modules-0.2.0-brightgreen)
+ 
+![Compatible with Compose](https://img.shields.io/badge/Compatible%20with%20Compose-1.0.0--beta01-brightgreen)
 
 Composable Debug Drawer for Jetpack Compose apps
 
