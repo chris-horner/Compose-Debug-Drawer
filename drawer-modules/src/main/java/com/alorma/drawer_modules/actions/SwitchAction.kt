@@ -1,15 +1,22 @@
 package com.alorma.drawer_modules.actions
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredHeight
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Switch
 import androidx.compose.material.SwitchDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -26,12 +33,7 @@ fun SwitchAction(
     tag: String? = null,
     onChange: (checked: Boolean) -> Unit,
 ) {
-    fun onSwitchChange(checkedState: MutableState<Boolean>, checked: Boolean) {
-        checkedState.value = checked
-        onChange(checkedState.value)
-    }
-
-    val checkedState: MutableState<Boolean> = remember { mutableStateOf(isChecked) }
+    var checkedState by remember { mutableStateOf(isChecked) }
 
     Row(
         modifier = Modifier
@@ -40,12 +42,10 @@ fun SwitchAction(
             .requiredHeight(36.dp)
             .clip(shape = MaterialTheme.shapes.medium)
             .then(modifier)
-            .clickable(onClick = {
-                onSwitchChange(
-                    checkedState = checkedState,
-                    checked = !checkedState.value
-                )
-            })
+            .toggleable(checkedState) { checked ->
+                checkedState = checked
+                onChange(checkedState)
+            }
             .padding(8.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
@@ -74,13 +74,8 @@ fun SwitchAction(
                 checkedTrackAlpha = 0.6f,
                 uncheckedTrackAlpha = 0.4f
             ),
-            checked = checkedState.value,
-            onCheckedChange = { checked ->
-                onSwitchChange(
-                    checkedState = checkedState,
-                    checked = checked
-                )
-            },
+            checked = checkedState,
+            onCheckedChange = null,
         )
     }
 }
