@@ -5,7 +5,7 @@
 ![drawer-base](https://img.shields.io/badge/Base-0.2.0-brightgreen)
 ![drawer-modules](https://img.shields.io/badge/Modules-0.2.0-brightgreen)
  
-![Compatible with Compose](https://img.shields.io/badge/Compatible%20with%20Compose-1.0.0--beta01-brightgreen)
+![Compatible with Compose](https://img.shields.io/badge/Compatible%20with%20Compose-1.0.0--beta02-brightgreen)
 
 Composable Debug Drawer for Jetpack Compose apps
 
