@@ -51,7 +51,7 @@ android {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.4.30")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.4.31")
 
     implementation(project(":drawer-base"))
     implementation("androidx.core:core-ktx:1.3.2")
