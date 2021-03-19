@@ -15,12 +15,10 @@ fun DesignModule(
     config: DebugGridStateConfig,
     onChange: (DebugGridStateConfig) -> Unit,
 ) {
-    val isEnabled = config is DebugGridStateConfig.Enabled
-
     DebugDrawerModule(
         modifier = modifier,
         icon = {
-            val icon = if (isEnabled) {
+            val icon = if (config.isEnabled) {
                 Icons.Default.GridOn
             } else {
                 Icons.Default.GridOff
@@ -32,18 +30,14 @@ fun DesignModule(
         },
         title = "Design"
     ) {
-        val text = if (isEnabled) {
+        val text = if (config.isEnabled) {
             "Grid enabled"
         } else {
             "Grid disabled"
         }
-        SwitchAction(text = text, isChecked = isEnabled) { enabled ->
-            val state = if (enabled) {
-                DebugGridStateConfig.Enabled
-            } else {
-                DebugGridStateConfig.Disabled
-            }
-            onChange(state)
+        SwitchAction(text = text, isChecked = config.isEnabled) { enabled ->
+            val result = config.copy(isEnabled =  enabled)
+            onChange(result)
         }
     }
 }

@@ -1,6 +1,13 @@
 package com.alorma.drawer_ui_modules.design
 
-sealed class DebugGridStateConfig {
-    object Disabled: DebugGridStateConfig()
-    object Enabled: DebugGridStateConfig()
+data class DebugGridStateConfig internal constructor(
+    val isEnabled: Boolean,
+) {
+    companion object {
+        operator fun invoke(
+            isEnabled: Boolean = false,
+        ) = DebugGridStateConfig(
+            isEnabled = isEnabled
+        )
+    }
 }
