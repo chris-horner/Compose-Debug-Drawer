@@ -3,6 +3,7 @@ package com.alorma.composedrawer
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.LocalContentAlpha
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -23,11 +24,12 @@ import com.alorma.drawer_ui_modules.design.DesignModule
 @Composable
 fun ConfigureScreen(bodyContent: @Composable (isDrawerOpen: Boolean) -> Unit) {
 
-    val gridColor = MaterialTheme.colors.primary
+    val gridAlpha = LocalContentAlpha.current
+
     var debugGridLayerConfig: DebugGridStateConfig by remember {
         mutableStateOf(DebugGridStateConfig(
             isEnabled = true,
-            color = gridColor,
+            alpha = gridAlpha,
         ))
     }
 

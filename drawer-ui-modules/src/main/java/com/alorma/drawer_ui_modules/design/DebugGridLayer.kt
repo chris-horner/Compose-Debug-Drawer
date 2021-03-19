@@ -16,8 +16,7 @@ fun DebugGridLayer(
 ) {
     CompositionLocalProvider(LocalDebugGridConfig provides debugGridLayerConfig) {
         if (LocalDebugGridConfig.current.isEnabled) {
-            val color = LocalDebugGridConfig.current.color
-                .copy(alpha = LocalDebugGridConfig.current.alpha)
+            val color = Color.Red.copy(alpha = LocalDebugGridConfig.current.alpha)
             DebugGridLayerCanvas(color = color)
         }
     }
