@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
@@ -25,7 +24,7 @@ import com.alorma.drawer_ui_modules.design.DesignModule
 @Composable
 fun ConfigureScreen(bodyContent: @Composable (isDrawerOpen: Boolean) -> Unit) {
 
-    var isEnabled by remember { mutableStateOf(false) }
+    var isEnabled by remember { mutableStateOf(true) }
 
     DebugDrawerLayout(
         drawerModules = {
@@ -39,9 +38,9 @@ fun ConfigureScreen(bodyContent: @Composable (isDrawerOpen: Boolean) -> Unit) {
             DeviceModule(modulesModifier)
         },
         bodyContent = { drawerState ->
-            CompositionLocalProvider(DebugGrid provides isEnabled) {
-                Box {
-                    bodyContent(drawerState.isOpen)
+            Box {
+                bodyContent(drawerState.isOpen)
+                CompositionLocalProvider(DebugGrid provides isEnabled) {
                     DebugGridLayer()
                 }
             }
