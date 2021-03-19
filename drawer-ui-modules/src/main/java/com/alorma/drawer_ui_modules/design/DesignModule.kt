@@ -12,9 +12,11 @@ import com.alorma.drawer_modules.actions.SwitchAction
 @Composable
 fun DesignModule(
     modifier: Modifier = Modifier,
-    isEnabled: Boolean,
-    onChange: (Boolean) -> Unit,
+    config: DebugGridStateConfig,
+    onChange: (DebugGridStateConfig) -> Unit,
 ) {
+    val isEnabled = config is DebugGridStateConfig.Enabled
+
     DebugDrawerModule(
         modifier = modifier,
         icon = {
@@ -35,6 +37,13 @@ fun DesignModule(
         } else {
             "Grid disabled"
         }
-        SwitchAction(text = text, isChecked = isEnabled, onChange = onChange)
+        SwitchAction(text = text, isChecked = isEnabled) { enabled ->
+            val state = if (enabled) {
+                DebugGridStateConfig.Enabled
+            } else {
+                DebugGridStateConfig.Disabled
+            }
+            onChange(state)
+        }
     }
 }

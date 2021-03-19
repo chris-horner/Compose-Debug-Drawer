@@ -17,14 +17,15 @@ import com.alorma.composedrawer.modules.DemoActionsModule
 import com.alorma.drawer_base.DebugDrawerLayout
 import com.alorma.drawer_modules.BuildModule
 import com.alorma.drawer_modules.DeviceModule
-import com.alorma.drawer_ui_modules.design.DebugGrid
+import com.alorma.drawer_ui_modules.design.DebugGridConfig
 import com.alorma.drawer_ui_modules.design.DebugGridLayer
+import com.alorma.drawer_ui_modules.design.DebugGridStateConfig
 import com.alorma.drawer_ui_modules.design.DesignModule
 
 @Composable
 fun ConfigureScreen(bodyContent: @Composable (isDrawerOpen: Boolean) -> Unit) {
 
-    var isEnabled by remember { mutableStateOf(true) }
+    var debugGridLayerConfig: DebugGridStateConfig by remember { mutableStateOf(DebugGridStateConfig.Enabled) }
 
     DebugDrawerLayout(
         drawerModules = {
@@ -32,7 +33,9 @@ fun ConfigureScreen(bodyContent: @Composable (isDrawerOpen: Boolean) -> Unit) {
                 .padding(4.dp)
                 .clip(shape = MaterialTheme.shapes.medium)
                 .background(color = MaterialTheme.colors.surface)
-            DesignModule(modulesModifier, isEnabled = isEnabled) { isEnabled = it }
+            DesignModule(modulesModifier, config = debugGridLayerConfig) {
+                debugGridLayerConfig = it
+            }
             DemoActionsModule(modulesModifier)
             BuildModule(modulesModifier)
             DeviceModule(modulesModifier)
@@ -40,7 +43,7 @@ fun ConfigureScreen(bodyContent: @Composable (isDrawerOpen: Boolean) -> Unit) {
         bodyContent = { drawerState ->
             Box {
                 bodyContent(drawerState.isOpen)
-                CompositionLocalProvider(DebugGrid provides isEnabled) {
+                CompositionLocalProvider(DebugGridConfig provides debugGridLayerConfig) {
                     DebugGridLayer()
                 }
             }

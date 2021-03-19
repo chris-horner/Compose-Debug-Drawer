@@ -15,7 +15,8 @@ fun DebugGridLayer(
     gridSize: Dp = 8.dp,
     color: Color = Color.Red.copy(alpha = .3f),
 ) {
-    if (DebugGrid.current) {
+    val debugGridStateConfig = DebugGridConfig.current
+    if (debugGridStateConfig is DebugGridStateConfig.Enabled) {
         Canvas(Modifier.fillMaxSize()) {
             val offset = gridSize.toPx()
             val lineWidth = 1f
