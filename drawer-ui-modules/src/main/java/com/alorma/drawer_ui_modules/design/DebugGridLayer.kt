@@ -10,22 +10,23 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
-
 @Composable
 fun DebugGridLayer(
     debugGridLayerConfig: DebugGridStateConfig,
 ) {
     CompositionLocalProvider(LocalDebugGridConfig provides debugGridLayerConfig) {
         if (LocalDebugGridConfig.current.isEnabled) {
-            DebugGridLayerCanvas()
+            val color = LocalDebugGridConfig.current.color
+                .copy(alpha = LocalDebugGridConfig.current.alpha)
+            DebugGridLayerCanvas(color = color)
         }
     }
 }
 
 @Composable
 internal fun DebugGridLayerCanvas(
+    color: Color,
     gridSize: Dp = 8.dp,
-    color: Color = Color.Red.copy(alpha = .3f),
 ) {
     Canvas(Modifier.fillMaxSize()) {
         val offset = gridSize.toPx()

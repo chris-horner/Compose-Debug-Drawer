@@ -23,8 +23,12 @@ import com.alorma.drawer_ui_modules.design.DesignModule
 @Composable
 fun ConfigureScreen(bodyContent: @Composable (isDrawerOpen: Boolean) -> Unit) {
 
+    val gridColor = MaterialTheme.colors.primary
     var debugGridLayerConfig: DebugGridStateConfig by remember {
-        mutableStateOf(DebugGridStateConfig())
+        mutableStateOf(DebugGridStateConfig(
+            isEnabled = true,
+            color = gridColor,
+        ))
     }
 
     DebugDrawerLayout(
