@@ -19,6 +19,7 @@ import com.alorma.drawer_base.DebugDrawerLayout
 import com.alorma.drawer_modules.BuildModule
 import com.alorma.drawer_modules.DeviceModule
 import com.alorma.drawer_ui_modules.design.DebugGrid
+import com.alorma.drawer_ui_modules.design.DebugGridLayer
 import com.alorma.drawer_ui_modules.design.DesignModule
 
 @Composable
@@ -41,12 +42,7 @@ fun ConfigureScreen(bodyContent: @Composable (isDrawerOpen: Boolean) -> Unit) {
             CompositionLocalProvider(DebugGrid provides isEnabled) {
                 Box {
                     bodyContent(drawerState.isOpen)
-                    val text = if (DebugGrid.current) {
-                        "Grid enabled"
-                    } else {
-                        "Grid disasble"
-                    }
-                    Text(text = text)
+                    DebugGridLayer()
                 }
             }
         },
