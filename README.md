@@ -2,9 +2,9 @@
 
 ### Versions
 
-![drawer-base](https://img.shields.io/badge/Base-0.3.0-brightgreen)
-![drawer-modules](https://img.shields.io/badge/Modules-0.3.0-brightgreen)
- 
+![drawer-base](https://img.shields.io/badge/Base-0.4.0-brightgreen)
+![drawer-modules](https://img.shields.io/badge/Modules-0.4.0-brightgreen)
+
 ![Compatible with Compose](https://img.shields.io/badge/Compatible%20with%20Compose-1.0.0--beta02-brightgreen)
 
 Composable Debug Drawer for Jetpack Compose apps
@@ -27,6 +27,7 @@ Add dependencies:
 ```groovy
 implementation 'com.github.alorma:drawer-base:$version'
 implementation 'com.github.alorma:drawer-modules:$version'
+implementation 'com.github.alorma:drawer-ui-modules:$version'
 ```
 
 ## Setup
@@ -110,6 +111,13 @@ Shows information about the app: Version code, Version name and Package
 Shows information about device running the app such as Device, and manufacturer
 
 <img width="160" src="art/device_module.png" />
+
+#### Design Module
+
+Allows to show a Grid layer as overlay of your content, to help alignin content to grid
+
+<img width="160" src="art/design_module_1.png" />
+<img width="160" src="art/design_module_2.png" />
 
 #### Custom Module
 
