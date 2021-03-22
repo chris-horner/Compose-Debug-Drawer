@@ -69,7 +69,6 @@ fun ConfigureScreen(bodyContent: @Composable () -> Unit) {
 }
 ```
 
-
 ## Modules
 
 Add modules as a list of `DebugModule`s
@@ -114,10 +113,32 @@ Shows information about device running the app such as Device, and manufacturer
 
 #### Design Module
 
-Allows to show a Grid layer as overlay of your content, to help alignin content to grid
+Allows to show a Grid layer as overlay of your content, to help align content to grid
 
 <img width="160" src="art/design_module_1.png" />
 <img width="160" src="art/design_module_2.png" />
+
+```kotlin
+var debugGridLayerConfig: DebugGridStateConfig by remember {
+    mutableStateOf(DebugGridStateConfig())
+}
+
+DebugDrawerLayout(
+    drawerModules = {
+        //...
+        DesignModule(config = debugGridLayerConfig) {
+            debugGridLayerConfig = it
+        }
+        //...
+    },
+    bodyContent = { drawerState ->
+        Box {
+            // Body of your app
+            DebugGridLayer(debugGridLayerConfig)
+        }
+    },
+)
+```
 
 #### Custom Module
 
