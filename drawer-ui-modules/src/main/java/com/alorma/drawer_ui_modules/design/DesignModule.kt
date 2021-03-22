@@ -52,26 +52,67 @@ fun DesignModule(
             onChange(result)
         }
         AnimatedVisibility(visible = config.isEnabled) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 8.dp),
-            ) {
-                Text(
-                    text = "Alpha",
-                    style = MaterialTheme.typography.caption
-                )
-                Slider(
-                    value = config.alpha,
-                    onValueChange = { alpha ->
-                        val result = config.copy(alpha = alpha)
-                        onChange(result)
-                    },
-                    colors = SliderDefaults.colors(
-                        thumbColor = MaterialTheme.colors.secondary
-                    ),
-                )
+            Column {
+                AlphaSlider(config, onChange)
+                SizeSlider(config, onChange)
             }
         }
+    }
+}
+
+@Composable
+fun AlphaSlider(
+    config: DebugGridStateConfig,
+    onChange: (DebugGridStateConfig) -> Unit,
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = 8.dp),
+    ) {
+        Text(
+            text = "Alpha ${(config.alpha * 100).toInt()}%",
+            style = MaterialTheme.typography.caption
+        )
+        Slider(
+            value = config.alpha,
+            onValueChange = { alpha ->
+                val result = config.copy(alpha = alpha)
+                onChange(result)
+            },
+            colors = SliderDefaults.colors(
+                thumbColor = MaterialTheme.colors.secondary
+            ),
+        )
+    }
+}
+
+@Composable
+fun SizeSlider(
+    config: DebugGridStateConfig,
+    onChange: (DebugGridStateConfig) -> Unit,
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = 8.dp),
+    ) {
+
+        Text(
+            text = "Size: ${config.size.value.toInt()}dp",
+            style = MaterialTheme.typography.caption
+        )
+        Slider(
+            value = config.size.value,
+            valueRange = 8.dp.value..64.dp.value,
+            steps = 8,
+            onValueChange = { size ->
+                val result = config.copy(size = size.dp)
+                onChange(result)
+            },
+            colors = SliderDefaults.colors(
+                thumbColor = MaterialTheme.colors.secondary
+            ),
+        )
     }
 }

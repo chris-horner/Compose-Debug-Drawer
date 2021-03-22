@@ -8,7 +8,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 
 @Composable
 fun DebugGridLayer(
@@ -17,7 +16,8 @@ fun DebugGridLayer(
     CompositionLocalProvider(LocalDebugGridConfig provides debugGridLayerConfig) {
         if (LocalDebugGridConfig.current.isEnabled) {
             val color = Color.Red.copy(alpha = LocalDebugGridConfig.current.alpha)
-            DebugGridLayerCanvas(color = color)
+            val size = LocalDebugGridConfig.current.size
+            DebugGridLayerCanvas(color = color, size = size)
         }
     }
 }
@@ -25,26 +25,26 @@ fun DebugGridLayer(
 @Composable
 internal fun DebugGridLayerCanvas(
     color: Color,
-    gridSize: Dp = 8.dp,
+    size: Dp,
 ) {
     Canvas(Modifier.fillMaxSize()) {
-        val offset = gridSize.toPx()
+        val offset = size.toPx()
         val lineWidth = 1f
         var x = 0f
-        while (x < size.width) {
+        while (x < this.size.width) {
             drawLine(
                 start = Offset(x, 0f),
-                end = Offset(x, size.height),
+                end = Offset(x, this.size.height),
                 strokeWidth = lineWidth,
                 color = color,
             )
             x += offset
         }
         var y = 0f
-        while (y < size.height) {
+        while (y < this.size.height) {
             drawLine(
                 start = Offset(0f, y),
-                end = Offset(size.width, y),
+                end = Offset(this.size.width, y),
                 strokeWidth = lineWidth,
                 color = color,
             )
