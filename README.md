@@ -2,14 +2,15 @@
 
 ### Versions
 
-![drawer-base](https://img.shields.io/badge/Base-0.4.0-brightgreen)
-![drawer-modules](https://img.shields.io/badge/Modules-0.4.0-brightgreen)
+![drawer-base](https://img.shields.io/badge/Base-0.5.0-brightgreen)
+![drawer-base](https://img.shields.io/badge/Base-0.5.0-brightgreen)
+![drawer-ui-modules](https://img.shields.io/badge/Modules-0.5.0-brightgreen)
 
 ![Compatible with Compose](https://img.shields.io/badge/Compatible%20with%20Compose-1.0.0--beta02-brightgreen)
 
 Composable Debug Drawer for Jetpack Compose apps
 
-<img width="250" src="art/drawer-v0.1.0-beta-02.png" />
+<img width="250" src="art/drawer-v0.1.0-beta-03.png" />
 
 ## Install
 
