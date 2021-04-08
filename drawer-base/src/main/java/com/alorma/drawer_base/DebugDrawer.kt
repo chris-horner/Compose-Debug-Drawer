@@ -49,10 +49,11 @@ enum class DebugDrawerValue {
 }
 
 /**
- * State of the [ModalDrawerLayout] composable.
+ * State of the [_root_ide_package_.com.alorma.drawer_base.DebugDrawerLayout() {
+
+}] composable.
  *
- * @param initialValueDebug The initial value of the state.
- * @param clock The animation clock that will be used to drive the animations.
+ * @param initialValue The initial value of the state.
  * @param confirmStateChange Optional callback invoked to confirm or veto a pending state change.
  */
 @Suppress("NotCloseable")
@@ -75,7 +76,7 @@ class DebugDrawerState(
     /**
      * Whether the drawer is closed.
      */
-    val isClosed: Boolean
+    val isClosed
         get() = currentValue == DebugDrawerValue.Closed
 
     /**
