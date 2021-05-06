@@ -1,4 +1,4 @@
-name: Publish
+name: Build
 
 on:
   push:
@@ -6,20 +6,7 @@ on:
       - main
 
 jobs:
-  sign:
-    name: Sign environment
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v2
-      - name: Prepare environment
-        env:
-          GPG_KEY_CONTENTS: ${{ secrets.GPG_KEY_CONTENTS }}
-          SIGNING_SECRET_KEY_RING_FILE: ${{ secrets.SIGNING_SECRET_KEY_RING_FILE }}
-        run: |
-          git fetch --unshallow
-          sudo bash -c "echo '$GPG_KEY_CONTENTS' | base64 -d > '$SIGNING_SECRET_KEY_RING_FILE'"
-  release:
+  publish:
     name: Release build
     runs-on: ubuntu-latest
     steps:
@@ -29,8 +16,16 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
+
+        # Base64 decodes and pipes the GPG key content into the secret file
+      - name: Prepare environment
+        env:
+          GPG_KEY_CONTENTS: ${{ secrets.GPG_KEY_CONTENTS }}
+          SIGNING_SECRET_KEY_RING_FILE: ${{ secrets.SIGNING_SECRET_KEY_RING_FILE }}
+        run: |
+          git fetch --unshallow
+          sudo bash -c "echo '$GPG_KEY_CONTENTS' | base64 -d > '$SIGNING_SECRET_KEY_RING_FILE'"
+
+        # Builds the release artifacts of the library
       - name: Release build
-        # assembleRelease for all modules, excluding app
         run: ./gradlew assembleRelease -x :app:assembleRelease
-      - name: Source jar
-        run: ./gradlew androidSourcesJar javadocJar

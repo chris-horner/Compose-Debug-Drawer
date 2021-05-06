@@ -28,7 +28,7 @@ fun ConfigureScreen(bodyContent: @Composable (isDrawerOpen: Boolean) -> Unit) {
 
     var debugGridLayerConfig: DebugGridStateConfig by remember {
         mutableStateOf(DebugGridStateConfig(
-            isEnabled = true,
+            isEnabled = false,
             alpha = gridAlpha,
         ))
     }
