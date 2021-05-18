@@ -36,7 +36,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.0.0-beta06"
+        kotlinCompilerExtensionVersion = "1.0.0-beta07"
     }
 
     kotlinOptions {
@@ -54,16 +54,16 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.4.31")
 
     implementation(project(":drawer-base"))
-    implementation("androidx.core:core-ktx:1.3.2")
-    implementation("androidx.appcompat:appcompat:1.2.0")
+    implementation("androidx.core:core-ktx:1.5.0")
+    implementation("androidx.appcompat:appcompat:1.3.0")
     implementation("com.google.android.material:material:1.3.0")
 
-    implementation("androidx.compose.foundation:foundation:1.0.0-beta06")
-    implementation("androidx.compose.foundation:foundation-layout:1.0.0-beta06")
-    implementation("androidx.compose.material:material-icons-extended:1.0.0-beta06")
-    implementation("androidx.compose.ui:ui:1.0.0-beta06")
-    implementation("androidx.compose.material:material:1.0.0-beta06")
-    implementation("androidx.compose.ui:ui-tooling:1.0.0-beta06")
+    implementation("androidx.compose.foundation:foundation:1.0.0-beta07")
+    implementation("androidx.compose.foundation:foundation-layout:1.0.0-beta07")
+    implementation("androidx.compose.material:material-icons-extended:1.0.0-beta07")
+    implementation("androidx.compose.ui:ui:1.0.0-beta07")
+    implementation("androidx.compose.material:material:1.0.0-beta07")
+    implementation("androidx.compose.ui:ui-tooling:1.0.0-beta07")
 
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.1")
 }
