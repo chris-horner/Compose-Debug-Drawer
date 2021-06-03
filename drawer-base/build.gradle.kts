@@ -36,12 +36,12 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.0.0-beta07"
+        kotlinCompilerExtensionVersion = "1.0.0-beta08"
     }
 
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
-        useIR = true
+
         freeCompilerArgs = freeCompilerArgs + listOf(
             "-Xopt-in=kotlin.RequiresOptIn",
             "-Xopt-in=kotlin.Experimental",
@@ -51,18 +51,18 @@ android {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.4.31")
+
 
     implementation("androidx.core:core-ktx:1.5.0")
     implementation("androidx.appcompat:appcompat:1.3.0")
     implementation("com.google.android.material:material:1.3.0")
 
-    implementation("androidx.compose.foundation:foundation:1.0.0-beta07")
-    implementation("androidx.compose.foundation:foundation-layout:1.0.0-beta07")
-    implementation("androidx.compose.ui:ui:1.0.0-beta07")
-    implementation("androidx.compose.material:material:1.0.0-beta07")
-    implementation("androidx.compose.material:material-icons-extended:1.0.0-beta07")
-    implementation("androidx.compose.ui:ui-tooling:1.0.0-beta07")
+    implementation("androidx.compose.foundation:foundation:1.0.0-beta08")
+    implementation("androidx.compose.foundation:foundation-layout:1.0.0-beta08")
+    implementation("androidx.compose.ui:ui:1.0.0-beta08")
+    implementation("androidx.compose.material:material:1.0.0-beta08")
+    implementation("androidx.compose.material:material-icons-extended:1.0.0-beta08")
+    implementation("androidx.compose.ui:ui-tooling:1.0.0-beta08")
 
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.1")
 }
