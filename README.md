@@ -2,9 +2,9 @@
 
 ### Versions
 
-![drawer-base](https://img.shields.io/badge/Base-0.14.0-brightgreen)
-![drawer-modules](https://img.shields.io/badge/Modules-0.14.0-brightgreen)
-![drawer-ui-modules](https://img.shields.io/badge/UI_Modules-0.14.0-brightgreen)
+![drawer-base](https://img.shields.io/badge/Base-0.15.0-brightgreen)
+![drawer-modules](https://img.shields.io/badge/Modules-0.15.0-brightgreen)
+![drawer-ui-modules](https://img.shields.io/badge/UI_Modules-0.15.0-brightgreen)
 
 ![Compatible with Compose](https://img.shields.io/badge/Compose-1.0.0--rc01-brightgreen)
 
