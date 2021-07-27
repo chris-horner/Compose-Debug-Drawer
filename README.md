@@ -2,11 +2,11 @@
 
 ### Versions
 
-![drawer-base](https://img.shields.io/badge/Base-0.15.0-brightgreen)
-![drawer-modules](https://img.shields.io/badge/Modules-0.15.0-brightgreen)
-![drawer-ui-modules](https://img.shields.io/badge/UI_Modules-0.15.0-brightgreen)
+![drawer-base](https://img.shields.io/badge/Base-0.18.0-brightgreen)
+![drawer-modules](https://img.shields.io/badge/Modules-0.18.0-brightgreen)
+![drawer-ui-modules](https://img.shields.io/badge/UI_Modules-0.18.0-brightgreen)
 
-![Compatible with Compose](https://img.shields.io/badge/Compose-1.0.0--rc01-brightgreen)
+![Compatible with Compose](https://img.shields.io/badge/Compose-1.0.0--rc02-brightgreen)
 
 Composable Debug Drawer for Jetpack Compose apps
 
