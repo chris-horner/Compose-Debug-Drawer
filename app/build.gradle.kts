@@ -34,7 +34,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.0.0"
+        kotlinCompilerExtensionVersion = "1.0.1"
     }
 
     lint {
@@ -50,11 +50,11 @@ dependencies {
     debugImplementation(project(":drawer-modules"))
     debugImplementation(project(":drawer-base"))
 
-    implementation("androidx.activity:activity-compose:1.3.0")
+    implementation("androidx.activity:activity-compose:1.3.1")
 
-    implementation("androidx.compose.foundation:foundation:1.0.0")
-    implementation("androidx.compose.foundation:foundation-layout:1.0.0")
-    implementation("androidx.compose.ui:ui:1.0.0")
-    implementation("androidx.compose.material:material:1.0.0")
-    implementation("androidx.compose.ui:ui-tooling:1.0.0")
+    implementation("androidx.compose.foundation:foundation:1.0.1")
+    implementation("androidx.compose.foundation:foundation-layout:1.0.1")
+    implementation("androidx.compose.ui:ui:1.0.1")
+    implementation("androidx.compose.material:material:1.0.1")
+    implementation("androidx.compose.ui:ui-tooling:1.0.1")
 }
