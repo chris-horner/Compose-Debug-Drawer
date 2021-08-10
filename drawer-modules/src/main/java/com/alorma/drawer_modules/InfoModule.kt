@@ -20,7 +20,7 @@ fun InfoModule(
     modifier: Modifier = Modifier,
     icon: @Composable (() -> Unit)? = null,
     title: String,
-    items: List<Pair<String, String>>
+    items: List<Pair<String, String>>,
 ) {
     DebugDrawerModule(
         modifier = modifier,
@@ -43,7 +43,7 @@ fun InfoModule(
 @Composable
 fun DebugModuleInfoContent(
     key: String,
-    value: String
+    value: String,
 ) {
 
     Row(

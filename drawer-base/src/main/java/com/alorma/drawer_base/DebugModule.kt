@@ -8,9 +8,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTag
@@ -20,13 +20,14 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun DebugDrawerModule(
     modifier: Modifier = Modifier,
+    expanded: Boolean = false,
     icon: @Composable (() -> Unit)? = null,
     title: String,
     contentModifier: Modifier = Modifier,
     showBadge: Boolean = false,
     content: @Composable ColumnScope.() -> Unit,
 ) {
-    var expandedState by rememberSaveable { mutableStateOf(true) }
+    var expandedState by rememberSaveable { mutableStateOf(expanded) }
 
     val semanticsModifier = Modifier.semantics {
         testTag = "Module $title"
@@ -43,7 +44,9 @@ fun DebugDrawerModule(
             title = title,
             showBadge = showBadge,
             expandedState = expandedState,
-            onClick = { expandedState = !expandedState },
+            onClick = {
+                expandedState = !expandedState
+            },
         )
 
         val contentSemanticsModifier = Modifier.semantics {

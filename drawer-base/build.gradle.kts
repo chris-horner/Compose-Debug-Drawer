@@ -13,6 +13,8 @@ android {
     defaultConfig {
         minSdk = 21
         targetSdk = 30
+
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -48,6 +50,12 @@ android {
             "-Xuse-experimental=kotlin.Experimental"
         )
     }
+
+    packagingOptions {
+        resources.excludes.add("META-INF/licenses/**")
+        resources.excludes.add("META-INF/AL2.0")
+        resources.excludes.add("META-INF/LGPL2.1")
+    }
 }
 
 dependencies {
@@ -57,4 +65,7 @@ dependencies {
     implementation("androidx.compose.material:material:1.0.1")
     implementation("androidx.compose.material:material-icons-extended:1.0.1")
     implementation("androidx.compose.ui:ui-tooling:1.0.1")
+
+    implementation("androidx.compose.ui:ui-test-junit4:1.0.1")
+    implementation("androidx.compose.ui:ui-test-manifest:1.0.1")
 }

@@ -64,12 +64,12 @@ fun DrawerModuleHeader(
                 if (expandedState) {
                     Icon(
                         imageVector = Icons.Default.ArrowDropUp,
-                        contentDescription = "Arrow",
+                        contentDescription = null,
                     )
                 } else {
                     Icon(
                         imageVector = Icons.Default.ArrowDropDown,
-                        contentDescription = "Arrow",
+                        contentDescription = null,
                     )
                 }
             }
@@ -91,7 +91,12 @@ internal fun DrawerModuleHeaderIcon(
             contentAlignment = Alignment.Center
         ) {
             if (showBadge) {
-                BadgeBox(content = { content() })
+                BadgeBox(
+                    modifier = Modifier.semantics {
+                        testTag = "Badge"
+                    },
+                    content = { content() },
+                )
             } else {
                 content()
             }

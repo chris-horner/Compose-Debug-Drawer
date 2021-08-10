@@ -23,7 +23,7 @@ fun BuildModule(modifier: Modifier = Modifier) {
         }
 
         val infoVersion = "Version" to versionCode
-        val infoName = "Name" to info.versionName
+        val infoName = "Name" to (info.versionName ?: "--")
         val infoPackage = "Package" to info.packageName
 
         return listOf(
