@@ -153,12 +153,14 @@ fun CustomModule(
     modifier: Modifier = Modifier,
     icon: @Composable (() -> Unit)? = null,
     title: String,
+    showBadge: Boolean = false, 
     items: List<Pair<String, String>>
 ) {
     DebugDrawerModule(
         modifier = modifier,
         icon = icon,
-        title = title
+        title = title,
+        showBadge = showBadge,
     ) {
         // Module content
     }
