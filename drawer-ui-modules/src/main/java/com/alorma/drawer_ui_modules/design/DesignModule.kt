@@ -26,7 +26,6 @@ fun DesignModule(
     config: DebugGridStateConfig,
     onChange: (DebugGridStateConfig) -> Unit,
 ) {
-
     DebugDrawerModule(
         modifier = modifier,
         icon = {
@@ -40,6 +39,7 @@ fun DesignModule(
                 contentDescription = "Design icon",
             )
         },
+        showBadge = config.isEnabled,
         title = "Design"
     ) {
         val text = if (config.isEnabled) {

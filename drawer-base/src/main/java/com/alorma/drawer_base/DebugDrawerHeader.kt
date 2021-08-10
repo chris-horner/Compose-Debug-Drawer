@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
+import androidx.compose.material.BadgeBox
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.LocalContentColor
@@ -31,6 +32,7 @@ import androidx.compose.ui.unit.dp
 fun DrawerModuleHeader(
     icon: @Composable (() -> Unit)? = null,
     title: String,
+    showBadge: Boolean = false,
     expandedState: Boolean = false,
     onClick: () -> Unit,
 ) {
@@ -50,7 +52,7 @@ fun DrawerModuleHeader(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             if (icon != null) {
-                DrawerModuleHeaderIcon(icon)
+                DrawerModuleHeaderIcon(icon, showBadge)
             } else {
                 Spacer(modifier = Modifier.requiredSize(36.dp))
             }
@@ -58,7 +60,7 @@ fun DrawerModuleHeader(
                 modifier = Modifier.weight(1f),
                 title = title
             )
-            DrawerModuleHeaderIcon {
+            DrawerModuleExpandIcon {
                 if (expandedState) {
                     Icon(
                         imageVector = Icons.Default.ArrowDropUp,
@@ -75,8 +77,30 @@ fun DrawerModuleHeader(
     }
 }
 
+@ExperimentalMaterialApi
 @Composable
 internal fun DrawerModuleHeaderIcon(
+    content: @Composable () -> Unit = {},
+    showBadge: Boolean = false,
+) {
+    CompositionLocalProvider(
+        LocalContentColor provides MaterialTheme.colors.onSurface,
+    ) {
+        Box(
+            modifier = Modifier.requiredSize(36.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            if (showBadge) {
+                BadgeBox(content = { content() })
+            } else {
+                content()
+            }
+        }
+    }
+}
+
+@Composable
+internal fun DrawerModuleExpandIcon(
     content: @Composable () -> Unit = {},
 ) {
     CompositionLocalProvider(

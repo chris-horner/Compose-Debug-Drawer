@@ -5,13 +5,18 @@ import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import com.alorma.drawer_modules.ActionsModule
-import com.alorma.drawer_modules.actions.*
-import java.time.LocalDate
+import com.alorma.drawer_modules.actions.ButtonAction
+import com.alorma.drawer_modules.actions.DropdownSelectorAction
+import com.alorma.drawer_modules.actions.SwitchAction
+import com.alorma.drawer_modules.actions.TextAction
 
 @Composable
 fun DemoActionsModule(modifier: Modifier = Modifier) {
@@ -23,20 +28,26 @@ fun DemoActionsModule(modifier: Modifier = Modifier) {
         Forlayo("Item 3"),
     )
 
-    val itemSelectorState = remember { mutableStateOf<Forlayo?>(null) }
-    val dateState = remember { mutableStateOf<LocalDate>(LocalDate.now()) }
+    var switchState by remember { mutableStateOf(false) }
+    var itemSelectorState by remember { mutableStateOf<Forlayo?>(null) }
+
+    val showBadge = derivedStateOf {
+        itemSelectorState != null || switchState
+    }
 
     ActionsModule(
         modifier = modifier,
         icon = { Icon(imageVector = Icons.Default.Settings, contentDescription = "Settings") },
-        title = "Actions"
+        title = "Actions",
+        showBadge = showBadge.value,
     ) {
         TextAction(text = "Buttons")
         ButtonAction(text = "Button 2") {
             Toast.makeText(context, "Click Button 2", Toast.LENGTH_SHORT).show()
         }
         TextAction(text = "Switches")
-        SwitchAction(text = "Switch 2", isChecked = false) { checked ->
+        SwitchAction(text = "Switch 2", isChecked = switchState) { checked ->
+            switchState = checked
             Toast.makeText(context, "Switch 2 change $checked", Toast.LENGTH_SHORT).show()
         }
         TextAction(text = "Selectors")
@@ -45,16 +56,10 @@ fun DemoActionsModule(modifier: Modifier = Modifier) {
             items = dropdownItems,
             itemFormatter = { forlayo -> forlayo.text },
             onItemSelected = { forlayo ->
-                itemSelectorState.value = forlayo
+                itemSelectorState = forlayo
                 Toast.makeText(context, "Item: ${forlayo.text}", Toast.LENGTH_SHORT).show()
             }
         )
-        DropdownAction(
-            label = "Items",
-            text = dateState.value.toString(),
-        ) {
-//            dialog.show()
-        }
     }
 }
 

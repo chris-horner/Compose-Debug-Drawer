@@ -11,12 +11,14 @@ fun ActionsModule(
     modifier: Modifier = Modifier,
     icon: @Composable (() -> Unit)? = null,
     title: String,
-    actions: @Composable (ColumnScope.() -> Unit)
+    showBadge: Boolean = false,
+    actions: @Composable (ColumnScope.() -> Unit),
 ) {
     DebugDrawerModule(
         modifier = modifier,
         icon = icon,
-        title = title
+        title = title,
+        showBadge = showBadge
     ) {
         Column { actions() }
     }

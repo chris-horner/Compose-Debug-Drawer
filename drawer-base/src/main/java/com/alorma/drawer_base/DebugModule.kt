@@ -23,6 +23,7 @@ fun DebugDrawerModule(
     icon: @Composable (() -> Unit)? = null,
     title: String,
     contentModifier: Modifier = Modifier,
+    showBadge: Boolean = false,
     content: @Composable ColumnScope.() -> Unit,
 ) {
     var expandedState by rememberSaveable { mutableStateOf(true) }
@@ -40,6 +41,7 @@ fun DebugDrawerModule(
         DrawerModuleHeader(
             icon = icon,
             title = title,
+            showBadge = showBadge,
             expandedState = expandedState,
             onClick = { expandedState = !expandedState },
         )
