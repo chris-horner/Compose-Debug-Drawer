@@ -4,12 +4,12 @@ plugins {
 }
 
 android {
-    compileSdk = 30
+    compileSdk = 31
 
     defaultConfig {
         applicationId = "com.alorma.composedrawer"
         minSdk = 21
-        targetSdk = 30
+        targetSdk = 31
         versionCode = 1
         versionName = "1.0"
     }
@@ -41,6 +41,12 @@ android {
         isCheckReleaseBuilds = false
         isAbortOnError = false
     }
+
+    packagingOptions {
+        resources.excludes.add("META-INF/licenses/**")
+        resources.excludes.add("META-INF/AL2.0")
+        resources.excludes.add("META-INF/LGPL2.1")
+    }
 }
 
 dependencies {
@@ -52,9 +58,9 @@ dependencies {
 
     implementation("androidx.activity:activity-compose:1.3.1")
 
-    implementation("androidx.compose.foundation:foundation:1.0.2")
-    implementation("androidx.compose.foundation:foundation-layout:1.0.2")
-    implementation("androidx.compose.ui:ui:1.0.2")
-    implementation("androidx.compose.material:material:1.0.2")
-    implementation("androidx.compose.ui:ui-tooling:1.0.2")
+    implementation("androidx.compose.foundation:foundation:1.1.0-rc01")
+    implementation("androidx.compose.foundation:foundation-layout:1.1.0-rc01")
+    implementation("androidx.compose.ui:ui:1.1.0-rc01")
+    implementation("androidx.compose.material:material:1.1.0-rc01")
+    implementation("androidx.compose.ui:ui-tooling:1.1.0-rc01")
 }

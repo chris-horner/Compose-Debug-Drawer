@@ -8,11 +8,11 @@ ext["PUBLISH_ARTIFACT_ID"] = "drawer-ui-modules"
 apply(from = "${rootProject.projectDir}/scripts/publish-module.gradle")
 
 android {
-    compileSdk = 30
+    compileSdk = 31
 
     defaultConfig {
         minSdk = 21
-        targetSdk = 30
+        targetSdk = 31
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -61,14 +61,14 @@ android {
 dependencies {
     implementation(project(":drawer-modules"))
     implementation(project(":drawer-base"))
-    implementation("androidx.compose.foundation:foundation:1.0.2")
-    implementation("androidx.compose.foundation:foundation-layout:1.0.2")
-    implementation("androidx.compose.material:material-icons-extended:1.0.2")
-    implementation("androidx.compose.ui:ui:1.0.2")
-    implementation("androidx.compose.material:material:1.0.2")
-    implementation("androidx.compose.ui:ui-tooling:1.0.2")
+    implementation("androidx.compose.foundation:foundation:1.1.0-rc01")
+    implementation("androidx.compose.foundation:foundation-layout:1.1.0-rc01")
+    implementation("androidx.compose.material:material-icons-extended:1.1.0-rc01")
+    implementation("androidx.compose.ui:ui:1.1.0-rc01")
+    implementation("androidx.compose.material:material:1.1.0-rc01")
+    implementation("androidx.compose.ui:ui-tooling:1.1.0-rc01")
 
-    implementation("androidx.compose.ui:ui-test-junit4:1.0.2")
-    implementation("androidx.compose.ui:ui-test-manifest:1.0.2")
+    implementation("androidx.compose.ui:ui-test-junit4:1.1.0-rc01")
+    implementation("androidx.compose.ui:ui-test-manifest:1.1.0-rc01")
 
 }
